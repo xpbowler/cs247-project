@@ -1,5 +1,4 @@
-#ifndef __CARD_H__
-#define __CARD_H__
+#pragma once 
 
 #include <string>
 
@@ -17,5 +16,3 @@ protected:
     virtual ~Card() = 0;
 
 };
-
-#endif 

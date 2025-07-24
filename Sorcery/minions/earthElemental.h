@@ -1,5 +1,4 @@
-#ifndef __EARTH_ELEMENTAL_H__
-#define __EARTH_ELEMENTAL_H__
+#pragma once 
 
 #include "baseMinion.h"
 
@@ -9,5 +8,5 @@ public:
     void useSkill() override;
 };
 
-#endif 
+  
 

@@ -1,5 +1,4 @@
-#ifndef __MINION_H__
-#define __MINION_H__
+#pragma once 
 
 class Minion {
 
@@ -9,7 +8,9 @@ protected:
 
     virtual void useSkill() = 0;
 
+    virtual ~Minion() {}
+
 };
 
-#endif 
+  
 

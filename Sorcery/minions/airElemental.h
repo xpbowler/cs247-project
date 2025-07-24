@@ -1,5 +1,4 @@
-#ifndef __AIR_ELEMENTAL_H__
-#define __AIR_ELEMENTAL_H__
+#pragma once
 
 #include "baseMinion.h"
 
@@ -9,6 +8,4 @@ public:
     void useSkill() override;
 
 };
-
-#endif 
 

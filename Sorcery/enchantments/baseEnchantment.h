@@ -1,5 +1,4 @@
-#ifndef __BASE_ENCHANTMENT_H__
-#define __BASE_ENCHANTMENT_H__
+#pragma once 
 
 #include "enchantment.h"
 
@@ -9,5 +8,3 @@ public:
     void apply(Minion& minion) override;
 
 };
-
-#endif 

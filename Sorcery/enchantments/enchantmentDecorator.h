@@ -1,5 +1,4 @@
-#ifndef __ENCHANTMENT_DECORATOR_H__
-#define __ENCHANTMENT_DECORATOR_H__
+#pragma once 
 
 #include "enchantment.h"
 #include <memory>
@@ -13,4 +12,4 @@ class EnchantmentDecorator : public Enchantment {
 
 };
 
-#endif 
+  

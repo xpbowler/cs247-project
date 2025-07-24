@@ -1,5 +1,4 @@
-#ifndef __SILENCE_H__
-#define __SILENCE_H__
+#pragma once 
 
 #include "enchantmentDecorator.h"
 
@@ -10,4 +9,4 @@ class Silence : public EnchantmentDecorator {
     void apply(Minion& minion) override;
 };
 
-#endif 
+  

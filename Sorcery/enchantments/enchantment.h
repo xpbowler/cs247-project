@@ -1,5 +1,4 @@
-#ifndef __ENCHANTMENT_H__
-#define __ENCHANTMENT_H__
+#pragma once 
 
 #include "../card.h"
 
@@ -14,4 +13,4 @@ protected:
 
 };
 
-#endif 
+  

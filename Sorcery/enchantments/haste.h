@@ -1,5 +1,4 @@
-#ifndef __HASTE_H__
-#define __HASTE_H__
+#pragma once 
 
 #include "enchantmentDecorator.h"
 
@@ -11,5 +10,5 @@ class Haste : public EnchantmentDecorator {
 };
 
 
-#endif 
+  
 

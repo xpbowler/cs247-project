@@ -1,13 +1,12 @@
-#ifndef __MAGIC_FATIGUE_H__
-#define __MAGIC_FATIGUE_H__
+#pragma once 
 
 #include "enchantmentDecorator.h"
 
 class MagicFatigue : public EnchantmentDecorator {
 
-    public: 
+public: 
 
     void apply(Minion& minion) override;
 };
 
-#endif 
+  

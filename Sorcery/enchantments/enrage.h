@@ -1,5 +1,4 @@
-#ifndef __ENRAGE_H__
-#define __ENRAGE_H__
+#pragma once 
 
 #include "enchantmentDecorator.h"
 
@@ -10,4 +9,4 @@ class Enrage : public EnchantmentDecorator {
     void apply(Minion& minion) override;
 };
 
-#endif 
+  

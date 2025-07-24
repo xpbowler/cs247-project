@@ -1,5 +1,4 @@
-#ifndef __GIANT_STRENGTH_H__
-#define __GIANT_STRENGTH_H__
+#pragma once 
 
 #include "enchantmentDecorator.h"
 
@@ -10,4 +9,4 @@ class GiantStrength : public EnchantmentDecorator {
     void apply(Minion& minion) override;
 };
 
-#endif 
+  
