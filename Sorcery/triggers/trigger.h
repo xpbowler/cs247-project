@@ -1,6 +1,9 @@
+#pragma once
+
 #include <vector>
 
 class Card;
+class Trigger;
 
 class TriggerTopic {
     std::vector<Trigger*> observers;

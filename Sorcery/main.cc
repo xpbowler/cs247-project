@@ -25,7 +25,12 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    
+    if (initFile=="") {
+        throw std::invalid_argument("initialization file was not provided.");
+    }
+
+    Game game = Game{deck1, deck2, initFile, isTesting};
+    game.play();
 
     return 0;
 }

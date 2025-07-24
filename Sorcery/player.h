@@ -1,10 +1,13 @@
+#pragma once
+
 #include <vector>
 #include <memory>
 
-#include "trigger.h"
+#include "triggers/trigger.h"
 #include "card.h"
-#include "minion.h"
+#include "minions/minion.h"
 #include "util.h"
+#include "rituals/ritual.h"
 
 
 class Player {
@@ -15,11 +18,11 @@ class Player {
     std::vector<std::unique_ptr<Card>> hand;
     std::vector<std::unique_ptr<Card>> board;
     std::vector<std::unique_ptr<Card>> graveyard;
-    std::unique_ptr<Ritual> ritual
+    std::unique_ptr<Ritual> ritual;
     Player* otherPlayer;
 
     public:
-        Player(const std::string& deck);
+        Player(const std::string& deck, const std::string& name);
         bool drawCard();
         bool playCard(Card* card);
         void notifyGame(TriggerType triggerType);
