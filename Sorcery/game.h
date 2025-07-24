@@ -5,11 +5,13 @@
 
 #include "player.h"
 #include "triggers/trigger.h"
+#include "displays/cliDisplay.h"
 
 class Game {
     bool isPlayer1Turn;
     bool isTesting;
     std::unordered_map<TriggerType, std::unique_ptr<TriggerTopic>> triggerTopics;
+    std::unique_ptr<Display> display;
     
     public:
         std::unique_ptr<Player> player1, player2;

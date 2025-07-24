@@ -13,7 +13,7 @@ void trimWhitespace(string& s) {
     else s = s.substr(start, end - start + 1);
 }
 
-Game::Game(const std::string& deck1, const std::string& deck2, const std::string& initFilePath, bool isTesting): isPlayer1Turn{false}, isTesting{isTesting}, triggerTopics{}, player1{}, player2{} {
+Game::Game(const std::string& deck1, const std::string& deck2, const std::string& initFilePath, bool isTesting): isPlayer1Turn{false}, isTesting{isTesting}, triggerTopics{}, display{}, player1{}, player2{} {
     ifstream initFile(initFilePath);
     if (!initFile) {
         throw runtime_error("Failed to open initialization file: " + initFilePath);
@@ -24,6 +24,9 @@ Game::Game(const std::string& deck1, const std::string& deck2, const std::string
 
     player1 = make_unique<Player>(deck1, player1Name);
     player2 = make_unique<Player>(deck2, player2Name);
+
+    // default to CliDisplay. can add more display options in the future
+    display = make_unique<CliDisplay>();
 
     string command;
     while (getline(initFile, command)) {
@@ -82,19 +85,45 @@ void Game::executeCommand(const string& cmd) {
             // orders minion i to attack the opposing player, where 1 is the leftmost minion and 5 is the rightmost minion
             // TODO
         }
-    } else if (primary_cmd=="play") {
-        int i,p,t;
+    } else if (primary_cmd=="play" || primary_cmd=="use") {
+        // play i p t: plays the ith card in the active player’s hand on card t owned by player p
+        // use i p t: command orders that minion to use its activated ability on the provided target (or on no target)
+
+        int i,p;
         ss >> i;
-        if ()
-    } else if (primary_cmd=="use") {
+        if (i<1 || i>5) throw invalid_argument("play: invalid i");
 
-    } else if (primary_cmd=="describe") {
-
+        if (ss>>p) {
+            if (p!=1 && p!=2) throw invalid_argument("play i p t: invalid p. p must be 0 or 1");
+            string t;
+            ss >> t;
+            if (t=="r") {
+                // TODO
+            } else {
+                int target_card;
+                try {
+                    target_card = std::stoi(t);
+                } catch (const std::exception& e) {
+                    throw invalid_argument("play i p t: invalid t");
+                }
+                if (target_card<1 || target_card>5) throw invalid_argument("play i p t: invalid t");
+                // TODO
+            }
+        } else {
+            // play i plays the ith card in the active player’s hand with no target
+            // TODO
+        }
+    } else if (primary_cmd=="inspect") { // TODO. doc says describe. is it describe or inspect
+        // inspect i command inspects the ith minion owned by the active player
+        int minion;
+        ss >> minion;
+        // TODO
+        display->inspectMinion(isPlayer1Turn, minion);
     } else if (primary_cmd=="hand") {
-
+        display->showHand(isPlayer1Turn);
     } else if (primary_cmd=="board") {
-
+        display->showBoard();
     } else {
-        throw invalid_argument("invalid command: " + primary_cmd);
+        throw invalid_argument("invalid command: " + cmd);
     }
 }

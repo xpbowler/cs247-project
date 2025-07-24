@@ -23,6 +23,7 @@ class Player {
 
     public:
         Player(const std::string& deck, const std::string& name);
+        // draw command draws a card, similar to the effect if the player just started their turn
         void drawCard();
         void playCard(Card* card);
 
