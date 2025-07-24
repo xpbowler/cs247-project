@@ -5,6 +5,7 @@ class Card;
 class TriggerTopic {
     std::vector<Trigger*> observers;
     public:
+        TriggerTopic();
         void notifyTriggers();
         void attachTrigger(Trigger* trigger);
         void detachTrigger(Trigger* trigger);
