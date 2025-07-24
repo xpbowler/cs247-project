@@ -1,15 +1,27 @@
 #pragma once 
 
+#include <memory>
+
+class Trigger;
+
 class Ritual {
 
-// TODO: implement the rest of public and protected fields of this class 
+public: 
 
-// TODO: the constructor of this class should contain activation cost and charges 
+    int getCharges() const;
+    void setCharges(int charges);
 
 protected: 
+    
+    Ritual(int cost, int charges);
 
     virtual void execute() = 0;
 
     virtual ~Ritual() {};
+
+    // member fields
+    const int activationCost;
+    int charges;
+    std::unique_ptr<Trigger> trigger;
 
 };
