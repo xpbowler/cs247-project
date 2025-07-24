@@ -8,16 +8,21 @@
 
 class Game {
     bool isPlayer1Turn;
+    bool isTesting;
     std::unordered_map<TriggerType, std::unique_ptr<TriggerTopic>> triggerTopics;
     
     public:
         std::unique_ptr<Player> player1, player2;
 
         Game(const std::string& deck1, const std::string& deck2, const std::string& initFile, bool isTesting);
+
         void notifyTopic(TriggerType triggerType);
         void addTrigger(TriggerType triggerType, Trigger* trigger);
         void removeTrigger(TriggerType triggerType, Trigger* trigger);
+        
         void play();
+        
+        // execute a command
         void executeCommand(const std::string& command);
 
 };

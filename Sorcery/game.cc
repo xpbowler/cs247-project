@@ -1,10 +1,19 @@
 #include "game.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
-Game::Game(const std::string& deck1, const std::string& deck2, const std::string& initFilePath, bool isTesting): isPlayer1Turn{false}, triggerTopics{}, player1{}, player2{} {
+// Trim leading and trailing whitespace from command
+void trimWhitespace(string& s) {
+    size_t start = s.find_first_not_of(" \t\n\r");
+    size_t end = s.find_last_not_of(" \t\n\r");
+    if (start == string::npos) s = "";
+    else s = s.substr(start, end - start + 1);
+}
+
+Game::Game(const std::string& deck1, const std::string& deck2, const std::string& initFilePath, bool isTesting): isPlayer1Turn{false}, isTesting{isTesting}, triggerTopics{}, player1{}, player2{} {
     ifstream initFile(initFilePath);
     if (!initFile) {
         throw runtime_error("Failed to open initialization file: " + initFilePath);
@@ -18,13 +27,74 @@ Game::Game(const std::string& deck1, const std::string& deck2, const std::string
 
     string command;
     while (getline(initFile, command)) {
+        trimWhitespace(command);
         executeCommand(command);
     }
-    
 }
 
 void Game::notifyTopic(TriggerType triggerType) {}
 void Game::addTrigger(TriggerType triggerType, Trigger* trigger) {}
 void Game::removeTrigger(TriggerType triggerType, Trigger* trigger) {}
-void Game::play() {}
-void Game::executeCommand(const string& command) {}
+void Game::play() {
+    string command;
+    while (getline(cin, command)) {
+        trimWhitespace(command);
+        if (command=="quit") break;
+        executeCommand(command);
+    }
+}
+void Game::executeCommand(const string& cmd) {
+    stringstream ss(cmd);
+    ss.exceptions(ios::failbit | ios::badbit);
+
+    string primary_cmd;
+    ss >> primary_cmd;
+    
+    if (primary_cmd=="help") {
+        cout << "Commands:" << "\n"
+             << "help -- Display this message." << "\n"
+             << "end -- End the current player's turn." << "\n"
+             << "quit -- End the game." << "\n"
+             << "attack minion other-minion -- Orders minion to attack other-minion." << "\n"
+             << "attack minion -- Orders minion to attack the opponent." << "\n"
+             << "play card [target-player target-card] -- Play card, optionally targeting target-card owned by target-player." << "\n"
+             << "use minion [target-player target-card] -- Use minion's special ability, optionally targeting target-card owned by target-player." << "\n"
+             << "inspect minion -- View a minion's card and all enchantments on that minion." << "\n"
+             << "hand -- Describe all cards in your hand." << "\n"
+             << "board -- Describe all cards on the board." << endl;
+    } else if (primary_cmd=="end") {
+        isPlayer1Turn = !isPlayer1Turn;
+    } else if (primary_cmd=="discard") {
+        if (!isTesting) throw invalid_argument("discard is only available in testing mode.");
+        int i;
+        ss >> i;
+        isPlayer1Turn ? player1->discardCard(i) : player2->discardCard(i);
+    } else if (primary_cmd=="draw") {
+        if (!isTesting) throw invalid_argument("draw is only availabld in testing mode.");
+        isPlayer1Turn ? player1->drawCard() : player2->drawCard();
+    } else if (primary_cmd=="attack") {
+        int i,j;
+        ss >> i;
+        if (ss >> j) {
+            //  orders the active player’s minion i to attack the inactive player’s minion j
+            // TODO
+        } else {
+            // orders minion i to attack the opposing player, where 1 is the leftmost minion and 5 is the rightmost minion
+            // TODO
+        }
+    } else if (primary_cmd=="play") {
+        int i,p,t;
+        ss >> i;
+        if ()
+    } else if (primary_cmd=="use") {
+
+    } else if (primary_cmd=="describe") {
+
+    } else if (primary_cmd=="hand") {
+
+    } else if (primary_cmd=="board") {
+
+    } else {
+        throw invalid_argument("invalid command: " + primary_cmd);
+    }
+}

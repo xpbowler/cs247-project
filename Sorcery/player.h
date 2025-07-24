@@ -23,8 +23,12 @@ class Player {
 
     public:
         Player(const std::string& deck, const std::string& name);
-        bool drawCard();
-        bool playCard(Card* card);
+        void drawCard();
+        void playCard(Card* card);
+
+        // discard the i'th card in the player's hand
+        // the card does not go to the graveyard, trigger leave play effects or anything else
+        void discardCard(int i);
         void notifyGame(TriggerType triggerType);
         bool moveCard(Minion* minion, Area src, Area dst);
         bool modifyLife(int life);
