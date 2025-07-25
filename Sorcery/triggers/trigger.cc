@@ -1,6 +1,7 @@
 #include "trigger.h"
 #include "notification.h"
 #include "../minions/triggeredMinion.h"
+#include "../rituals/ritual.h"
 #include "util.h"
 #include <iostream>
 
@@ -52,6 +53,6 @@ void Trigger::notifyOwner(Notification notification) {
     }
     else {
         auto ritual = std::get<1> (owner);
-        ritual->
+        ritual->execute(notification);
     }
 }

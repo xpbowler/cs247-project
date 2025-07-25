@@ -6,7 +6,7 @@ class Minion;
 // wrappers for notification that can be passed around in observer pattern
 
 struct Notification {
-
+    virtual ~Notification() {};
 };
 
 struct TurnChangeNotification : public Notification {
