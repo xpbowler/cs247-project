@@ -1,23 +1,28 @@
 #pragma once
 
 #include <vector>
+#include <variant>
 
-class Card;
+class TriggeredMinion;
+class Ritual;
 class Trigger;
+class Notification;
 
 class TriggerTopic {
     std::vector<Trigger*> observers;
     public:
         TriggerTopic();
-        void notifyTriggers();
+        void notifyTriggers(Notification notification);
         void attachTrigger(Trigger* trigger);
         void detachTrigger(Trigger* trigger);
 };
 
 class Trigger {
-    TriggerTopic* triggerTopic;
-    Card* owner;
+    using ownerPtr = std::variant<TriggeredMinion*, Ritual*>;
+    TriggerTopic* triggerTopic {nullptr};
+    ownerPtr owner;
     public:
-        Trigger();
-        void notifyOwner();
+        Trigger(ownerPtr owner);
+        void notifyOwner(Notification notification);
+        ~Trigger();
 };

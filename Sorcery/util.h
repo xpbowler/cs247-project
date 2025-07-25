@@ -8,8 +8,10 @@ enum Area {
 };
 
 enum TriggerType {
-    EndTurn,
-    StartTurn,
+    EndTurnPlayer1,
+    EndTurnPlayer2,
+    StartTurnPlayer1,
+    StartTurnPlayer2,
     MinionLeave,
     MinionEnter
 };

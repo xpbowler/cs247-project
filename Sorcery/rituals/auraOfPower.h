@@ -8,6 +8,6 @@ public:
 
     AuraOfPower();
 
-    void execute() override;
+    void execute(Notification notification) override;
 
 };

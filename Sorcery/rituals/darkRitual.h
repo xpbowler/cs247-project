@@ -7,7 +7,7 @@ class DarkRitual : public Ritual {
 public: 
     DarkRitual();
 
-    void execute() override;
+    void execute(Notification notification) override;
 
 };
 

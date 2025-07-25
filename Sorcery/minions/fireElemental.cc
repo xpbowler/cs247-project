@@ -1,4 +1,5 @@
 #include "fireElemental.h"
+#include "../triggers/notification.h"
 
 //=========================================================
 FireElemental::FireElemental() {
@@ -6,7 +7,7 @@ FireElemental::FireElemental() {
 }
 
 //=========================================================
-void FireElemental::useSkill() {
+void FireElemental::useSkill(Notification notification) {
     // TODO 
 }
 

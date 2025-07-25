@@ -1,4 +1,5 @@
 #include "boneGolem.h"
+#include "../triggers/notification.h"
 
 //=========================================================
 BoneGolem::BoneGolem() {
@@ -7,7 +8,7 @@ BoneGolem::BoneGolem() {
 
 
 //=========================================================
-void BoneGolem::useSkill() {
+void BoneGolem::useSkill(Notification notification) {
     // TODO
 }
 

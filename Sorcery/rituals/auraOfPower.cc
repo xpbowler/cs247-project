@@ -1,4 +1,5 @@
 #include "auraOfPower.h"
+#include "../triggers/notification.h"
 
 //=========================================================
 AuraOfPower::AuraOfPower() {
@@ -6,7 +7,7 @@ AuraOfPower::AuraOfPower() {
 }
 
 //=========================================================
-void AuraOfPower::execute() {
+void AuraOfPower::execute(Notification notification) {
     // TODO 
 }
 

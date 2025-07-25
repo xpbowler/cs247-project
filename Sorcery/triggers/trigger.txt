@@ -1,0 +1,14 @@
+all triggers: 
+Gain +1/+1 whenever a minion leaves play. 
+Whenever an opponent's minion enters play, deal 1 damage to it. 
+At the end of your turn, all your minions gain +0/+1.
+At the start of your turn, gain 1 magic. 
+Whenever a minion enters play under your control, it gains +1/+1. 
+Whenever a minion enters play, destroy it. 
+
+a notification for start/end turn should consist of the following: 
+- which turn is it starting/ending 
+
+a notification for minion entering/leaving should consist of the following: 
+- which minion is it
+- which player is it under 

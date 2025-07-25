@@ -5,14 +5,21 @@
 #include <memory>
 
 class Trigger;
+class Notification;
 
 // abstract base class for minions with triggered abilities 
 class TriggeredMinion : public Minion {
+
+public: 
+
+    virtual void useSkill(Notification notification) = 0;
 
 protected: 
     std::unique_ptr<Trigger> trigger;
 
     void notifyGame(TriggerType tt);
+
+    
 
     virtual ~TriggeredMinion() {}
 

@@ -7,6 +7,6 @@ class Standstill : public Ritual {
 public: 
     Standstill();
 
-    void execute() override;
+    void execute(Notification notification) override;
 
 };

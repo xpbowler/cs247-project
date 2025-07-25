@@ -3,12 +3,11 @@
 class Minion {
 
 // TODO: implement rest of the public and protected fields for this
+// no need to put useSkill here, it is already in the intermediate subclasses
 
 protected: 
 
-    virtual void useSkill() = 0;
-
-    virtual ~Minion() {}
+    virtual ~Minion() = 0;
 
 };
 

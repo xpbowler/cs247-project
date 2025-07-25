@@ -3,6 +3,7 @@
 #include <memory>
 
 class Trigger;
+class Notification
 
 class Ritual {
 
@@ -15,7 +16,7 @@ protected:
     
     Ritual(int cost, int charges);
 
-    virtual void execute() = 0;
+    virtual void execute(Notification notification) = 0;
 
     virtual ~Ritual() {};
 

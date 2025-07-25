@@ -1,4 +1,5 @@
 #include "potionSeller.h"
+#include "../triggers/notification.h"
 
 //=========================================================
 PotionSeller::PotionSeller() {
@@ -6,7 +7,7 @@ PotionSeller::PotionSeller() {
 }
 
 //=========================================================
-void PotionSeller::useSkill() {
+void PotionSeller::useSkill(Notification notification) {
     // TODO 
 }
 

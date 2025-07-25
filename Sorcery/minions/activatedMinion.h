@@ -9,6 +9,8 @@ class ActivatedMinion : public Minion {
 protected: 
     const int activationCost;
 
+    virtual void useSkill() = 0;
+
     virtual ~ActivatedMinion() {}
 
 };

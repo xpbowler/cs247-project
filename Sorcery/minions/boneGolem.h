@@ -6,8 +6,8 @@ class BoneGolem : public TriggeredMinion {
 
 public: 
     BoneGolem();
-
-    void useSkill() override;
+    
+    void useSkill(Notification notification) override;
 
 };
 

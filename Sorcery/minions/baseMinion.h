@@ -11,6 +11,8 @@ class BaseMinion : public Minion {
 
 protected: 
 
+    virtual void useSkill() = 0;
+
     virtual ~BaseMinion() {}
 };
 

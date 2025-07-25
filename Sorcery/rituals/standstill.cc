@@ -6,7 +6,7 @@ Standstill::Standstill() {
 }
 
 //=========================================================
-void Standstill::execute() {
+void Standstill::execute(Notification notification) {
     // TODO 
 }
 

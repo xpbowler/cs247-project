@@ -1,4 +1,5 @@
 #include "darkRitual.h"
+#include "../triggers/notification.h"
 
 //=========================================================
 DarkRitual::DarkRitual() {
@@ -6,6 +7,6 @@ DarkRitual::DarkRitual() {
 }
 
 //=========================================================
-void DarkRitual::execute() {
+void DarkRitual::execute(Notification notification) {
     // TODO 
 }
