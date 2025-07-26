@@ -9,10 +9,7 @@ const int STARTING_LIFE = 20;
 const int STARTING_MAGIC = 3;
 const int STARTING_NUM_CARDS = 5;
 
-Player::Player(const string& deck, string& name): name{move(name)}, life{STARTING_LIFE}, magic{STARTING_MAGIC}, deck{}, hand{}, board{}, graveyard{}, ritual{}, otherPlayer{nullptr} {
-    initializeDeck(deck);
-
-}
+Player::Player(string& name): name{move(name)}, life{STARTING_LIFE}, magic{STARTING_MAGIC}, deck{}, hand{}, board{}, graveyard{}, ritual{}, otherPlayer{nullptr} {}
 // draw command draws a card, similar to the effect if the player just started their turn
 void Player::drawCard() {}
 void Player::playCard(Card* card) {}
@@ -28,13 +25,17 @@ const vector<unique_ptr<Card>>& Player::getDeck() {}
 const vector<unique_ptr<Card>>& Player::getBoard() {}
 void Player::addTrigger(Trigger* trigger) {}
 void Player::removeTrigger(Trigger* trigger) {}
+void Player::setOtherPlayer(Player* player) {
+    otherPlayer = player;
+}
 void Player::initializeDeck(const string& deckFilePath) {
     ifstream initFile(deckFilePath);
     if (!initFile) {
         throw runtime_error("Failed to open deck initialization file: " + deckFilePath);
     }
-    string card;
-    while (getline(initFile, card)) {
-        
+    string card_string;
+    while (getline(initFile, card_string)) {
+
+        // deck.push_back(card);
     }
 }

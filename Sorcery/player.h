@@ -22,7 +22,7 @@ class Player {
     Player* otherPlayer;
 
     public:
-        Player(const std::string& deck, std::string& name);
+        Player(std::string& name);
         // draw command draws a card, similar to the effect if the player just started their turn
         void drawCard();
         void playCard(Card* card);
@@ -38,6 +38,7 @@ class Player {
         const std::vector<std::unique_ptr<Card>>& getBoard();
         void addTrigger(Trigger* trigger);
         void removeTrigger(Trigger* trigger);
+        void setOtherPlayer(Player* player);
 
         // initialize the deck from a file
         void initializeDeck(const std::string& deck);
