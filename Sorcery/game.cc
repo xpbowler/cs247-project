@@ -23,8 +23,8 @@ Game::Game(const string& deck1, const string& deck2, const string& initFilePath,
     getline(initFile, player1Name);
     getline(initFile, player2Name);
 
-    player1 = make_unique<Player>(deck1, player1Name);
-    player2 = make_unique<Player>(deck2, player2Name);
+    player1 = make_unique<Player>(player1Name);
+    player2 = make_unique<Player>(player2Name);
 
     // default to CliDisplay. can add more display options in the future
     display = make_unique<CliDisplay>();

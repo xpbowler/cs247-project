@@ -36,11 +36,11 @@ void Player::playCard(Card* card) {}
 // the card does not go to the graveyard, trigger leave play effects or anything else
 void Player::discardCard(int i) {}
 void Player::notifyGame(TriggerType triggerType) {}
-bool Player::moveCard(Minion* minion, Area src, Area dst) {}
-bool Player::modifyLife(int life) {}
-const vector<unique_ptr<Card>>& Player::getHand() {}
-const vector<unique_ptr<Card>>& Player::getDeck() {}
-const vector<unique_ptr<Card>>& Player::getBoard() {}
+bool Player::moveCard(Minion* minion, Area src, Area dst) { return false; }
+bool Player::modifyLife(int life) { return false; }
+const vector<unique_ptr<Card>>& Player::getHand() { return hand; }
+const vector<unique_ptr<Card>>& Player::getDeck() { return deck; }
+const vector<unique_ptr<Card>>& Player::getBoard() { return board; }
 void Player::addTrigger(Trigger* trigger) {}
 void Player::removeTrigger(Trigger* trigger) {}
 void Player::setOtherPlayer(Player* player) {

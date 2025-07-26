@@ -1,22 +1,20 @@
 CXX=g++ 
 CXXFLAGS= -std=c++20 -Wall -g -MMD
 INCLUDES= -I../triggers -I..
-OBJ= displays.o 
-CCFILES=${wildcard *.cc}
+ 
+CCFILES=cliDisplay.cc
 OBJFILES=${CCFILES:.cc=.o}
 DEPENDS=${CCFILES:.cc=.d}
 OUTDIR=../
+OBJ= ${OUTDIR}displays.o
 
 all: ${OBJ}
 
 ${OBJ}: ${OBJFILES}
-	${CXX} -r $^ -o $@
+	${CXX} -r $< -o $@
 
 %.o: %.cc 
 	${CXX} ${CXXFLAGS} ${INCLUDES} -c $< -o $@
-
-install:
-	mv ${OBJ} ${OUTDIR}
 
 -include ${DEPENDS}
 

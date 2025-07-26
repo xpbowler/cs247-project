@@ -1,11 +1,12 @@
 CXX=g++ 
 CXXFLAGS= -std=c++20 -Wall -g -MMD
 INCLUDES= -I..
-OBJ= enchantments.o
+
 CCFILES=${wildcard *.cc}
 OBJFILES=${CCFILES:.cc=.o}
 DEPENDS=${CCFILES:.cc=.d}
 OUTDIR=../
+OBJ= ${OUTDIR}enchantments.o
 
 all: ${OBJ}
 
@@ -14,9 +15,6 @@ ${OBJ}: ${OBJFILES}
 
 %.o: %.cc 
 	${CXX} ${CXXFLAGS} ${INCLUDES} -c $< -o $@
-
-install:
-	mv ${OBJ} ${OUTDIR}
 
 -include ${DEPENDS}
 

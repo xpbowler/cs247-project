@@ -8,16 +8,16 @@ OBJECTS=${CCFILES:.cc=.o}
 DEPENDS=${CCFILES:.cc=.d}
 
 SUBDIRS = displays enchantments minions rituals spells triggers 
-SUBOBJS = $(addsuffix .o,$(SUBDIRS))
+SUBOBJS = displays.o enchantments.o minions.o rituals.o spells.o triggers.o 
 
 %.o: %.cc 
 	${CXX} ${CXXFLAGS} ${INCLUDES} -c $< -o $@
 
+%.o:
+	$(MAKE) -C $(basename $@)
+
 ${EXEC}:${OBJECTS} ${SUBOBJS}
 	${CXX} ${CXXFLAGS} ${INCLUDES} ${OBJECTS} ${SUBOBJS} -o ${EXEC}
-
-${SUBDIRS}: 
-	${MAKE} -C $@
 
 -include ${DEPENDS}
 

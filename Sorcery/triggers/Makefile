@@ -1,11 +1,12 @@
 CXX=g++ 
 CXXFLAGS= -std=c++20 -Wall -g -MMD
 INCLUDES= -I../minions -I../rituals
-OBJ= triggers.o 
+
 CCFILES=${wildcard *.cc}
 OBJFILES=${CCFILES:.cc=.o}
 DEPENDS=${CCFILES:.cc=.d}
 OUTDIR=../
+OBJ= ${OUTDIR}triggers.o 
 
 all: ${OBJ}
 
@@ -14,9 +15,6 @@ ${OBJ}: ${OBJFILES}
 
 %.o: %.cc 
 	${CXX} ${CXXFLAGS} ${INCLUDES} -c $< -o $@
-
-install:
-	mv ${OBJ} ${OUTDIR}
 
 -include ${DEPENDS}
 
