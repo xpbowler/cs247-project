@@ -1,4 +1,5 @@
 #include "game.h"
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -13,10 +14,10 @@ void trimWhitespace(string& s) {
     else s = s.substr(start, end - start + 1);
 }
 
-Game::Game(const std::string& deck1, const std::string& deck2, const std::string& initFilePath, bool isTesting): isPlayer1Turn{false}, isTesting{isTesting}, triggerTopics{}, display{}, player1{}, player2{} {
+Game::Game(const string& deck1, const string& deck2, const string& initFilePath, bool isTesting): isPlayer1Turn{false}, isTesting{isTesting}, triggerTopics{}, display{}, player1{}, player2{} {
     ifstream initFile(initFilePath);
     if (!initFile) {
-        throw runtime_error("Failed to open initialization file: " + initFilePath);
+        throw runtime_error("Failed to open game initialization file: " + initFilePath);
     }
     string player1Name, player2Name;
     getline(initFile, player1Name);
@@ -102,8 +103,8 @@ void Game::executeCommand(const string& cmd) {
             } else {
                 int target_card;
                 try {
-                    target_card = std::stoi(t);
-                } catch (const std::exception& e) {
+                    target_card = stoi(t);
+                } catch (const exception& e) {
                     throw invalid_argument("play i p t: invalid t");
                 }
                 if (target_card<1 || target_card>5) throw invalid_argument("play i p t: invalid t");

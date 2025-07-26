@@ -3,26 +3,22 @@
 #include <memory>
 
 class Trigger;
-class Notification
+class Notification;
 
 class Ritual {
+    protected: 
+        Ritual(int cost, int charges);
 
-public: 
+        virtual void execute(Notification notification) = 0;
 
-    int getCharges() const;
-    void setCharges(int charges);
+        virtual ~Ritual() {};
 
-protected: 
-    
-    Ritual(int cost, int charges);
+        // member fields
+        const int activationCost;
+        int charges;
+        std::unique_ptr<Trigger> trigger;
 
-    virtual void execute(Notification notification) = 0;
-
-    virtual ~Ritual() {};
-
-    // member fields
-    const int activationCost;
-    int charges;
-    std::unique_ptr<Trigger> trigger;
-
+    public: 
+        int getCharges() const;
+        void setCharges(int charges);
 };
