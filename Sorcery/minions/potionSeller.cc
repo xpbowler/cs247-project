@@ -1,5 +1,5 @@
 #include "potionSeller.h"
-#include "../triggers/notification.h"
+#include <notification.h>
 
 //=========================================================
 PotionSeller::PotionSeller() {

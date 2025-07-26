@@ -1,5 +1,5 @@
 #include "auraOfPower.h"
-#include "../triggers/notification.h"
+#include <notification.h>
 
 //=========================================================
 AuraOfPower::AuraOfPower() : Ritual{1, 4} {

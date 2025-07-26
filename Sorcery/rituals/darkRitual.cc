@@ -1,5 +1,5 @@
 #include "darkRitual.h"
-#include "../triggers/notification.h"
+#include <notification.h>
 
 //=========================================================
 DarkRitual::DarkRitual() {

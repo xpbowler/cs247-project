@@ -1,7 +1,7 @@
 #include "trigger.h"
 #include "notification.h"
-#include "../minions/triggeredMinion.h"
-#include "../rituals/ritual.h"
+#include <triggeredMinion.h>
+#include <ritual.h>
 #include "util.h"
 #include <iostream>
 

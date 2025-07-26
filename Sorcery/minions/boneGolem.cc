@@ -1,5 +1,5 @@
 #include "boneGolem.h"
-#include "../triggers/notification.h"
+#include <notification.h>
 
 //=========================================================
 BoneGolem::BoneGolem() {

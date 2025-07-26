@@ -1,7 +1,7 @@
 #pragma once 
 
 #include <memory>
-#include "../card.h"
+#include <card.h>
 
 class Trigger;
 class Notification;
@@ -13,18 +13,14 @@ public:
     int getCharges() const;
     void setCharges(int charges);
 
+    virtual ~Ritual() {};
+
 protected: 
     
     Ritual(int cost, int charges);
-
-    virtual ~Ritual() {};
 
     // member fields
     const int activationCost;
     int charges;
     std::unique_ptr<Trigger> trigger;
-
-    public: 
-        int getCharges() const;
-        void setCharges(int charges);
 };

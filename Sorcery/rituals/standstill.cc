@@ -1,5 +1,5 @@
 #include "standstill.h"
-#include "../triggers/notification.h"
+#include <notification.h>
 
 //=========================================================
 Standstill::Standstill() {

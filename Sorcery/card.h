@@ -5,6 +5,9 @@
 class Player;
 
 class Card {
+public:
+    virtual ~Card() = 0;
+
 protected: 
     Card(Player& owner, Player& opponent) : owner{owner}, opponent{opponent} {}
 
@@ -13,6 +16,6 @@ protected:
     std::string name;
     int cost;
 
-    virtual ~Card() = 0;
+    
 
 };

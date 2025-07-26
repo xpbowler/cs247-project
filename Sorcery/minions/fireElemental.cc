@@ -1,5 +1,5 @@
 #include "fireElemental.h"
-#include "../triggers/notification.h"
+#include <notification.h>
 
 //=========================================================
 FireElemental::FireElemental() {
