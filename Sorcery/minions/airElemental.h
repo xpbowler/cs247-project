@@ -7,7 +7,5 @@ class AirElemental : public BaseMinion {
 public: 
     AirElemental(Player& owner, Player& opponent);
 
-    void useSkill() override;
-
 };
 

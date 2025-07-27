@@ -18,7 +18,8 @@ class Game {
 
         Game(const std::string& deck1, const std::string& deck2, const std::string& initFile, bool isTesting);
 
-        void notifyTopic(TriggerType triggerType);
+        void notifyTopic(TriggerType triggerType, Notification notification);
+        void attachTrigger(TriggerType tt, Trigger* trigger);
         TriggerTopic* getTriggerTopic(TriggerType triggerType) const;
         
         void play();

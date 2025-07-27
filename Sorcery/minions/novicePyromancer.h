@@ -9,6 +9,8 @@ public:
 
     void useSkill() override;
 
+    void useSkill(Minion* minion);
+
 };
 
   

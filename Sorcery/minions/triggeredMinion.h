@@ -17,8 +17,14 @@ public:
 
 protected: 
 
-    TriggeredMinion(Player& owner, Player& opponent);
+    TriggeredMinion(int attack, 
+                    int defence, 
+                    Player& owner, 
+                    Player& opponent,
+                    std::string name, 
+                    MinionType minionType);
 
+    // subclasses have responsibility to create trigger and attach to trigger topic
     std::unique_ptr<Trigger> trigger;
 
     void notifyGame(TriggerType tt);

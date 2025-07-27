@@ -1,13 +1,18 @@
 #include "masterSummoner.h"
+#include "player.h"
 
 //=========================================================
-MasterSummoner::MasterSummoner(Player& owner, Player& opponent) : ActivatedMinion(0, owner, opponent) {
-    // TODO 
+MasterSummoner::MasterSummoner(Player &owner, Player &opponent)
+    : ActivatedMinion(MASTER_SUMMONER_ACTIVATION_COST,
+                      MASTER_SUMMONER_ATK,
+                      MASTER_SUMMONER_DEF,
+                      owner, opponent, MS, "Master Summoner")
+{
 }
 
-
 //=========================================================
-void MasterSummoner::useSkill() {
-    // TODO 
+void MasterSummoner::useSkill()
+{
+    owner.summonMinion(AE, 3);
 }
 
