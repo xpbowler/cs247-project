@@ -1,6 +1,7 @@
 #pragma once 
 
-class Minion {
+#include "../card.h"
+class Minion : public Card {
 
 // TODO: implement rest of the public and protected fields for this
 // no need to put useSkill here, it is already in the intermediate subclasses

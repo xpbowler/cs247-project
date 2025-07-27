@@ -1,5 +1,32 @@
 #pragma once
 
+// CONSTANTS
+const int STARTING_LIFE = 20;
+const int STARTING_MAGIC = 3;
+const int STARTING_NUM_CARDS = 5;
+
+// Card name constants
+inline constexpr const char* AIR_ELEMENTAL = "Air Elemental";
+inline constexpr const char* EARTH_ELEMENTAL = "Earth Elemental";
+inline constexpr const char* FIRE_ELEMENTAL = "Fire Elemental";
+inline constexpr const char* POTION_SELLER = "Potion Seller";
+inline constexpr const char* NOVICE_PYROMANCER = "Novice Pyromancer";
+inline constexpr const char* APPRENTICE_SUMMONER = "Apprentice Summoner";
+inline constexpr const char* MASTER_SUMMONER = "Master Summoner";
+inline constexpr const char* BANISH = "Banish";
+inline constexpr const char* UNSUMMON = "Unsummon";
+inline constexpr const char* RECHARGE = "Recharge";
+inline constexpr const char* DISENCHANT = "Disenchant";
+inline constexpr const char* RAISE_DEAD = "Raise Dead";
+inline constexpr const char* BLIZZARD = "Blizzard";
+inline constexpr const char* GIANT_STRENGTH = "Giant Strength";
+inline constexpr const char* MAGIC_FATIGUE = "Magic Fatigue";
+inline constexpr const char* SILENCE = "Silence";
+inline constexpr const char* DARK_RITUAL = "Dark Ritual";
+inline constexpr const char* AURA_OF_POWER = "Aura of Power";
+inline constexpr const char* STANDSTILL = "Standstill";
+
+// Enums
 enum Area {
     Deck,
     Hand,

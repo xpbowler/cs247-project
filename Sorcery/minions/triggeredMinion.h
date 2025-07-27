@@ -5,6 +5,7 @@
 #include <memory>
 
 class Trigger;
+class TriggerType;
 class Notification;
 
 // abstract base class for minions with triggered abilities 

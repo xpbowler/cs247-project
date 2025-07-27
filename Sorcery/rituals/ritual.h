@@ -1,7 +1,7 @@
 #pragma once 
 
 #include <memory>
-#include <card.h>
+#include "../card.h"
 
 class Trigger;
 class Notification;
