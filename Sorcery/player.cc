@@ -24,6 +24,7 @@
 #include <fstream>
 #include <algorithm>
 #include <random>
+#include <memory>
 
 using namespace std;
 
@@ -51,7 +52,7 @@ void Player::notifyGame(TriggerType triggerType) {
     game->notifyTopic(triggerType);
 }
 bool Player::moveCard(Minion* minion, Area src, Area dst) { return false; }
-bool Player::modifyLife(int life) { return false; }
+bool Player::modifyLife(int life) { return false }
 const vector<unique_ptr<Card>>& Player::getHand() const { return hand; }
 const vector<unique_ptr<Card>>& Player::getDeck() const { return deck; }
 const vector<unique_ptr<Card>>& Player::getBoard() const { return board; }
@@ -68,43 +69,43 @@ void Player::initializeDeck(const string& deckFilePath) {
     string card_string;
     while (getline(initFile, card_string)) {
         if (card_string == "Air Elemental") {
-            deck.push_back(std::unique_ptr<Card>(new AirElemental(*this, *otherPlayer)));
+            deck.push_back(std::make_unique<AirElemental>(*this, *otherPlayer));
         } else if (card_string == "Earth Elemental") {
-            deck.push_back(std::unique_ptr<Card>(make_unique<EarthElemental>(*this, *otherPlayer).release()));
+            deck.push_back(std::make_unique<EarthElemental>(*this, *otherPlayer));
         } else if (card_string == "Fire Elemental") {
-            deck.push_back(std::unique_ptr<Card>(make_unique<FireElemental>()));
+            deck.push_back(std::make_unique<FireElemental>(*this, *otherPlayer));
         } else if (card_string == "Potion Seller") {
-            deck.push_back(std::unique_ptr<Card>(make_unique<PotionSeller>()));
+            deck.push_back(std::make_unique<PotionSeller>(*this, *otherPlayer));
         } else if (card_string == "Novice Pyromancer") {
-            deck.push_back(std::unique_ptr<Card>(make_unique<NovicePyromancer>()));
+            deck.push_back(std::make_unique<NovicePyromancer>(*this, *otherPlayer));
         } else if (card_string == "Apprentice Summoner") {
-            deck.push_back(std::unique_ptr<Card>(make_unique<ApprenticeSummoner>()));
+            deck.push_back(std::make_unique<ApprenticeSummoner>(*this, *otherPlayer));
         } else if (card_string == "Master Summoner") {
-            deck.push_back(std::unique_ptr<Card>(make_unique<MasterSummoner>()));
+            deck.push_back(std::make_unique<MasterSummoner>(*this, *otherPlayer));
         } else if (card_string == "Banish") {
-            deck.push_back(std::unique_ptr<Card>(make_unique<Banish>()));
+            deck.push_back(std::make_unique<Banish>(*this, *otherPlayer));
         } else if (card_string == "Unsummon") {
-            deck.push_back(std::unique_ptr<Card>(make_unique<Unsummon>()));
+            deck.push_back(std::make_unique<Unsummon>(*this, *otherPlayer));
         } else if (card_string == "Recharge") {
-            deck.push_back(std::unique_ptr<Card>(make_unique<Recharge>()));
+            deck.push_back(std::make_unique<Recharge>(*this, *otherPlayer));
         } else if (card_string == "Disenchant") {
-            deck.push_back(std::unique_ptr<Card>(make_unique<Disenchant>()));
+            deck.push_back(std::make_unique<Disenchant>(*this, *otherPlayer));
         } else if (card_string == "Raise Dead") {
-            deck.push_back(std::unique_ptr<Card>(make_unique<RaiseDead>()));
+            deck.push_back(std::make_unique<RaiseDead>(*this, *otherPlayer));
         } else if (card_string == "Blizzard") {
-            deck.push_back(std::unique_ptr<Card>(make_unique<Blizzard>()));
+            deck.push_back(std::make_unique<Blizzard>(*this, *otherPlayer));
         } else if (card_string == "Giant Strength") {
-            deck.push_back(std::unique_ptr<Card>(make_unique<GiantStrength>()));
+            deck.push_back(std::make_unique<GiantStrength>(*this, *otherPlayer));
         } else if (card_string == "Magic Fatigue") {
-            deck.push_back(std::unique_ptr<Card>(make_unique<MagicFatigue>()));
+            deck.push_back(std::make_unique<MagicFatigue>(*this, *otherPlayer));
         } else if (card_string == "Silence") {
-            deck.push_back(std::unique_ptr<Card>(make_unique<Silence>()));
+            deck.push_back(std::make_unique<Silence>(*this, *otherPlayer));
         } else if (card_string == "Dark Ritual") {
-            deck.push_back(std::unique_ptr<Card>(make_unique<DarkRitual>()));
+            deck.push_back(std::make_unique<DarkRitual>(*this, *otherPlayer));
         } else if (card_string == "Aura of Power") {
-            deck.push_back(std::unique_ptr<Card>(make_unique<AuraOfPower>()));
+            deck.push_back(std::make_unique<AuraOfPower>(*this, *otherPlayer));
         } else if (card_string == "Standstill") {
-            deck.push_back(std::unique_ptr<Card>(make_unique<Standstill>()));
+            deck.push_back(std::make_unique<Standstill>(*this, *otherPlayer));
         }
     }
 

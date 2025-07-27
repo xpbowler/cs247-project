@@ -23,8 +23,8 @@ Game::Game(const string& deck1, const string& deck2, const string& initFilePath,
     getline(initFile, player1Name);
     getline(initFile, player2Name);
 
-    player1 = make_unique<Player>(player1Name);
-    player2 = make_unique<Player>(player2Name);
+    player1 = make_unique<Player>(player1Name, this);
+    player2 = make_unique<Player>(player2Name, this);
 
     player1->setOtherPlayer(player2.get());
     player2->setOtherPlayer(player1.get());
@@ -42,9 +42,10 @@ Game::Game(const string& deck1, const string& deck2, const string& initFilePath,
     }
 }
 
-void Game::notifyTopic(TriggerType triggerType) {}
-void Game::addTrigger(TriggerType triggerType, Trigger* trigger) {}
-void Game::removeTrigger(TriggerType triggerType, Trigger* trigger) {}
+void Game::notifyTopic(TriggerType triggerType) {
+
+}
+TriggerTopic* Game::getTriggerTopic(TriggerType triggerType) const { return triggerTopics.at(triggerType).get(); }
 void Game::play() {
     string command;
     while (getline(cin, command)) {

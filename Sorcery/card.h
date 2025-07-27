@@ -11,8 +11,8 @@ public:
 protected: 
     Card(Player& owner, Player& opponent) : owner{owner}, opponent{opponent} {}
 
-    Player& owner;
-    Player& opponent;
+    Player* owner;
+    Player* opponent;
     std::string name;
     int cost;
 

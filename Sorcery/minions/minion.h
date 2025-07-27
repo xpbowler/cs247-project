@@ -1,8 +1,8 @@
 #pragma once 
 
-#include <card.h>
+#include "../card.h"
 #include <memory>
-#include <util.h>
+#include "../util.h"
 
 class BaseEnchantment;
 
