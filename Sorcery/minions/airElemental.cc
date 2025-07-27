@@ -1,9 +1,9 @@
 #include "airElemental.h"
 
 //=========================================================
-AirElemental::AirElemental(Player& owner, Player& opponent) : BaseMinion {owner, opponent} {}
+AirElemental::AirElemental(Player& owner, Player& opponent) 
+    : BaseMinion {AIR_ELEMENTAL_ATK,
+                  AIR_ELEMENTAL_DEF, 
+                  owner, opponent, "Air Elemental", AE} {}
 
-//=========================================================
-void AirElemental::useSkill() {
-    // TODO
-}
+

@@ -2,13 +2,16 @@
 #include <notification.h>
 
 //=========================================================
-BoneGolem::BoneGolem(Player& owner, Player& opponent) : TriggeredMinion {owner, opponent} {
-    // TODO 
+BoneGolem::BoneGolem(Player &owner, Player &opponent)
+    : TriggeredMinion(BONE_GOLEM_ATK,
+                      BONE_GOLEM_DEF,
+                      owner, opponent, "Bone Golem", BG)
+{
+    // TODO: set up trigger
 }
-
 
 //=========================================================
-void BoneGolem::useSkill(Notification notification) {
+void BoneGolem::useSkill(Notification notification)
+{
     // TODO
 }
-

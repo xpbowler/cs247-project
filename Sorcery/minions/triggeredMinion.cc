@@ -1,6 +1,19 @@
 #include "triggeredMinion.h"
 
 //=========================================================
-void TriggeredMinion::notifyGame(TriggerType tt) {
+TriggeredMinion::TriggeredMinion(int attack,
+                                 int defence,
+                                 Player &owner,
+                                 Player &opponent,
+                                 std::string name,
+                                 MinionType minionType)
+    : Minion{owner, opponent, attack, defence, minionType, name}
+{
+    
+}
+
+//=========================================================
+void TriggeredMinion::notifyGame(TriggerType tt)
+{
     // TODO
 }

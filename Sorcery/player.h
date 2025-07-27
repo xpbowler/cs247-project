@@ -40,6 +40,9 @@ class Player {
         const std::vector<std::unique_ptr<Card>>& getBoard() const;
         void setOtherPlayer(Player* player);
 
+        // summon minions of minionType, for amount, until it's full
+        void summonMinion(MinionType minionType, int amount);
+
         // initialize the deck from a file
         void initializeDeck(const std::string& deck);
 

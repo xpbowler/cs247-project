@@ -4,6 +4,34 @@
 const int STARTING_LIFE = 20;
 const int STARTING_MAGIC = 3;
 const int STARTING_NUM_CARDS = 5;
+const int AIR_ELEMENTAL_ATK = 1;
+const int AIR_ELEMENTAL_DEF = 1;
+const int AIR_ELEMENTAL_COST = 0;
+const int EARTH_ELEMENTAL_ATK = 4;
+const int EARTH_ELEMENTAL_DEF = 4;
+const int EARTH_ELEMENTAL_COST = 3;
+const int BONE_GOLEM_ATK = 1;
+const int BONE_GOLEM_DEF = 3;
+const int BONE_GOLEM_COST = 2;
+const int FIRE_ELEMENTAL_ATK = 2;
+const int FIRE_ELEMENTAL_DEF = 2;
+const int FIRE_ELEMENTAL_COST = 2;
+const int POTION_SELLER_ATK = 1;
+const int POTION_SELLER_DEF = 3;
+const int POTION_SELLER_COST = 2;
+const int NOVICE_PYROMANCER_ATK = 0;
+const int NOVICE_PYROMANCER_DEF = 1;
+const int NOVICE_PYROMANCER_COST = 1;
+const int NOVICE_PYROMANCER_ACTIVATION_COST = 1;
+const int APPRENTICE_SUMMONER_ATK = 1;
+const int APPRENTICE_SUMMONER_DEF = 1;
+const int APPRENTICE_SUMMONER_COST = 1;
+const int APPRENTICE_SUMMONER_ACTIVATION_COST = 1;
+const int MASTER_SUMMONER_ATK = 2;
+const int MASTER_SUMMONER_DEF = 3;
+const int MASTER_SUMMONER_COST = 3;
+const int MASTER_SUMMONER_ACTIVATION_COST = 2;
+
 
 // Card name constants
 inline constexpr const char* AIR_ELEMENTAL = "Air Elemental";
@@ -44,12 +72,12 @@ enum TriggerType {
 };
 
 enum MinionType {
-    AirElemental, 
-    EarthElemental, 
-    NovicePyromancer,
-    MasterSummoner, 
-    ApprenticeSummoner, 
-    BoneGolem,
-    FireElemental, 
-    PotionSeller
+    AE, // air elemental
+    EE, // earth elemental 
+    NP, // novice pyromancer 
+    MS, // master summoner
+    AS, // apprentice summoner
+    BG, // bone golem
+    FE, // fire elemental 
+    PS // potion seller
 };

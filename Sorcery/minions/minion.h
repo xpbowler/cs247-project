@@ -16,7 +16,7 @@ public:
     void heal(int hp);
     void takeDamage(int dmg);
     void setAction(int action);
-    void attackMinion(Minion* minion);
+    void attackMinion(Minion* minion, int dmg);
     void attackPlayer(int dmg);
     void gainStats(int attack, int defence);
     void summonMinion(MinionType minionType, int amount);
@@ -24,7 +24,7 @@ public:
 // no need to put useSkill here, it is already in the intermediate subclasses
 
 protected: 
-    Minion(Player& owner, Player& opponent, int attack, int defence);
+    Minion(Player& owner, Player& opponent, int attack, int defence, MinionType mt, std::string name);
 
     virtual ~Minion() = 0;
 
@@ -34,6 +34,9 @@ protected:
     MinionType minionType;
     std::unique_ptr<BaseEnchantment> enchantment;
     std::string name;
+
+private:
+    void dies();
     
 };
 

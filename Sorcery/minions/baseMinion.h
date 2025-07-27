@@ -10,11 +10,14 @@ with the Air Elemental and Earth Elemental as the subclasses
 class BaseMinion : public Minion {
 
 public: 
-    BaseMinion(Player& owner, Player& opponent) : Minion{owner, opponent} {}
+    BaseMinion(int attack, 
+               int defence, 
+               Player& owner, 
+               Player& opponent,
+               std::string name, 
+               MinionType minionType);
 
 protected: 
-
-    virtual void useSkill() = 0;
 
     virtual ~BaseMinion() {}
 };
