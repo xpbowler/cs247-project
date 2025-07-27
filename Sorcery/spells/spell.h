@@ -2,8 +2,9 @@
 
 #include <string>
 #include <iostream>
+#include "../card.h"
 
-class Spell {
+class Spell : Card {
 
 public: 
     void describe(std::ostream& out);
