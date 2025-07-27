@@ -8,16 +8,17 @@ class Notification;
 
 class Ritual : public Card {
 
-public: 
+public:
     virtual void execute(Notification notification) = 0;
     int getCharges() const;
+    int getActivationCost() const;
     void setCharges(int charges);
-
+    const std::string& get_description() const;;
     virtual ~Ritual() {};
 
 protected: 
-    
-    Ritual(int cost, int charges, Player& owner, Player& opponent);
+    std::string description;
+    Ritual(int cost, int charges, Player& owner, Player& opponent, const std::string& description);
 
     // member fields
     const int activationCost;

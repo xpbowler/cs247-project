@@ -1,3 +1,5 @@
+#pragma once
+
 class Display {
     public:
         virtual void inspectMinion(bool isPlayer1Turn, int minion) = 0;

@@ -7,7 +7,7 @@
 class Spell : Card {
 
 public: 
-    void describe(std::ostream& out);
+    const std::string& get_description() const;
 
 protected: 
     

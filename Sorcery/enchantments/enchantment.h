@@ -6,15 +6,13 @@ class Minion;
 
 class Enchantment : public Card {
 
-public: 
+public:
+    Enchantment(const std::string& description);
+    const std::string& get_description() const;
     virtual ~Enchantment() {}
 
 protected: 
-
     virtual void apply(Minion& minion) = 0;
-
-    
-
 };
 
   
