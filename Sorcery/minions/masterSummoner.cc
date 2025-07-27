@@ -1,7 +1,7 @@
 #include "masterSummoner.h"
 
 //=========================================================
-MasterSummoner::MasterSummoner() {
+MasterSummoner::MasterSummoner(Player& owner, Player& opponent) : ActivatedMinion(0, owner, opponent) {
     // TODO 
 }
 

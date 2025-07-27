@@ -5,7 +5,7 @@
 class ApprenticeSummoner : public ActivatedMinion {
 
 public: 
-    ApprenticeSummoner();
+    ApprenticeSummoner(Player& owner, Player& opponent);
 
     void useSkill() override;
 

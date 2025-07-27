@@ -1,7 +1,7 @@
 #include "apprenticeSummoner.h"
 
 //=========================================================
-ApprenticeSummoner::ApprenticeSummoner() {
+ApprenticeSummoner::ApprenticeSummoner(Player& owner, Player& opponent) : ActivatedMinion(0) {
     // TODO
 }
 

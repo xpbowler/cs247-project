@@ -4,7 +4,9 @@
 
 // abstract base class for minions with activated abilities 
 class ActivatedMinion : public Minion {
-    ActivatedMinion(int activationCost);
+
+public: 
+    ActivatedMinion(int activationCost, Player& owner, Player& opponent);
 
 protected: 
     const int activationCost;

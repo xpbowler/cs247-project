@@ -2,7 +2,7 @@
 #include <notification.h>
 
 //=========================================================
-BoneGolem::BoneGolem() {
+BoneGolem::BoneGolem(Player& owner, Player& opponent) : TriggeredMinion {owner, opponent} {
     // TODO 
 }
 

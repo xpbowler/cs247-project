@@ -2,7 +2,7 @@
 #include <notification.h>
 
 //=========================================================
-Standstill::Standstill() {
+Standstill::Standstill(Player& owner, Player& opponent) : Ritual {2, 4, owner, opponent} {
     // TODO 
 }
 

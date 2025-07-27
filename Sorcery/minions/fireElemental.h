@@ -5,7 +5,7 @@
 class FireElemental : public TriggeredMinion {
 
 public: 
-    FireElemental();
+    FireElemental(Player& owner, Player& opponent);
 
     void useSkill(Notification notification) override;
 

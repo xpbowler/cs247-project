@@ -6,7 +6,7 @@ class AuraOfPower : public Ritual {
 
 public: 
 
-    AuraOfPower();
+    AuraOfPower(Player& owner, Player& opponent);
 
     void execute(Notification notification) override;
 

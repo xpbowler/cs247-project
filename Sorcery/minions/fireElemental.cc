@@ -2,7 +2,7 @@
 #include <notification.h>
 
 //=========================================================
-FireElemental::FireElemental() {
+FireElemental::FireElemental(Player& owner, Player& opponent) : TriggeredMinion {owner, opponent} {
     // TODO 
 }
 
