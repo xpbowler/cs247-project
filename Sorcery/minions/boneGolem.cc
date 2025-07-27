@@ -15,5 +15,7 @@ BoneGolem::BoneGolem(Player &owner, Player &opponent)
 //=========================================================
 void BoneGolem::useSkill(Notification)
 {
-    gainStats(1, 1);
+    applyEnchantment(UseAbility);
+    if (canUseAbility) gainStats(1, 1);
+    canUseAbility = true;
 }

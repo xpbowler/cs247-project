@@ -7,10 +7,19 @@ ActivatedMinion::ActivatedMinion(int activationCost,
                                  Player& owner,
                                  Player& opponent, 
                                  MinionType minionType,
-                                 std::string name) : Minion {owner, opponent, attack, defence, minionType, name}, activationCost {activationCost} {
+                                 std::string name) 
+                                 : Minion {owner, opponent, attack, defence, minionType, name}, 
+                                 activationCost {activationCost},
+                                 canUseAbility {true} {
 
 }
 
 
 //=========================================================
 int ActivatedMinion::getActivationCost() const { return activationCost; }
+
+
+//=========================================================
+void ActivatedMinion::disableAbility() {
+    canUseAbility = false;
+}

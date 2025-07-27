@@ -22,9 +22,13 @@ void PotionSeller::useSkill(Notification notification)
     if (realNoti->isStart) return;
     if (realNoti->player != &owner) return;
     // assumes this only affects board 
-    for (const auto& card : owner.getBoard()) {
-        auto minion = dynamic_cast<Minion*> (card.get());
-        if (!minion) continue;
-        minion->gainStats(0, 1);
+    applyEnchantment(UseAbility);
+    if (canUseAbility) {
+        for (const auto& card : owner.getBoard()) {
+            auto minion = dynamic_cast<Minion*> (card.get());
+            if (!minion) continue;
+            minion->gainStats(0, 1);
+        }
     }
+    canUseAbility = true;
 }

@@ -1,6 +1,7 @@
 #include "player.h"
 #include "util.h"
 #include "game.h"
+#include "card.h"
 #include "minions/airElemental.h"
 #include "minions/earthElemental.h"
 #include "minions/fireElemental.h"
@@ -21,6 +22,7 @@
 #include "rituals/darkRitual.h"
 #include "rituals/auraOfPower.h"
 #include "rituals/standstill.h"
+#include <baseEnchantment.h>
 #include <notification.h>
 
 
@@ -43,7 +45,7 @@ namespace {
 }
 
 //=========================================================
-Player::Player(string& name, Game* game): name{std::move(name)}, life{STARTING_LIFE}, magic{STARTING_MAGIC}, deck{}, hand{}, board{}, graveyard{}, ritual{}, otherPlayer{nullptr}, game{game} {}
+Player::Player(string& name, Game* game): name{std::move(name)}, life{STARTING_LIFE}, magic{STARTING_MAGIC}, deck{}, hand{}, board{}, graveyard{}, ritual{}, otherPlayer{nullptr}, game{*game} {}
 
 //=========================================================
 // draw command draws a card, similar to the effect if the player just started their turn
@@ -71,7 +73,7 @@ void Player::discardCard(int i) {
 
 //=========================================================
 void Player::notifyGame(TriggerType triggerType, Notification notification) {
-    game->notifyTopic(triggerType, notification);
+    game.notifyTopic(triggerType, notification);
 }
 
 
@@ -115,7 +117,7 @@ const vector<unique_ptr<Card>>& Player::getGraveyard() const { return graveyard;
 
 //=========================================================
 bool Player::isPlayer1() const {
-    return game->player1.get() == this;
+    return game.player1.get() == this;
 }
 
 //=========================================================
@@ -226,7 +228,7 @@ void Player::summonMinion(MinionType minionType, int amount) {
 
 //=========================================================
 void Player::attachTrigger(TriggerType tt, Trigger* trigger) {
-    game->attachTrigger(tt, trigger);
+    game.attachTrigger(tt, trigger);
 }
 
 //=========================================================
@@ -241,4 +243,66 @@ std::vector<std::unique_ptr<Card>>& Player::areaToVec (Area area) {
         case Graveyard:
             return graveyard;
     }
+}
+
+//=========================================================
+void Player::declareEnd() {
+    auto notification = TurnChangeNotification(false, this);
+    notifyGame(isPlayer1 ? EndTurnPlayer1 : EndTurnPlayer2, notification);
+}
+
+//=========================================================
+void Player::declareStart() {
+    auto notification = TurnChangeNotification(true, this);
+    notifyGame(isPlayer1 ? EndTurnPlayer1 : EndTurnPlayer2, notification);
+    // now go through each of the minions in the board and check for start turn enchantments 
+    for (auto& card : board) {
+        Minion* minion = dynamic_cast<Minion*> (card.get());
+        if (!minion) return;
+        minion->applyEnchantment(StartOfTurn);
+    }
+}
+
+//=========================================================
+void Minion::removeAllEnchantments(std::optional<EnchantmentTiming> et) {
+    if (!et) {
+        enchantment.reset(nullptr);
+        return;
+    }
+    if (!enchantment) return;
+    while (enchantment && enchantment->getTiming() == *et) {
+        removeTopEnchantment();
+    }
+    Enchantment* currNode = enchantment.get();
+    Enchantment* prevNode = nullptr;
+    while (currNode) {
+        auto currBase = dynamic_cast<BaseEnchantment*> (currNode);
+        auto currDecorator = dynamic_cast<EnchantmentDecorator*> (currNode);
+        if (currNode->getTiming() == *et) {
+            if (!prevNode) throw std::runtime_error("previous node is somehow nullptr while removing enchantments");
+            // if it is base enchantment then we exit 
+            
+            auto prevDecorator = dynamic_cast<EnchantmentDecorator*> (prevNode);
+            // prev node must be not null
+            if (currBase) {
+                prevDecorator->setNext(nullptr);
+            }
+            else {
+                prevDecorator->setNext(currDecorator->stealNext());
+            }
+            currNode = prevDecorator->getNext();
+        }
+        else {
+            if (currBase) break;
+            prevNode = currNode;
+            currNode = currDecorator->getNext();
+        }
+    }
+}
+
+//=========================================================
+void Minion::applyEnchantment(EnchantmentTiming et) {
+    enchantment->apply(*this, et);
+    // removeAllEnchantments(et);
+    // TODO: i don't think we need to remove enchantments, right?
 }

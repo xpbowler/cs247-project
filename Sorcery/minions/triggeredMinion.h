@@ -14,6 +14,7 @@ public:
 
     virtual void useSkill(Notification notification) = 0;
     const Trigger& getTrigger();
+    void disableAbility();
 
 protected: 
 
@@ -28,7 +29,7 @@ protected:
     std::unique_ptr<Trigger> trigger;
 
     void notifyGame(TriggerType tt);
-    
+    bool canUseAbility;
 
     virtual ~TriggeredMinion() {}
 

@@ -7,13 +7,17 @@ class Minion;
 class Enchantment : public Card {
 
 public:
-    Enchantment(const std::string& description);
-    const std::string& get_description() const;
+    Enchantment(const std::string description, Player& owner, Player& opponent, EnchantmentTiming);
+    const std::string& getDescription() const;
+    const EnchantmentTiming getTiming() const;
     virtual ~Enchantment() {}
     
+    virtual void apply(Minion& minion, EnchantmentTiming et) = 0;
 
 protected: 
-    virtual void apply(Minion& minion) = 0;
+    const std::string description;
+    const EnchantmentTiming timing;
+    
 };
 
   

@@ -4,7 +4,9 @@
 #include "../util.h"
 #include <memory>
 #include <vector>
+#include <optional>
 
+class EnchantmentDecorator;
 class Enchantment;
 
 class Minion : public Card {
@@ -14,6 +16,10 @@ public:
     int getAttack();
     int getActions();
     const std::vector<Enchantment*> getEnchantments();
+    void addEnchantment(std::unique_ptr<EnchantmentDecorator> enchantment);
+    void removeTopEnchantment();
+    void removeAllEnchantments(std::optional<EnchantmentTiming> et);
+    void applyEnchantment(EnchantmentTiming et);
     void setAttack(int attack);
     void heal(int hp);
     void takeDamage(int dmg);
@@ -34,7 +40,7 @@ protected:
     int defence;
     int actions;
     MinionType minionType;
-    std::unique_ptr<Minion> enchantment;
+    std::unique_ptr<Enchantment> enchantment;
     std::string name;
 
 private:

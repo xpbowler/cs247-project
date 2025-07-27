@@ -82,3 +82,9 @@ enum MinionType {
     FE, // fire elemental 
     PS // potion seller
 };
+
+enum EnchantmentTiming {
+    StartOfTurn, 
+    Attack,
+    UseAbility
+};

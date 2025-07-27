@@ -20,7 +20,7 @@ class Player {
     std::vector<std::unique_ptr<Card>> board;
     std::vector<std::unique_ptr<Card>> graveyard;
     std::unique_ptr<Ritual> ritual;
-    const Player& otherPlayer;
+    const Player* otherPlayer;
     const Game& game;
 
     std::vector<std::unique_ptr<Card>>& areaToVec (Area area);
@@ -44,6 +44,8 @@ class Player {
         Card* getGraveyardTop() const;
         Ritual* getRitual() const;
         const std::string& getName() const;
+        void declareStart();
+        void declareEnd();
 
 
         int getLife() const;

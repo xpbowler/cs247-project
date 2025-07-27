@@ -2,5 +2,5 @@
 
 //===================================================================
 void BaseEnchantment::apply(Minion& minion) {
-    // TODO
+    // should do nothing
 }

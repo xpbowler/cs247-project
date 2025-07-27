@@ -13,6 +13,8 @@ MasterSummoner::MasterSummoner(Player &owner, Player &opponent)
 //=========================================================
 void MasterSummoner::useSkill()
 {
-    owner.summonMinion(AE, 3);
+    applyEnchantment(UseAbility);
+    if (canUseAbility) summonMinion(AE, 3);
+    canUseAbility = true;
 }
 

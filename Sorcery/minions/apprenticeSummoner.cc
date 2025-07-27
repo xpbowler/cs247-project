@@ -13,6 +13,9 @@ ApprenticeSummoner::ApprenticeSummoner(Player& owner, Player& opponent)
 
 //=========================================================
 void ApprenticeSummoner::useSkill() {
-    owner.summonMinion(AE, 1);
+    applyEnchantment(UseAbility);
+    if (canUseAbility)
+        owner.summonMinion(AE, 1);
+    canUseAbility = true;
 }
 

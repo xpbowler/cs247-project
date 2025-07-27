@@ -43,12 +43,12 @@ Game::Game(const string& deck1, const string& deck2, const string& initFilePath,
     }
 }
 
-void Game::notifyTopic(TriggerType triggerType, Notification notification) {
-    triggerTopics[triggerType]->notifyTriggers(notification);
+void Game::notifyTopic(TriggerType triggerType, Notification notification) const {
+    triggerTopics.at(triggerType)->notifyTriggers(notification);
 }
 
-void Game::attachTrigger(TriggerType tt, Trigger* trigger) {
-    triggerTopics[tt]->attachTrigger(trigger);
+void Game::attachTrigger(TriggerType tt, Trigger* trigger)const  {
+    triggerTopics.at(tt)->attachTrigger(trigger);
 }
 
 
@@ -81,7 +81,16 @@ void Game::executeCommand(const string& cmd) {
              << "hand -- Describe all cards in your hand." << "\n"
              << "board -- Describe all cards on the board." << endl;
     } else if (primary_cmd=="end") {
-        isPlayer1Turn = !isPlayer1Turn;
+        if (isPlayer1Turn) {
+            player1->declareEnd();
+            isPlayer1Turn = false;
+            player2->declareStart();
+        }
+        else {
+            player2->declareEnd();
+            isPlayer1Turn = true;
+            player1->declareStart();
+        }
     } else if (primary_cmd=="discard") {
         if (!isTesting) throw invalid_argument("discard is only available in testing mode.");
         int i;

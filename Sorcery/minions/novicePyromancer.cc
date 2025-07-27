@@ -20,5 +20,7 @@ void NovicePyromancer::useSkill()
 
 //=========================================================
 void NovicePyromancer::useSkill(Minion* minion) {
-    attackMinion(minion, 1);
+    applyEnchantment(UseAbility);
+    if (canUseAbility) attackMinion(minion, 1);
+    canUseAbility = true;
 }

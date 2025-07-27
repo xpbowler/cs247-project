@@ -7,7 +7,7 @@ TriggeredMinion::TriggeredMinion(int attack,
                                  Player &opponent,
                                  std::string name,
                                  MinionType minionType)
-    : Minion{owner, opponent, attack, defence, minionType, name}
+    : Minion{owner, opponent, attack, defence, minionType, name}, canUseAbility {true}
 {
     
 }
@@ -16,4 +16,9 @@ TriggeredMinion::TriggeredMinion(int attack,
 void TriggeredMinion::notifyGame(TriggerType tt)
 {
     // TODO
+}
+
+//=========================================================
+void TriggeredMinion::disableAbility() {
+    canUseAbility = false;
 }
