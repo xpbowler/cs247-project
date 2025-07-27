@@ -5,7 +5,7 @@
 class Standstill : public Ritual {
 
 public: 
-    Standstill();
+    Standstill(Player& owner, Player& opponent);
 
     void execute(Notification notification) override;
 

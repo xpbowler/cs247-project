@@ -1,8 +1,9 @@
 #include "auraOfPower.h"
 #include <notification.h>
+#include <minion.h>
 
 //=========================================================
-AuraOfPower::AuraOfPower() : Ritual{1, 4} {
+AuraOfPower::AuraOfPower(Player& owner, Player& opponent) : Ritual{1, 4, owner, opponent} {
     
 }
 
@@ -17,5 +18,13 @@ void AuraOfPower::execute(Notification notification) {
     if (&owner != realNoti->player) {
         return;
     }
+    // now, check if there is enough charges, if not return
+    if (charges < activationCost) {
+        return;
+    }
+    // finally, execute the ability and subtract off the charges
+    charges -= activationCost;
+    auto minion = realNoti->minion;
+    minion->
 }
 

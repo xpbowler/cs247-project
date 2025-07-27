@@ -17,7 +17,7 @@ public:
 
 protected: 
     
-    Ritual(int cost, int charges);
+    Ritual(int cost, int charges, Player& owner, Player& opponent);
 
     // member fields
     const int activationCost;
