@@ -11,10 +11,18 @@ MasterSummoner::MasterSummoner(Player &owner, Player &opponent)
 }
 
 //=========================================================
-void MasterSummoner::useSkill()
+UseSkillStatus MasterSummoner::useSkill()
 {
+    if (actions < 1) {
+        return NoAction;
+    }
     applyEnchantment(UseAbility);
-    if (canUseAbility) summonMinion(AE, 3);
-    canUseAbility = true;
+    if (!canUseAbility) {
+        canUseAbility = true;
+        return Silenced;
+    } 
+    summonMinion(AE, 3);
+    actions--;
+    return OK;
 }
 

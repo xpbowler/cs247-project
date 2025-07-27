@@ -12,15 +12,23 @@ NovicePyromancer::NovicePyromancer(Player &owner, Player &opponent)
 }
 
 //=========================================================
-void NovicePyromancer::useSkill()
+UseSkillStatus NovicePyromancer::useSkill()
 {
     std::cerr << "Novice Pyromancer should not use skill with no target. " << std::endl;
 }
 
 
 //=========================================================
-void NovicePyromancer::useSkill(Minion* minion) {
+UseSkillStatus NovicePyromancer::useSkill(Minion* minion) {
+    if (actions < 1) {
+        return NoAction;
+    }
     applyEnchantment(UseAbility);
-    if (canUseAbility) attackMinion(minion, 1);
-    canUseAbility = true;
+    if (!canUseAbility) {
+        canUseAbility = true;
+        return Silenced;
+    } 
+    attackMinion(minion, 1);
+    actions--;
+    return OK;
 }

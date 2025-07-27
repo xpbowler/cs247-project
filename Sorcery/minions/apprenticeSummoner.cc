@@ -12,10 +12,17 @@ ApprenticeSummoner::ApprenticeSummoner(Player& owner, Player& opponent)
 
 
 //=========================================================
-void ApprenticeSummoner::useSkill() {
+UseSkillStatus ApprenticeSummoner::useSkill() {
+    if (actions < 1) {
+        return NoAction;
+    }
     applyEnchantment(UseAbility);
-    if (canUseAbility)
-        owner.summonMinion(AE, 1);
-    canUseAbility = true;
+    if (!canUseAbility) {
+        canUseAbility = true;
+        return Silenced;
+    }
+    summonMinion(AE, 1);
+    actions--;
+    return OK;
 }
 

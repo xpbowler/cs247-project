@@ -255,55 +255,13 @@ void Player::declareEnd() {
 //=========================================================
 void Player::declareStart() {
     auto notification = TurnChangeNotification(true, this);
-    notifyGame(isPlayer1 ? EndTurnPlayer1 : EndTurnPlayer2, notification);
+    notifyGame(isPlayer1 ? StartTurnPlayer1 : StartTurnPlayer2, notification);
     // now go through each of the minions in the board and check for start turn enchantments 
     for (auto& card : board) {
         Minion* minion = dynamic_cast<Minion*> (card.get());
-        if (!minion) return;
-        minion->applyEnchantment(StartOfTurn);
-    }
-}
-
-//=========================================================
-void Minion::removeAllEnchantments(std::optional<EnchantmentTiming> et) {
-    if (!et) {
-        enchantment.reset(nullptr);
-        return;
-    }
-    if (!enchantment) return;
-    while (enchantment && enchantment->getTiming() == *et) {
-        removeTopEnchantment();
-    }
-    Enchantment* currNode = enchantment.get();
-    Enchantment* prevNode = nullptr;
-    while (currNode) {
-        auto currBase = dynamic_cast<BaseEnchantment*> (currNode);
-        auto currDecorator = dynamic_cast<EnchantmentDecorator*> (currNode);
-        if (currNode->getTiming() == *et) {
-            if (!prevNode) throw std::runtime_error("previous node is somehow nullptr while removing enchantments");
-            // if it is base enchantment then we exit 
-            
-            auto prevDecorator = dynamic_cast<EnchantmentDecorator*> (prevNode);
-            // prev node must be not null
-            if (currBase) {
-                prevDecorator->setNext(nullptr);
-            }
-            else {
-                prevDecorator->setNext(currDecorator->stealNext());
-            }
-            currNode = prevDecorator->getNext();
-        }
-        else {
-            if (currBase) break;
-            prevNode = currNode;
-            currNode = currDecorator->getNext();
+        if (minion) {
+            minion->setAction(1);
+            minion->applyEnchantment(StartOfTurn);
         }
     }
-}
-
-//=========================================================
-void Minion::applyEnchantment(EnchantmentTiming et) {
-    enchantment->apply(*this, et);
-    // removeAllEnchantments(et);
-    // TODO: i don't think we need to remove enchantments, right?
 }

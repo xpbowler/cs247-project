@@ -82,19 +82,34 @@ void Minion::setAction(int action) {
 }
 
 //=========================================================
-void Minion::attackMinion(Minion* minion, int dmg) {
+bool Minion::attackMinion(Minion* minion, std::optional<int> dmg) {
+    // check if there is enough action points 
+    if (actions < 1) {
+        return false;
+    }
     // keep a copy of the old values
     int oldAttack = attack;
     int oldDefence = defence;
     applyEnchantment(Attack);
-    minion->takeDamage(dmg);
+    minion->takeDamage(dmg ? *dmg : attack);
     attack = oldAttack;
     defence = oldDefence;
+    return true;
 }
 
 //=========================================================
-void Minion::attackPlayer(int dmg) {
-    opponent.modifyLife(-dmg);
+bool Minion::attackPlayer(std::optional<int> dmg) {
+    // check if there is enough action points 
+    if (actions < 1) {
+        return false;
+    }
+    int oldAttack = attack;
+    int oldDefence = defence;
+    applyEnchantment(Attack);
+    opponent.modifyLife(dmg ? -*dmg : -attack);
+    attack = oldAttack;
+    defence = oldDefence;
+    return true;
 }
 
 //=========================================================
@@ -117,3 +132,47 @@ void Minion::dies() {
 
 
 Minion::~Minion() {}
+
+//=========================================================
+void Minion::removeAllEnchantments(std::optional<EnchantmentTiming> et) {
+    if (!et) {
+        enchantment.reset(nullptr);
+        return;
+    }
+    if (!enchantment) return;
+    while (enchantment && enchantment->getTiming() == *et) {
+        removeTopEnchantment();
+    }
+    Enchantment* currNode = enchantment.get();
+    Enchantment* prevNode = nullptr;
+    while (currNode) {
+        auto currBase = dynamic_cast<BaseEnchantment*> (currNode);
+        auto currDecorator = dynamic_cast<EnchantmentDecorator*> (currNode);
+        if (currNode->getTiming() == *et) {
+            if (!prevNode) throw std::runtime_error("previous node is somehow nullptr while removing enchantments");
+            // if it is base enchantment then we exit 
+            
+            auto prevDecorator = dynamic_cast<EnchantmentDecorator*> (prevNode);
+            // prev node must be not null
+            if (currBase) {
+                prevDecorator->setNext(nullptr);
+            }
+            else {
+                prevDecorator->setNext(currDecorator->stealNext());
+            }
+            currNode = prevDecorator->getNext();
+        }
+        else {
+            if (currBase) break;
+            prevNode = currNode;
+            currNode = currDecorator->getNext();
+        }
+    }
+}
+
+//=========================================================
+void Minion::applyEnchantment(EnchantmentTiming et) {
+    enchantment->apply(*this, et);
+    // removeAllEnchantments(et);
+    // TODO: i don't think we need to remove enchantments, right?
+}

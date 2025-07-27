@@ -23,7 +23,7 @@ protected:
     const int activationCost;
     const std::string description;
     bool canUseAbility;
-    virtual void useSkill() = 0;
+    virtual UseSkillStatus useSkill() = 0;
 
     virtual ~ActivatedMinion() {}
 

@@ -96,3 +96,9 @@ enum EnchantmentTiming {
     Attack,
     UseAbility
 };
+
+enum UseSkillStatus {
+    OK, 
+    NoAction, 
+    Silenced
+};
