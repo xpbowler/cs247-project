@@ -4,6 +4,7 @@
 const int STARTING_LIFE = 20;
 const int STARTING_MAGIC = 3;
 const int STARTING_NUM_CARDS = 5;
+const int MAX_HAND_SIZE = 5;
 
 // Card name constants
 inline constexpr const char* AIR_ELEMENTAL = "Air Elemental";

@@ -1,10 +1,11 @@
 #pragma once 
 
 #include "../card.h"
-#include <memory>
 #include "../util.h"
+#include <memory>
+#include <vector>
 
-class BaseEnchantment;
+class Enchantment;
 
 class Minion : public Card {
 
@@ -12,6 +13,7 @@ public:
     int getDefence();
     int getAttack();
     int getActions();
+    const std::vector<Enchantment*> getEnchantments();
     void setAttack(int attack);
     void heal(int hp);
     void takeDamage(int dmg);
@@ -32,7 +34,7 @@ protected:
     int defence;
     int actions;
     MinionType minionType;
-    std::unique_ptr<BaseEnchantment> enchantment;
+    std::unique_ptr<Minion> enchantment;
     std::string name;
     
 };

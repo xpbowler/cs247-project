@@ -20,8 +20,8 @@ class Player {
     std::vector<std::unique_ptr<Card>> board;
     std::vector<std::unique_ptr<Card>> graveyard;
     std::unique_ptr<Ritual> ritual;
-    Player* otherPlayer;
-    Game* game;
+    const Player& otherPlayer;
+    const Game& game;
 
     public:
         Player(std::string& name, Game* game);
@@ -38,7 +38,15 @@ class Player {
         const std::vector<std::unique_ptr<Card>>& getHand() const;
         const std::vector<std::unique_ptr<Card>>& getDeck() const;
         const std::vector<std::unique_ptr<Card>>& getBoard() const;
+        Card* getGraveyardTop() const;
+        Ritual* getRitual() const;
+        const std::string& getName() const;
+
+
+        int getLife() const;
+        int getMagic() const;
         void setOtherPlayer(Player* player);
+
 
         // initialize the deck from a file
         void initializeDeck(const std::string& deck);
