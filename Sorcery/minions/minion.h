@@ -21,6 +21,7 @@ public:
     void removeAllEnchantments(std::optional<EnchantmentTiming> et);
     void applyEnchantment(EnchantmentTiming et);
     void setAttack(int attack);
+    void setDefence(int defence);
     void heal(int hp);
     void takeDamage(int dmg);
     void setAction(int action);

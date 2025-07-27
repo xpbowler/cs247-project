@@ -1,13 +1,17 @@
 #include "recharge.h"
 
+using namespace std;
+
 //=========================================================
-Recharge::Recharge() {
+Recharge::Recharge(Player& owner, Player& opponent): Spell{RECHARGE_DESC, owner, opponent} {
     // TODO 
 }
 
 //=========================================================
-void Recharge::action() {
-    // TODO 
+void Recharge::action(variant<Minion*, Ritual*> card) {
+    if (holds_alternative<Ritual*>(card)) {
+        get<Ritual*>(card)->setCharges(get<Ritual*>(card)->getCharges() + 3);
+    }
 }
 
 

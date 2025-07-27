@@ -31,6 +31,7 @@
 #include <algorithm>
 #include <random>
 #include <memory>
+#include <variant>
 
 using namespace std;
 

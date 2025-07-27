@@ -2,20 +2,25 @@
 
 #include <string>
 #include <iostream>
+#include <variant>
 #include "../card.h"
+#include "../minions/minion.h"
+#include "../rituals/ritual.h"
+#include "../player.h"
+class Player;
 
-class Spell : Card {
+class Spell : public Card {
 
 public: 
     const std::string& get_description() const;
 
 protected: 
     
-    Spell(std::string description);
+    Spell(std::string description, Player& owner, Player& opponent);
 
     std::string description;
 
-    virtual void action() = 0;
+    virtual void action(std::variant<Minion*, Ritual*> card) = 0;
 
     virtual ~Spell() {}
 };

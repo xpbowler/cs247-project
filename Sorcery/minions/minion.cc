@@ -63,6 +63,9 @@ void Minion::removeTopEnchantment() {
 void Minion::setAttack(int attack) { this->attack = attack; }
 
 //=========================================================
+void Minion::setDefence(int defence) { this->defence = defence; }
+
+//=========================================================
 void Minion::heal(int hp) { defence += hp; }
 
 //=========================================================

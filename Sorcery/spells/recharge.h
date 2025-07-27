@@ -1,12 +1,13 @@
 #pragma once 
 
 #include "spell.h"
+#include "../util.h"
 
 class Recharge : public Spell {
 
 public: 
-    Recharge();
+    Recharge(Player& owner, Player& opponent);
 
-    void action() override;
+    void action(variant<Minion*, Ritual*> card) override;
 };
 

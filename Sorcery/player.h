@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <memory>
+#include <variant>
 
 #include "triggers/trigger.h"
 #include "card.h"

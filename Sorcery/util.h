@@ -55,6 +55,14 @@ inline constexpr const char* DARK_RITUAL = "Dark Ritual";
 inline constexpr const char* AURA_OF_POWER = "Aura of Power";
 inline constexpr const char* STANDSTILL = "Standstill";
 
+// Spell description constants
+inline constexpr const char* BANISH_DESC = "Destroy target minion or ritual";
+inline constexpr const char* UNSUMMON_DESC = "Return target minion to its owner's hand";
+inline constexpr const char* RECHARGE_DESC = "Your ritual gains 3 charges";
+inline constexpr const char* DISENCHANT_DESC = "Destroy the top enchantment on target minion";
+inline constexpr const char* RAISE_DEAD_DESC = "Resurrect the top minion in your graveyard and set its defence to 1";
+inline constexpr const char* BLIZZARD_DESC = "Deal 2 damage to all minions";
+
 // Enums
 enum Area {
     Deck,

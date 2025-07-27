@@ -1,12 +1,13 @@
 #pragma once 
 
 #include "spell.h"
+#include "../util.h"
 
 class Banish : public Spell {
 
 public: 
-    Banish();
+    Banish(Player& owner, Player& opponent);
     
-    void action() override;
+    void action(std::variant<Minion*, Ritual*> card) override;
 
 };
