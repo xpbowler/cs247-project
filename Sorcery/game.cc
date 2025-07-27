@@ -1,4 +1,5 @@
 #include "game.h"
+#include <notification.h>
 
 #include <iostream>
 #include <fstream>
@@ -42,8 +43,8 @@ Game::Game(const string& deck1, const string& deck2, const string& initFilePath,
     }
 }
 
-void Game::notifyTopic(TriggerType triggerType) {
-    // TODO 
+void Game::notifyTopic(TriggerType triggerType, Notification notification) {
+    triggerTopics[triggerType]->notifyTriggers(notification);
 }
 
 void Game::attachTrigger(TriggerType tt, Trigger* trigger) {

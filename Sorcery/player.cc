@@ -21,6 +21,9 @@
 #include "rituals/darkRitual.h"
 #include "rituals/auraOfPower.h"
 #include "rituals/standstill.h"
+#include <notification.h>
+
+
 #include <iostream>
 #include <fstream>
 #include <algorithm>
@@ -29,8 +32,20 @@
 
 using namespace std;
 
+namespace {
+    std::vector<std::unique_ptr<Card>>::iterator findCard (std::vector<std::unique_ptr<Card>>& vec, Card* card) {
+        for (auto it = vec.begin(); it != vec.end(); it++) {
+            if (it->get() == card) {
+                return it;
+            }
+        }
+    }
+}
+
+//=========================================================
 Player::Player(string& name, Game* game): name{std::move(name)}, life{STARTING_LIFE}, magic{STARTING_MAGIC}, deck{}, hand{}, board{}, graveyard{}, ritual{}, otherPlayer{nullptr}, game{game} {}
 
+//=========================================================
 // draw command draws a card, similar to the effect if the player just started their turn
 void Player::drawCard() {
     if (deck.empty() || deck.size()>=5) return;
@@ -38,8 +53,13 @@ void Player::drawCard() {
     deck.pop_back();
     hand.push_back(std::move(card));
 }
-void Player::playCard(Card* card) {}
 
+//=========================================================
+void Player::playCard(Card* card) {
+    moveCard(card, Hand, Board);
+}
+
+//=========================================================
 // discard the i'th card in the player's hand
 // the card does not go to the graveyard, trigger leave play effects or anything else
 void Player::discardCard(int i) {
@@ -49,24 +69,61 @@ void Player::discardCard(int i) {
     hand.erase(hand.begin() + i);
 }
 
-void Player::notifyGame(TriggerType triggerType) {
-    game->notifyTopic(triggerType);
+//=========================================================
+void Player::notifyGame(TriggerType triggerType, Notification notification) {
+    game->notifyTopic(triggerType, notification);
 }
-bool Player::moveCard(Minion* minion, Area src, Area dst) { return false; }
+
+
+//=========================================================
+bool Player::moveCard(Card* card, Area src, Area dst) { 
+    if (Minion* minion = dynamic_cast<Minion*> (card); minion && src == Area::Board && dst != Area::Board) {
+        // create notification 
+        MinionNotification notification {minion, this};
+        notifyGame(MinionLeave, notification);
+    }    
+    else if (Minion* minion = dynamic_cast<Minion*> (card); minion && src != Area::Board && dst == Area::Board) {
+        MinionNotification notification {minion, this};
+        notifyGame(MinionEnter, notification);
+    }
+    // find the real unique pointer 
+    auto& srcVec = areaToVec(src);
+    auto& dstVec = areaToVec(dst);
+    auto foundSrcCard = findCard(srcVec, card);
+    if (foundSrcCard == srcVec.end()) {
+        throw runtime_error ("Cannot find card to move.");
+        return false;
+    }
+    auto tempCard = std::move(*foundSrcCard);
+    dstVec.push_back(std::move(tempCard));
+    srcVec.erase(foundSrcCard);
+
+    return true;
+}
+
+//=========================================================
 bool Player::modifyLife(int life) { 
     this->life += life;
     return true;
 }
+
+//=========================================================
 const vector<unique_ptr<Card>>& Player::getHand() const { return hand; }
 const vector<unique_ptr<Card>>& Player::getDeck() const { return deck; }
 const vector<unique_ptr<Card>>& Player::getBoard() const { return board; }
+const vector<unique_ptr<Card>>& Player::getGraveyard() const { return graveyard; }
+
+//=========================================================
 bool Player::isPlayer1() const {
     return game->player1.get() == this;
 }
 
+//=========================================================
 void Player::setOtherPlayer(Player* player) {
     otherPlayer = player;
 }
+
+//=========================================================
 // call after set other player
 void Player::initializeDeck(const string& deckFilePath) {
     ifstream initFile(deckFilePath);
@@ -127,12 +184,14 @@ void Player::initializeDeck(const string& deckFilePath) {
     }
 }
 
+//=========================================================
 void Player::shuffleDeck() {
     std::random_device rd;
     std::mt19937 g(rd());
     std::shuffle(deck.begin(), deck.end(), g);
 }
 
+//=========================================================
 void Player::summonMinion(MinionType minionType, int amount) {
     int summonAmount = min(5 - board.size(), (unsigned long) amount);
     for (int i = 0; i < summonAmount; i++) {
@@ -165,6 +224,21 @@ void Player::summonMinion(MinionType minionType, int amount) {
     }
 }
 
+//=========================================================
 void Player::attachTrigger(TriggerType tt, Trigger* trigger) {
     game->attachTrigger(tt, trigger);
+}
+
+//=========================================================
+std::vector<std::unique_ptr<Card>>& Player::areaToVec (Area area) {
+    switch (area) {
+        case Deck:
+            return deck;
+        case Board:
+            return board;
+        case Hand:
+            return hand;
+        case Graveyard:
+            return graveyard;
+    }
 }

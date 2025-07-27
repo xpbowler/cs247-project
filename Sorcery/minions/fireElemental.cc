@@ -8,7 +8,7 @@ FireElemental::FireElemental(Player &owner, Player &opponent)
                       FIRE_ELEMENTAL_DEF,
                       owner, opponent, "Fire Elemental", FE)
 {
-    trigger = std::make_unique<Trigger> ();
+    trigger = std::make_unique<Trigger> (this);
     owner.attachTrigger(MinionEnter, trigger.get());
 }
 

@@ -8,7 +8,7 @@ BoneGolem::BoneGolem(Player &owner, Player &opponent)
                       BONE_GOLEM_DEF,
                       owner, opponent, "Bone Golem", BG)
 {
-    trigger = std::make_unique<Trigger> ();
+    trigger = std::make_unique<Trigger> (this);
     owner.attachTrigger(MinionLeave, trigger.get());
 }
 

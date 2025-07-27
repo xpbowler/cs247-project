@@ -56,3 +56,8 @@ void Trigger::notifyOwner(Notification notification) {
         ritual->execute(notification);
     }
 }
+
+//=========================================================
+const std::string& Trigger::get_description() const {
+    return description;
+}

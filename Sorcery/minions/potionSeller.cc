@@ -9,7 +9,7 @@ PotionSeller::PotionSeller(Player &owner, Player &opponent)
                       POTION_SELLER_DEF,
                       owner, opponent, "Potion Seller", PS)
 {
-    trigger = std::make_unique<Trigger> ();
+    trigger = std::make_unique<Trigger> (this);
     owner.attachTrigger(owner.isPlayer1() ? EndTurnPlayer1 : EndTurnPlayer2, trigger.get());
 }
 
