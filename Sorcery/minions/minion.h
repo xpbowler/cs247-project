@@ -9,13 +9,13 @@ class BaseEnchantment;
 class Minion : public Card {
 
 public: 
-    Minion(Player& owner, Player& opponent);
-
     int getDefence();
     int getAttack();
+    int getActions();
     void setAttack(int attack);
     void heal(int hp);
     void takeDamage(int dmg);
+    void setAction(int action);
     void attackMinion(Minion* minion);
     void attackPlayer(int dmg);
     void gainStats(int attack, int defence);
@@ -24,6 +24,7 @@ public:
 // no need to put useSkill here, it is already in the intermediate subclasses
 
 protected: 
+    Minion(Player& owner, Player& opponent, int attack, int defence);
 
     virtual ~Minion() = 0;
 
