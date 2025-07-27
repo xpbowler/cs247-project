@@ -2,7 +2,7 @@
 #include <notification.h>
 
 //=========================================================
-PotionSeller::PotionSeller() {
+PotionSeller::PotionSeller(Player& owner, Player& opponent) : TriggeredMinion {owner, opponent} {
     // TODO
 }
 

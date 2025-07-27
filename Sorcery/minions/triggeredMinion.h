@@ -16,6 +16,9 @@ public:
     virtual void useSkill(Notification notification) = 0;
 
 protected: 
+
+    TriggeredMinion(Player& owner, Player& opponent);
+
     std::unique_ptr<Trigger> trigger;
 
     void notifyGame(TriggerType tt);

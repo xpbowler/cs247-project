@@ -43,6 +43,7 @@ void Player::removeTrigger(Trigger* trigger) {}
 void Player::setOtherPlayer(Player* player) {
     otherPlayer = player;
 }
+// call after set other player
 void Player::initializeDeck(const string& deckFilePath) {
     ifstream initFile(deckFilePath);
     if (!initFile) {
@@ -50,44 +51,44 @@ void Player::initializeDeck(const string& deckFilePath) {
     }
     string card_string;
     while (getline(initFile, card_string)) {
-        if (card_string == AIR_ELEMENTAL) {
-            deck.push_back(make_unique<AirElemental>());
-        } else if (card_string == EARTH_ELEMENTAL) {
-            deck.push_back(make_unique<EarthElemental>());
-        } else if (card_string == FIRE_ELEMENTAL) {
-            deck.push_back(make_unique<FireElemental>());
-        } else if (card_string == POTION_SELLER) {
-            deck.push_back(make_unique<PotionSeller>());
-        } else if (card_string == NOVICE_PYROMANCER) {
-            deck.push_back(make_unique<NovicePyromancer>());
-        } else if (card_string == APPRENTICE_SUMMONER) {
-            deck.push_back(make_unique<ApprenticeSummoner>());
-        } else if (card_string == MASTER_SUMMONER) {
-            deck.push_back(make_unique<MasterSummoner>());
-        } else if (card_string == BANISH) {
-            deck.push_back(make_unique<Banish>());
-        } else if (card_string == UNSUMMON) {
-            deck.push_back(make_unique<Unsummon>());
-        } else if (card_string == RECHARGE) {
-            deck.push_back(make_unique<Recharge>());
-        } else if (card_string == DISENCHANT) {
-            deck.push_back(make_unique<Disenchant>());
-        } else if (card_string == RAISE_DEAD) {
-            deck.push_back(make_unique<RaiseDead>());
-        } else if (card_string == BLIZZARD) {
-            deck.push_back(make_unique<Blizzard>());
-        } else if (card_string == GIANT_STRENGTH) {
-            deck.push_back(make_unique<GiantStrength>());
-        } else if (card_string == MAGIC_FATIGUE) {
-            deck.push_back(make_unique<MagicFatigue>());
-        } else if (card_string == SILENCE) {
-            deck.push_back(make_unique<Silence>());
-        } else if (card_string == DARK_RITUAL) {
-            deck.push_back(make_unique<DarkRitual>());
-        } else if (card_string == AURA_OF_POWER) {
-            deck.push_back(make_unique<AuraOfPower>());
-        } else if (card_string == STANDSTILL) {
-            deck.push_back(make_unique<Standstill>());
+        if (card_string == "Air Elemental") {
+            deck.push_back(std::unique_ptr<Card>(new AirElemental(*this, *otherPlayer)));
+        } else if (card_string == "Earth Elemental") {
+            deck.push_back(std::unique_ptr<Card>(make_unique<EarthElemental>(*this, *otherPlayer).release()));
+        } else if (card_string == "Fire Elemental") {
+            deck.push_back(std::unique_ptr<Card>(make_unique<FireElemental>()));
+        } else if (card_string == "Potion Seller") {
+            deck.push_back(std::unique_ptr<Card>(make_unique<PotionSeller>()));
+        } else if (card_string == "Novice Pyromancer") {
+            deck.push_back(std::unique_ptr<Card>(make_unique<NovicePyromancer>()));
+        } else if (card_string == "Apprentice Summoner") {
+            deck.push_back(std::unique_ptr<Card>(make_unique<ApprenticeSummoner>()));
+        } else if (card_string == "Master Summoner") {
+            deck.push_back(std::unique_ptr<Card>(make_unique<MasterSummoner>()));
+        } else if (card_string == "Banish") {
+            deck.push_back(std::unique_ptr<Card>(make_unique<Banish>()));
+        } else if (card_string == "Unsummon") {
+            deck.push_back(std::unique_ptr<Card>(make_unique<Unsummon>()));
+        } else if (card_string == "Recharge") {
+            deck.push_back(std::unique_ptr<Card>(make_unique<Recharge>()));
+        } else if (card_string == "Disenchant") {
+            deck.push_back(std::unique_ptr<Card>(make_unique<Disenchant>()));
+        } else if (card_string == "Raise Dead") {
+            deck.push_back(std::unique_ptr<Card>(make_unique<RaiseDead>()));
+        } else if (card_string == "Blizzard") {
+            deck.push_back(std::unique_ptr<Card>(make_unique<Blizzard>()));
+        } else if (card_string == "Giant Strength") {
+            deck.push_back(std::unique_ptr<Card>(make_unique<GiantStrength>()));
+        } else if (card_string == "Magic Fatigue") {
+            deck.push_back(std::unique_ptr<Card>(make_unique<MagicFatigue>()));
+        } else if (card_string == "Silence") {
+            deck.push_back(std::unique_ptr<Card>(make_unique<Silence>()));
+        } else if (card_string == "Dark Ritual") {
+            deck.push_back(std::unique_ptr<Card>(make_unique<DarkRitual>()));
+        } else if (card_string == "Aura of Power") {
+            deck.push_back(std::unique_ptr<Card>(make_unique<AuraOfPower>()));
+        } else if (card_string == "Standstill") {
+            deck.push_back(std::unique_ptr<Card>(make_unique<Standstill>()));
         }
     }
 }

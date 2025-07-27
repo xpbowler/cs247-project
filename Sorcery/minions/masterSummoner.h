@@ -5,7 +5,7 @@
 class MasterSummoner : public ActivatedMinion {
 
 public: 
-    MasterSummoner();
+    MasterSummoner(Player& owner, Player& opponent);
 
     void useSkill() override;
 

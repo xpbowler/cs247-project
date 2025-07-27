@@ -1,7 +1,7 @@
 #include "novicePyromancer.h"
 
 //=========================================================
-NovicePyromancer::NovicePyromancer() {
+NovicePyromancer::NovicePyromancer(Player& owner, Player& opponent) : ActivatedMinion(0, owner, opponent) {
     // TODO 
 }
 
