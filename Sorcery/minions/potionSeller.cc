@@ -1,5 +1,7 @@
 #include "potionSeller.h"
 #include <notification.h>
+#include <trigger.h>
+#include <player.h>
 
 //=========================================================
 PotionSeller::PotionSeller(Player &owner, Player &opponent)
@@ -7,11 +9,22 @@ PotionSeller::PotionSeller(Player &owner, Player &opponent)
                       POTION_SELLER_DEF,
                       owner, opponent, "Potion Seller", PS)
 {
-    // TODO: set up trigger
+    trigger = std::make_unique<Trigger> ();
+    owner.attachTrigger(owner.isPlayer1() ? EndTurnPlayer1 : EndTurnPlayer2, trigger.get());
 }
 
 //=========================================================
 void PotionSeller::useSkill(Notification notification)
 {
-    // TODO
+    // check for notification type 
+    auto realNoti = dynamic_cast<TurnChangeNotification*> (&notification);
+    if (!realNoti) return;
+    if (realNoti->isStart) return;
+    if (realNoti->player != &owner) return;
+    // assumes this only affects board 
+    for (const auto& card : owner.getBoard()) {
+        auto minion = dynamic_cast<Minion*> (card.get());
+        if (!minion) continue;
+        minion->gainStats(0, 1);
+    }
 }

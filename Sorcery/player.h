@@ -39,6 +39,7 @@ class Player {
         const std::vector<std::unique_ptr<Card>>& getDeck() const;
         const std::vector<std::unique_ptr<Card>>& getBoard() const;
         void setOtherPlayer(Player* player);
+        bool isPlayer1() const;
 
         // summon minions of minionType, for amount, until it's full
         void summonMinion(MinionType minionType, int amount);
@@ -48,5 +49,8 @@ class Player {
 
         // Shuffle the deck using std::shuffle and a random engine
         void shuffleDeck();
+
+        // pass the trigger to the correct trigger topic
+        void attachTrigger(TriggerType tt, Trigger* trigger);
         
 };

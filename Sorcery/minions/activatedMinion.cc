@@ -10,3 +10,7 @@ ActivatedMinion::ActivatedMinion(int activationCost,
                                  std::string name) : Minion {owner, opponent, attack, defence, minionType, name}, activationCost {activationCost} {
 
 }
+
+
+//=========================================================
+int ActivatedMinion::getActivationCost() const { return activationCost; }

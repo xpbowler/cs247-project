@@ -1,5 +1,6 @@
 #include "fireElemental.h"
 #include <notification.h>
+#include <player.h>
 
 //=========================================================
 FireElemental::FireElemental(Player &owner, Player &opponent)
@@ -7,11 +8,18 @@ FireElemental::FireElemental(Player &owner, Player &opponent)
                       FIRE_ELEMENTAL_DEF,
                       owner, opponent, "Fire Elemental", FE)
 {
-    // TODO: set up trigger
+    trigger = std::make_unique<Trigger> ();
+    owner.attachTrigger(MinionEnter, trigger.get());
 }
 
 //=========================================================
 void FireElemental::useSkill(Notification notification)
 {
-    // TODO
+    // check if it is the correct notification
+    auto realNoti = dynamic_cast<MinionNotification*> (&notification);
+    if (!realNoti) return;
+    // check if it is the same side, if so return
+    if (realNoti->player == &owner) return;
+    // now, use skill
+    attackMinion(realNoti->minion, 1);
 }

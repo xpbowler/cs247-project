@@ -8,9 +8,3 @@ EarthElemental::EarthElemental(Player &owner, Player &opponent)
 {
     
 }
-
-//=========================================================
-void EarthElemental::useSkill()
-{
-    // TODO
-}

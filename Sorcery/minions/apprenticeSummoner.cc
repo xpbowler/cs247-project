@@ -13,6 +13,6 @@ ApprenticeSummoner::ApprenticeSummoner(Player& owner, Player& opponent)
 
 //=========================================================
 void ApprenticeSummoner::useSkill() {
-    owner.summonMinion()
+    owner.summonMinion(AE, 1);
 }
 

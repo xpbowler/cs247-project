@@ -1,4 +1,5 @@
 #include "masterSummoner.h"
+#include "player.h"
 
 //=========================================================
 MasterSummoner::MasterSummoner(Player &owner, Player &opponent)
@@ -12,5 +13,6 @@ MasterSummoner::MasterSummoner(Player &owner, Player &opponent)
 //=========================================================
 void MasterSummoner::useSkill()
 {
-    // TODO
+    owner.summonMinion(AE, 3);
 }
+

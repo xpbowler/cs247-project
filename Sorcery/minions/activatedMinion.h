@@ -14,6 +14,9 @@ public:
                     MinionType minionType,
                     std::string name);
 
+    // responsibility on player to check if enough magic
+    int getActivationCost() const;
+
 protected: 
     const int activationCost;
 

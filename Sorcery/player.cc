@@ -60,8 +60,10 @@ bool Player::modifyLife(int life) {
 const vector<unique_ptr<Card>>& Player::getHand() const { return hand; }
 const vector<unique_ptr<Card>>& Player::getDeck() const { return deck; }
 const vector<unique_ptr<Card>>& Player::getBoard() const { return board; }
-void Player::addTrigger(Trigger* trigger) {}
-void Player::removeTrigger(Trigger* trigger) {}
+bool Player::isPlayer1() const {
+    return game->player1.get() == this;
+}
+
 void Player::setOtherPlayer(Player* player) {
     otherPlayer = player;
 }
@@ -161,4 +163,8 @@ void Player::summonMinion(MinionType minionType, int amount) {
             break;
         }
     }
+}
+
+void Player::attachTrigger(TriggerType tt, Trigger* trigger) {
+    game->attachTrigger(tt, trigger);
 }

@@ -1,5 +1,6 @@
 #include "boneGolem.h"
 #include <notification.h>
+#include <player.h>
 
 //=========================================================
 BoneGolem::BoneGolem(Player &owner, Player &opponent)
@@ -7,11 +8,12 @@ BoneGolem::BoneGolem(Player &owner, Player &opponent)
                       BONE_GOLEM_DEF,
                       owner, opponent, "Bone Golem", BG)
 {
-    // TODO: set up trigger
+    trigger = std::make_unique<Trigger> ();
+    owner.attachTrigger(MinionLeave, trigger.get());
 }
 
 //=========================================================
-void BoneGolem::useSkill(Notification notification)
+void BoneGolem::useSkill(Notification)
 {
-    // TODO
+    gainStats(1, 1);
 }

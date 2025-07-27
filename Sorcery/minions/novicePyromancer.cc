@@ -1,4 +1,5 @@
 #include "novicePyromancer.h"
+#include <iostream>
 
 //=========================================================
 NovicePyromancer::NovicePyromancer(Player &owner, Player &opponent)
@@ -13,5 +14,11 @@ NovicePyromancer::NovicePyromancer(Player &owner, Player &opponent)
 //=========================================================
 void NovicePyromancer::useSkill()
 {
-    // TODO
+    std::cerr << "Novice Pyromancer should not use skill with no target. " << std::endl;
+}
+
+
+//=========================================================
+void NovicePyromancer::useSkill(Minion* minion) {
+    attackMinion(minion, 1);
 }
