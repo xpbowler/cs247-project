@@ -42,3 +42,14 @@ enum TriggerType {
     MinionLeave,
     MinionEnter
 };
+
+enum MinionType {
+    AirElemental, 
+    EarthElemental, 
+    NovicePyromancer,
+    MasterSummoner, 
+    ApprenticeSummoner, 
+    BoneGolem,
+    FireElemental, 
+    PotionSeller
+};
