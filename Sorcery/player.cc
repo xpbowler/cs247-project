@@ -1,5 +1,6 @@
 #include "player.h"
 #include "util.h"
+#include "game.h"
 #include "minions/airElemental.h"
 #include "minions/earthElemental.h"
 #include "minions/fireElemental.h"
@@ -21,25 +22,39 @@
 #include "rituals/standstill.h"
 #include <iostream>
 #include <fstream>
+#include <algorithm>
+#include <random>
 
 using namespace std;
 
-Player::Player(string& name): name{std::move(name)}, life{STARTING_LIFE}, magic{STARTING_MAGIC}, deck{}, hand{}, board{}, graveyard{}, ritual{}, otherPlayer{nullptr} {}
+Player::Player(string& name, Game* game): name{std::move(name)}, life{STARTING_LIFE}, magic{STARTING_MAGIC}, deck{}, hand{}, board{}, graveyard{}, ritual{}, otherPlayer{nullptr}, game{game} {}
+
 // draw command draws a card, similar to the effect if the player just started their turn
-void Player::drawCard() {}
+void Player::drawCard() {
+    if (deck.empty() || deck.size()>=5) return;
+    unique_ptr<Card> card = std::move(deck.back());
+    deck.pop_back();
+    hand.push_back(std::move(card));
+}
 void Player::playCard(Card* card) {}
 
 // discard the i'th card in the player's hand
 // the card does not go to the graveyard, trigger leave play effects or anything else
-void Player::discardCard(int i) {}
-void Player::notifyGame(TriggerType triggerType) {}
+void Player::discardCard(int i) {
+    if (i<0 || i>= hand.size()) {
+        throw runtime_error("invalid hand index to discard card");
+    }
+    hand.erase(hand.begin() + i);
+}
+
+void Player::notifyGame(TriggerType triggerType) {
+    game->notifyTopic(triggerType);
+}
 bool Player::moveCard(Minion* minion, Area src, Area dst) { return false; }
 bool Player::modifyLife(int life) { return false; }
-const vector<unique_ptr<Card>>& Player::getHand() { return hand; }
-const vector<unique_ptr<Card>>& Player::getDeck() { return deck; }
-const vector<unique_ptr<Card>>& Player::getBoard() { return board; }
-void Player::addTrigger(Trigger* trigger) {}
-void Player::removeTrigger(Trigger* trigger) {}
+const vector<unique_ptr<Card>>& Player::getHand() const { return hand; }
+const vector<unique_ptr<Card>>& Player::getDeck() const { return deck; }
+const vector<unique_ptr<Card>>& Player::getBoard() const { return board; }
 void Player::setOtherPlayer(Player* player) {
     otherPlayer = player;
 }
@@ -48,6 +63,7 @@ void Player::initializeDeck(const string& deckFilePath) {
     if (!initFile) {
         throw runtime_error("Failed to open deck initialization file: " + deckFilePath);
     }
+
     string card_string;
     while (getline(initFile, card_string)) {
         if (card_string == AIR_ELEMENTAL) {
@@ -90,4 +106,17 @@ void Player::initializeDeck(const string& deckFilePath) {
             deck.push_back(make_unique<Standstill>());
         }
     }
+
+    shuffleDeck();
+
+    // draw 5 cards from deck into hand
+    for (int i=0;i<STARTING_NUM_CARDS;++i) {
+        drawCard();
+    }
+}
+
+void Player::shuffleDeck() {
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(deck.begin(), deck.end(), g);
 }

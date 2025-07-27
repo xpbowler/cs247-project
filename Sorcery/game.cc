@@ -26,6 +26,12 @@ Game::Game(const string& deck1, const string& deck2, const string& initFilePath,
     player1 = make_unique<Player>(player1Name);
     player2 = make_unique<Player>(player2Name);
 
+    player1->setOtherPlayer(player2.get());
+    player2->setOtherPlayer(player1.get());
+
+    player1->initializeDeck(deck1);
+    player2->initializeDeck(deck2);
+
     // default to CliDisplay. can add more display options in the future
     display = make_unique<CliDisplay>();
 

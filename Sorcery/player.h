@@ -9,6 +9,7 @@
 #include "util.h"
 #include "rituals/ritual.h"
 
+class Game;
 
 class Player {
     std::string name;
@@ -20,9 +21,10 @@ class Player {
     std::vector<std::unique_ptr<Card>> graveyard;
     std::unique_ptr<Ritual> ritual;
     Player* otherPlayer;
+    Game* game;
 
     public:
-        Player(std::string& name);
+        Player(std::string& name, Game* game);
         // draw command draws a card, similar to the effect if the player just started their turn
         void drawCard();
         void playCard(Card* card);
@@ -33,14 +35,15 @@ class Player {
         void notifyGame(TriggerType triggerType);
         bool moveCard(Minion* minion, Area src, Area dst);
         bool modifyLife(int life);
-        const std::vector<std::unique_ptr<Card>>& getHand();
-        const std::vector<std::unique_ptr<Card>>& getDeck();
-        const std::vector<std::unique_ptr<Card>>& getBoard();
-        void addTrigger(Trigger* trigger);
-        void removeTrigger(Trigger* trigger);
+        const std::vector<std::unique_ptr<Card>>& getHand() const;
+        const std::vector<std::unique_ptr<Card>>& getDeck() const;
+        const std::vector<std::unique_ptr<Card>>& getBoard() const;
         void setOtherPlayer(Player* player);
 
         // initialize the deck from a file
         void initializeDeck(const std::string& deck);
+
+        // Shuffle the deck using std::shuffle and a random engine
+        void shuffleDeck();
         
 };
