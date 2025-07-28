@@ -25,6 +25,6 @@ void AuraOfPower::execute(Notification notification) {
     // finally, execute the ability and subtract off the charges
     charges -= activationCost;
     auto minion = realNoti->minion;
-    minion->
+    minion->gainStats(1, 1);
 }
 
