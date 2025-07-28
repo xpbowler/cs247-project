@@ -2,7 +2,7 @@
 
 //=========================================================
 RaiseDead::RaiseDead(Player& owner, Player& opponent): Spell{RAISE_DEAD_DESC, owner, opponent} {
-    // TODO 
+    
 }
 
 //=========================================================

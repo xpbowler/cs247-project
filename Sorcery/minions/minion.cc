@@ -172,6 +172,4 @@ void Minion::removeAllEnchantments(std::optional<EnchantmentTiming> et) {
 //=========================================================
 void Minion::applyEnchantment(EnchantmentTiming et) {
     enchantment->apply(*this, et);
-    // removeAllEnchantments(et);
-    // TODO: i don't think we need to remove enchantments, right?
 }

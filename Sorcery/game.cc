@@ -16,7 +16,8 @@ void trimWhitespace(string& s) {
     else s = s.substr(start, end - start + 1);
 }
 
-Game::Game(const string& deck1, const string& deck2, const string& initFilePath, bool isTesting): isPlayer1Turn{false}, isTesting{isTesting}, triggerTopics{}, display{}, player1{}, player2{} {
+Game::Game(const string& deck1, const string& deck2, const string& initFilePath, bool isTesting)
+    : isPlayer1Turn{false}, isTesting{isTesting}, triggerTopics{}, display{}, player1{}, player2{}, player1Wins {std::nullopt} {
     ifstream initFile(initFilePath);
     if (!initFile) {
         throw runtime_error("Failed to open game initialization file: " + initFilePath);
@@ -60,6 +61,8 @@ void Game::play() {
         trimWhitespace(command);
         if (command=="quit") break;
         executeCommand(command);
+        // check if winning here
+
     }
 }
 void Game::executeCommand(const string& cmd) {
@@ -152,3 +155,12 @@ void Game::executeCommand(const string& cmd) {
         throw invalid_argument("invalid command: " + cmd);
     }
 }
+
+void Game::wins(bool isPlayer1) const {
+    if (player1Wins) {
+        // there's already a winner
+        return;
+    }
+    player1Wins = isPlayer1;
+}
+

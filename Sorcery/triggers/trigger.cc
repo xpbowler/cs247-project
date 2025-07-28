@@ -26,8 +26,7 @@ void TriggerTopic::attachTrigger(Trigger* trigger) {
 void TriggerTopic::detachTrigger(Trigger* trigger) {
     const auto foundTrigger = find(observers.begin(), observers.end(), trigger);
     if (foundTrigger == observers.end()) {
-        // TODO: improve this error reporting 
-        std::cerr << "Trigger not found" << std::endl;
+        throw std::runtime_error("Trigger not found while detaching.");
         return;
     }
     observers.erase(foundTrigger);
@@ -38,10 +37,7 @@ Trigger::Trigger(ownerPtr owner) : owner{owner} {}
 
 //=========================================================
 Trigger::~Trigger() {
-    // TODO: we probably have to go through the "minion leaves play" trigger, if it is a triggered minion leaving play, before destroying this trigger, right?
-    // we need to detach 
-    triggerTopic->detachTrigger(this);
-    // TODO: is there anything im missing?
+    
 }
 
 //=========================================================
@@ -64,4 +60,5 @@ const std::string& Trigger::get_description() const {
 //=========================================================
 void Trigger::selfDetach() {
     triggerTopic->detachTrigger(this);
+    triggerTopic = nullptr;
 }

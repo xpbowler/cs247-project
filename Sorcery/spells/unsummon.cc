@@ -2,7 +2,7 @@
 
 //=========================================================
 Unsummon::Unsummon(Player& owner, Player& opponent): Spell{UNSUMMON_DESC, owner, opponent} {
-    // TODO 
+    
 }
 
 //=========================================================

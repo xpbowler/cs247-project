@@ -29,7 +29,6 @@ protected:
     // subclasses have responsibility to create trigger and attach to trigger topic
     std::unique_ptr<Trigger> trigger;
 
-    void notifyGame(TriggerType tt);
     bool canUseAbility;
 
     virtual ~TriggeredMinion() {}

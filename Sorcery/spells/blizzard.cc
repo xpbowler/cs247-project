@@ -2,7 +2,7 @@
 
 //=========================================================
 Blizzard::Blizzard(Player& owner, Player& opponent): Spell{BLIZZARD_DESC, owner, opponent} {
-    // TODO 
+    
 }
 
 //=========================================================

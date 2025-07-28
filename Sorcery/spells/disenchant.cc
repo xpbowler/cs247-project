@@ -2,7 +2,7 @@
 
 //=========================================================
 Disenchant::Disenchant(Player& owner, Player& opponent): Spell{DISENCHANT_DESC, owner, opponent} {
-    // TODO
+
 }
 
 //=========================================================

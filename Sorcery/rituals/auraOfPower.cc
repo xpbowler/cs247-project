@@ -3,7 +3,7 @@
 #include <../minions/minion.h>
 
 //=========================================================
-AuraOfPower::AuraOfPower(Player& owner, Player& opponent) : Ritual{1, 4, owner, opponent, "Aura of Power"} {
+AuraOfPower::AuraOfPower(Player& owner, Player& opponent) : Ritual{1, 4, owner, opponent, AURA_OF_POWER_DESC} {
     
 }
 

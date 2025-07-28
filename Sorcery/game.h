@@ -10,6 +10,7 @@
 class Game {
     bool isPlayer1Turn;
     bool isTesting;
+    mutable std::optional<bool> player1Wins;
     std::unordered_map<TriggerType, std::unique_ptr<TriggerTopic>> triggerTopics;
     std::unique_ptr<Display> display;
     
@@ -23,6 +24,8 @@ class Game {
         TriggerTopic* getTriggerTopic(TriggerType triggerType) const;
         
         void play();
+
+        void wins(bool isPlayer1) const;
         
         // execute a command
         void executeCommand(const std::string& command);

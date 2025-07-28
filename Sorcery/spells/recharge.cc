@@ -4,7 +4,7 @@ using namespace std;
 
 //=========================================================
 Recharge::Recharge(Player& owner, Player& opponent): Spell{RECHARGE_DESC, owner, opponent} {
-    // TODO 
+    
 }
 
 //=========================================================

@@ -2,7 +2,7 @@
 
 //=========================================================
 Banish::Banish(Player& owner, Player& opponent): Spell{BANISH_DESC, owner, opponent} {
-    // TODO 
+    
 }
 
 //=========================================================

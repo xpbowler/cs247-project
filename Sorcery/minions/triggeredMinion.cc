@@ -19,12 +19,6 @@ const Trigger& TriggeredMinion::getTrigger() {
 }
 
 //=========================================================
-void TriggeredMinion::notifyGame(TriggerType tt)
-{
-    // TODO
-}
-
-//=========================================================
 void TriggeredMinion::disableAbility() {
     canUseAbility = false;
 }

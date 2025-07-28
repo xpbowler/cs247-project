@@ -63,6 +63,11 @@ inline constexpr const char* DISENCHANT_DESC = "Destroy the top enchantment on t
 inline constexpr const char* RAISE_DEAD_DESC = "Resurrect the top minion in your graveyard and set its defence to 1";
 inline constexpr const char* BLIZZARD_DESC = "Deal 2 damage to all minions";
 
+// Ritual description constants
+inline constexpr const char* AURA_OF_POWER_DESC = "Whenever a minion enters play under your control, it gains +1/+1";
+inline constexpr const char* DARK_RITUAL_DESC = "At the start of your turn, gain 1 magic";
+inline constexpr const char* STANDSTILL_DESC = "Whenever a minion etners play, destroy it";
+
 // Enums
 enum Area {
     Deck,

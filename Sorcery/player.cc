@@ -62,7 +62,7 @@ void Player::drawCard() {
 void Player::playCard(Card* card) {
     auto it = board.end();
     for (it = board.begin(); it != board.end(); it++) {
-        if (auto ritual = dynamic_cast<Ritual*> (it->get())) {
+        if ([[maybe_unused]] auto ritual = dynamic_cast<Ritual*> (it->get())) {
             break;
         }
     }
@@ -121,7 +121,7 @@ bool Player::moveCard(Card* card, Area src, Area dst) {
 //=========================================================
 bool Player::modifyLife(int life) { 
     this->life += life;
-    // TODO: signal end of game if life <= 0
+    game.wins(isPlayer1());
     return true;
 }
 
