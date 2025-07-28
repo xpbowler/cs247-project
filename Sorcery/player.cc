@@ -60,7 +60,15 @@ void Player::drawCard() {
 
 //=========================================================
 void Player::playCard(Card* card) {
-    // TODO: need to implement logic for when there is already a ritual on the board 
+    auto it = board.end();
+    for (it = board.begin(); it != board.end(); it++) {
+        if (auto ritual = dynamic_cast<Ritual*> (it->get())) {
+            break;
+        }
+    }
+    if (it != board.end()) {
+        moveCard(it->get(), Board, Graveyard);
+    }
     moveCard(card, Hand, Board);
 }
 
