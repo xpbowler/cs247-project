@@ -4,7 +4,7 @@
 #include <../player.h>
 
 //=========================================================
-Standstill::Standstill(Player& owner, Player& opponent) : Ritual {2, 4, owner, opponent} {
+Standstill::Standstill(Player& owner, Player& opponent) : Ritual {2, 4, owner, opponent, "Standstill"} {
     // TODO 
 }
 

@@ -1,6 +1,6 @@
 CXX=g++ 
 CXXFLAGS= -std=c++20 -Wall -g -MMD
-INCLUDES= -I..
+INCLUDES= -I.. -I../minions
 
 CCFILES=${wildcard *.cc}
 OBJFILES=${CCFILES:.cc=.o}

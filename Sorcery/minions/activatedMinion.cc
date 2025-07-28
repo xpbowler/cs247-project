@@ -25,3 +25,8 @@ void ActivatedMinion::setActivationCost(int cost) { this->cost = cost; }
 void ActivatedMinion::disableAbility() {
     canUseAbility = false;
 }
+
+//=========================================================
+const std::string& ActivatedMinion::getDescription() const {
+    return description;
+}

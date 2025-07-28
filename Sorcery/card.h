@@ -13,8 +13,8 @@ protected:
     std::string name;
     int cost;
 public:
-    std::string& get_name() const;
-    int get_cost() const;
+    const std::string& get_name() const;
+    const int get_cost() const;
     virtual ~Card() = 0;
     
 };

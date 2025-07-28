@@ -47,7 +47,7 @@ card_template_t showCard(Card* card) {
     if (auto spell = dynamic_cast<Spell*>(card)) {
         return display_spell(name, cost, spell->get_description());
     } else if (auto enchantment = dynamic_cast<Enchantment*>(card)) {
-        return display_enchantment(name, cost, enchantment->get_description());
+        return display_enchantment(name, cost, enchantment->getDescription());
         // TODO: what is enchantment_attack_defense??
     } else if (auto ritual = dynamic_cast<Ritual*>(card)) {
         return display_ritual(name, cost, ritual->getActivationCost(), ritual->get_description(), ritual->getCharges());
@@ -64,7 +64,7 @@ void inspectMinionInner(Minion* m) {
     vector<card_template_t> enchantmentTemplates;
     for (const auto& enchantment : enchantments) {
         if (enchantmentTemplates.size()<MAX_ROW_SIZE) {
-            card_template_t t = display_enchantment(enchantment->get_name(), enchantment->get_cost(), enchantment->get_description());
+            card_template_t t = display_enchantment(enchantment->get_name(), enchantment->get_cost(), enchantment->getDescription());
             enchantmentTemplates.push_back(t);
         }
     }
@@ -76,7 +76,7 @@ void inspectMinionInner(Minion* m) {
     printRow(cout, enchantmentTemplates);
 }
 
-CliDisplay::CliDisplay(const Player& p1, const Player& p2): p1{p1}, p2{p2} {}
+CliDisplay::CliDisplay(Player& p1, Player& p2): p1{p1}, p2{p2} {}
 
 void CliDisplay::inspectMinion(bool isPlayer1Turn, int minion) {
     const Player& p = isPlayer1Turn ? p1 : p2;

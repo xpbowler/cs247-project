@@ -2,7 +2,7 @@
 #include "notification.h"
 #include <triggeredMinion.h>
 #include <ritual.h>
-#include "util.h"
+#include <util.h>
 #include <iostream>
 
 #include <algorithm>

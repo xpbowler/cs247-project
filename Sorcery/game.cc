@@ -1,5 +1,6 @@
 #include "game.h"
 #include <notification.h>
+#include <cliDisplay.h>
 
 #include <iostream>
 #include <fstream>

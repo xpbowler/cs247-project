@@ -1,17 +1,17 @@
 CXX=g++ 
 CXXFLAGS= -std=c++20 -Wall -g -MMD
-INCLUDES= -I../minions -I../rituals -I. -I..
-
-CCFILES=${wildcard *.cc}
+INCLUDES= -I../triggers -I..
+ 
+CCFILES=ascii_graphics.cc
 OBJFILES=${CCFILES:.cc=.o}
 DEPENDS=${CCFILES:.cc=.d}
 OUTDIR=../
-OBJ= ${OUTDIR}triggers.o 
+OBJ= ${OUTDIR}asciiart.o
 
 all: ${OBJ}
 
 ${OBJ}: ${OBJFILES}
-	${CXX} -r $^ -o $@
+	${CXX} -r $< -o $@
 
 %.o: %.cc 
 	${CXX} ${CXXFLAGS} ${INCLUDES} -c $< -o $@

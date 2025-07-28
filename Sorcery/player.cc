@@ -60,6 +60,7 @@ void Player::drawCard() {
 
 //=========================================================
 void Player::playCard(Card* card) {
+    // TODO: need to implement logic for when there is already a ritual on the board 
     moveCard(card, Hand, Board);
 }
 
@@ -270,4 +271,39 @@ void Player::declareStart() {
             minion->applyEnchantment(StartOfTurn);
         }
     }
+}
+
+//=========================================================
+Ritual* Player::getRitual() const {
+    for (auto& card : board) {
+        if (auto ritual = dynamic_cast<Ritual*> (card.get())) {
+            return ritual;
+        }
+    }
+    return nullptr;
+}
+
+//=========================================================
+Card* Player::getGraveyardTop() const {
+    return graveyard[graveyard.size() - 1].get();
+}
+
+//=========================================================
+int Player::getMagic() const {
+    return magic;
+}
+
+//=========================================================
+int Player::getLife() const {
+    return life;
+}
+
+//=========================================================
+const std::string& Player::getName() const {
+    return name;
+}
+
+//=========================================================
+void Player::setMagic(int magic) {
+    this->magic = magic;
 }

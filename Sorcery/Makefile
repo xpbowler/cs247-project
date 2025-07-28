@@ -1,14 +1,14 @@
 CXX=g++
 CXXFLAGS= -std=c++20 -Wall -g -MMD
 EXEC=sorcery
-INCLUDES=-I. -Itriggers/ -Ienchantments/
+INCLUDES=-I. -Itriggers/ -Ienchantments/ -Idisplays/
 
 CCFILES=$(wildcard *.cc)
 OBJECTS=${CCFILES:.cc=.o}
 DEPENDS=${CCFILES:.cc=.d}
 
-SUBDIRS = displays enchantments minions rituals spells triggers 
-SUBOBJS = displays.o enchantments.o minions.o rituals.o spells.o triggers.o 
+SUBDIRS = displays enchantments minions rituals spells triggers asciiart
+SUBOBJS = displays.o enchantments.o minions.o rituals.o spells.o triggers.o asciiart.o
 
 %.o: %.cc 
 	${CXX} ${CXXFLAGS} ${INCLUDES} -c $< -o $@

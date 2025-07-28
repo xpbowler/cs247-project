@@ -3,7 +3,7 @@
 #include <../player.h>
 
 //=========================================================
-DarkRitual::DarkRitual(Player& owner, Player& opponent) : Ritual {1, 5, owner, opponent} {
+DarkRitual::DarkRitual(Player& owner, Player& opponent) : Ritual {1, 5, owner, opponent, "Dark Ritual"} {
     // TODO 
 }
 

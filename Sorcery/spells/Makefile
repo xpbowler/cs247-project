@@ -5,6 +5,7 @@ CCFILES=${wildcard *.cc}
 OBJFILES=${CCFILES:.cc=.o}
 DEPENDS=${CCFILES:.cc=.d}
 OUTDIR=../
+INCLUDES=-I../triggers
 OBJ= ${OUTDIR}spells.o 
 
 all: ${OBJ}
@@ -13,7 +14,7 @@ ${OBJ}: ${OBJFILES}
 	${CXX} -r $^ -o $@
 
 %.o: %.cc 
-	${CXX} ${CXXFLAGS} -c $< -o $@
+	${CXX} ${CXXFLAGS} ${INCLUDES} -c $< -o $@
 
 -include ${DEPENDS}
 

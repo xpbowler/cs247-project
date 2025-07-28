@@ -1,6 +1,7 @@
 #pragma once 
 
 #include "../card.h"
+#include <util.h>
 
 class Minion;
 
