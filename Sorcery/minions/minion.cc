@@ -1,5 +1,6 @@
 #include "minion.h"
 #include <player.h>
+#include <baseEnchantment.h>
 #include <enchantment.h>
 #include <enchantmentDecorator.h>
 #include <string>
@@ -52,10 +53,11 @@ bool Minion::removeTopEnchantment() {
     if (!decorator) {
         // it is a base enchantment 
         enchantment.reset(nullptr);
-        return;
+        return true;
     }
     Enchantment* newChain = decorator->stealNext();
     enchantment.reset(newChain);
+    return true;
 }
 
 //=========================================================

@@ -21,7 +21,7 @@ class Player {
     std::vector<std::unique_ptr<Card>> board;
     std::vector<std::unique_ptr<Card>> graveyard;
     std::unique_ptr<Ritual> ritual;
-    const Player* otherPlayer;
+    Player* otherPlayer;
     const Game& game;
 
     std::vector<std::unique_ptr<Card>>& areaToVec (Area area);

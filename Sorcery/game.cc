@@ -34,7 +34,7 @@ Game::Game(const string& deck1, const string& deck2, const string& initFilePath,
     player2->initializeDeck(deck2);
 
     // default to CliDisplay. can add more display options in the future
-    display = make_unique<CliDisplay>();
+    display = make_unique<CliDisplay>(*player1, *player2);
 
     string command;
     while (getline(initFile, command)) {

@@ -3,11 +3,13 @@
 #include "spell.h"
 #include "../util.h"
 
+#include <variant>
+
 class Recharge : public Spell {
 
 public: 
     Recharge(Player& owner, Player& opponent);
 
-    void action(variant<Minion*, Ritual*> card) override;
+    void action(std::variant<Minion*, Ritual*> card) override;
 };
 

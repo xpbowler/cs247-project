@@ -1,7 +1,7 @@
 CXX=g++
 CXXFLAGS= -std=c++20 -Wall -g -MMD
 EXEC=sorcery
-INCLUDES=-I.
+INCLUDES=-I. -Itriggers/ -Ienchantments/
 
 CCFILES=$(wildcard *.cc)
 OBJECTS=${CCFILES:.cc=.o}

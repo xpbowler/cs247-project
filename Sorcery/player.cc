@@ -42,6 +42,7 @@ namespace {
                 return it;
             }
         }
+        return vec.end();
     }
 }
 
@@ -246,7 +247,7 @@ std::vector<std::unique_ptr<Card>>& Player::areaToVec (Area area) {
             return board;
         case Hand:
             return hand;
-        case Graveyard:
+        default:
             return graveyard;
     }
 }
@@ -254,13 +255,13 @@ std::vector<std::unique_ptr<Card>>& Player::areaToVec (Area area) {
 //=========================================================
 void Player::declareEnd() {
     auto notification = TurnChangeNotification(false, this);
-    notifyGame(isPlayer1 ? EndTurnPlayer1 : EndTurnPlayer2, notification);
+    notifyGame(isPlayer1() ? EndTurnPlayer1 : EndTurnPlayer2, notification);
 }
 
 //=========================================================
 void Player::declareStart() {
     auto notification = TurnChangeNotification(true, this);
-    notifyGame(isPlayer1 ? StartTurnPlayer1 : StartTurnPlayer2, notification);
+    notifyGame(isPlayer1() ? StartTurnPlayer1 : StartTurnPlayer2, notification);
     // now go through each of the minions in the board and check for start turn enchantments 
     for (auto& card : board) {
         Minion* minion = dynamic_cast<Minion*> (card.get());
