@@ -16,11 +16,12 @@ public:
 
     // responsibility on player to check if enough magic
     int getActivationCost() const;
+    void setActivationCost(int cost);
     const std::string& getDescription() const;
     void disableAbility();
 
 protected: 
-    const int activationCost;
+    int activationCost;
     const std::string description;
     bool canUseAbility;
     virtual UseSkillStatus useSkill() = 0;

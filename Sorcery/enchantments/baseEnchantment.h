@@ -5,6 +5,9 @@
 class BaseEnchantment : public Enchantment {
 
 public: 
-    void apply(Minion& minion) override;
+    BaseEnchantment(Player& owner, Player& opponent);
+
+    void apply(Minion& minion, 
+               EnchantmentTiming et) override;
 
 };

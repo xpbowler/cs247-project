@@ -94,11 +94,13 @@ enum MinionType {
 enum EnchantmentTiming {
     StartOfTurn, 
     Attack,
-    UseAbility
+    UseAbility, 
+    Never
 };
 
 enum UseSkillStatus {
     OK, 
     NoAction, 
-    Silenced
+    Silenced,
+    NotEnoughMagic
 };

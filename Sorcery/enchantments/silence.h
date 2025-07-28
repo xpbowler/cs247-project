@@ -2,11 +2,13 @@
 
 #include "enchantmentDecorator.h"
 
+
 class Silence : public EnchantmentDecorator {
 
-    public: 
+public:
+    Silence(Player& owner, Player& opponent);
 
-    void apply(Minion& minion) override;
+    void apply(Minion& minion, EnchantmentTiming et) override;
 };
 
   

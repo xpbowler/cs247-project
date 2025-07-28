@@ -80,15 +80,20 @@ void Player::notifyGame(TriggerType triggerType, Notification notification) {
 
 //=========================================================
 bool Player::moveCard(Card* card, Area src, Area dst) { 
-    if (Minion* minion = dynamic_cast<Minion*> (card); minion && src == Area::Board && dst != Area::Board) {
-        // create notification 
-        MinionNotification notification {minion, this};
-        notifyGame(MinionLeave, notification);
+    if (Minion* minion = dynamic_cast<Minion*> (card); minion) {
+        if (src == Area::Board && dst != Area::Board) {
+            // create notification 
+            MinionNotification notification {minion, this};
+            notifyGame(MinionLeave, notification);
+        }
+        if (src != Area::Board && dst == Area::Board) {
+            MinionNotification notification {minion, this};
+            notifyGame(MinionEnter, notification);
+        }
+        if (dst == Graveyard) {
+            minion->removeAllEnchantments(std::nullopt);
+        }
     }    
-    else if (Minion* minion = dynamic_cast<Minion*> (card); minion && src != Area::Board && dst == Area::Board) {
-        MinionNotification notification {minion, this};
-        notifyGame(MinionEnter, notification);
-    }
     // find the real unique pointer 
     auto& srcVec = areaToVec(src);
     auto& dstVec = areaToVec(dst);
@@ -260,7 +265,7 @@ void Player::declareStart() {
     for (auto& card : board) {
         Minion* minion = dynamic_cast<Minion*> (card.get());
         if (minion) {
-            minion->setAction(1);
+            minion->setActions(1);
             minion->applyEnchantment(StartOfTurn);
         }
     }

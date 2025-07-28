@@ -17,14 +17,14 @@ public:
     int getActions();
     const std::vector<Enchantment*> getEnchantments();
     void addEnchantment(std::unique_ptr<EnchantmentDecorator> enchantment);
-    void removeTopEnchantment();
+    bool removeTopEnchantment();
     void removeAllEnchantments(std::optional<EnchantmentTiming> et);
     void applyEnchantment(EnchantmentTiming et);
     void setAttack(int attack);
     void setDefence(int defence);
     void heal(int hp);
     void takeDamage(int dmg);
-    void setAction(int action);
+    void setActions(int action);
     // attack minion and player returns false if not enough action points 
     bool attackMinion(Minion* minion, std::optional<int> dmg);
     bool attackPlayer(std::optional<int> dmg);

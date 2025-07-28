@@ -6,11 +6,11 @@
 class EnchantmentDecorator : public Enchantment {
 
 public: 
-    EnchantmentDecorator ();
+    EnchantmentDecorator (std::string name, Player& owner, Player& opponent, EnchantmentTiming et);
 
     Enchantment* getNext();
 
-    // DANGEROUS: should be only called by Minion::removeTopEnchantment
+    // DANGEROUS: should be only called by Minion::removeTopEnchantment and Minion::removeAllEnchantment
     Enchantment* stealNext();
     void setNext(Enchantment* nextEnchantment);
 

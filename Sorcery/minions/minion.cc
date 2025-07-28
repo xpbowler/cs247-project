@@ -44,10 +44,9 @@ void Minion::addEnchantment(std::unique_ptr<EnchantmentDecorator> newEnchantment
 }
 
 //=========================================================
-void Minion::removeTopEnchantment() {
+bool Minion::removeTopEnchantment() {
     if (!enchantment) {
-        throw std::runtime_error ("This minion has no enchantments.");
-        return;
+        return false;
     }
     auto decorator = dynamic_cast<EnchantmentDecorator*> (enchantment.get());
     if (!decorator) {
@@ -77,7 +76,7 @@ void Minion::takeDamage(int dmg) {
 }
 
 //=========================================================
-void Minion::setAction(int action) {
+void Minion::setActions(int action) {
     this->actions = action;
 }
 

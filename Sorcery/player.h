@@ -51,6 +51,7 @@ class Player {
 
         int getLife() const;
         int getMagic() const;
+        void setMagic(int magic);
         const std::vector<std::unique_ptr<Card>>& getGraveyard() const;
         void setOtherPlayer(Player* player);
         bool isPlayer1() const;

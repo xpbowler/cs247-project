@@ -4,9 +4,11 @@
 
 class GiantStrength : public EnchantmentDecorator {
 
-    public: 
+public: 
 
-    void apply(Minion& minion) override;
+    GiantStrength(Player& owner, Player& opponent);
+
+    void apply(Minion& minion, EnchantmentTiming et) override;
 };
 
   

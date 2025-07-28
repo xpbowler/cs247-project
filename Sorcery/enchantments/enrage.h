@@ -1,12 +1,14 @@
 #pragma once 
 
 #include "enchantmentDecorator.h"
+#include <util.h>
 
 class Enrage : public EnchantmentDecorator {
 
-    public: 
+public: 
+    Enrage (Player& owner, Player& opponent);
 
-    void apply(Minion& minion) override;
+    void apply(Minion& minion, EnchantmentTiming et) override;
 };
 
   

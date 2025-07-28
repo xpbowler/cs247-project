@@ -16,13 +16,22 @@ UseSkillStatus MasterSummoner::useSkill()
     if (actions < 1) {
         return NoAction;
     }
+    int oldActivationCost = activationCost;
     applyEnchantment(UseAbility);
     if (!canUseAbility) {
         canUseAbility = true;
+        activationCost = oldActivationCost;
         return Silenced;
     } 
+    int magic = owner.getMagic();
+    if (magic < activationCost) {
+        activationCost = oldActivationCost;
+        return NotEnoughMagic;
+    }
     summonMinion(AE, 3);
     actions--;
+    owner.setMagic(magic - activationCost);
+    activationCost = oldActivationCost;
     return OK;
 }
 

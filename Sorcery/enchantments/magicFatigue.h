@@ -5,8 +5,9 @@
 class MagicFatigue : public EnchantmentDecorator {
 
 public: 
+    MagicFatigue(Player& owner, Player& opponent);
 
-    void apply(Minion& minion) override;
+    void apply(Minion& minion, EnchantmentTiming et) override;
 };
 
   
