@@ -59,15 +59,15 @@ void Player::drawCard() {
 }
 
 //=========================================================
+// TODO: can we change the parameter to index-based, so that we can use better move semantics? just like discard card
 void Player::playCard(Card* card) {
-    auto it = board.end();
-    for (it = board.begin(); it != board.end(); it++) {
-        if ([[maybe_unused]] auto ritual = dynamic_cast<Ritual*> (it->get())) {
-            break;
-        }
-    }
-    if (it != board.end()) {
-        moveCard(it->get(), Board, Graveyard);
+    if (auto cardRitual = dynamic_cast<Ritual*> (card)) {
+        auto foundRitual = findCard(hand, card);
+        if (foundRitual == hand.end()) throw runtime_error("Cannot find card to play.");
+        foundRitual->release();
+        ritual.reset(cardRitual);
+        hand.erase(foundRitual);
+        return;
     }
     moveCard(card, Hand, Board);
 }
@@ -89,6 +89,7 @@ void Player::notifyGame(TriggerType triggerType, Notification notification) {
 
 
 //=========================================================
+// TODO: can we change this to index-based?
 bool Player::moveCard(Card* card, Area src, Area dst) { 
     if (Minion* minion = dynamic_cast<Minion*> (card); minion) {
         if (src == Area::Board && dst != Area::Board) {
@@ -283,12 +284,7 @@ void Player::declareStart() {
 
 //=========================================================
 Ritual* Player::getRitual() const {
-    for (auto& card : board) {
-        if (auto ritual = dynamic_cast<Ritual*> (card.get())) {
-            return ritual;
-        }
-    }
-    return nullptr;
+    return ritual.get();
 }
 
 //=========================================================
