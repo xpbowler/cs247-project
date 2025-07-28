@@ -14,10 +14,12 @@ public:
     Enchantment* stealNext();
     void setNext(Enchantment* nextEnchantment);
 
-    protected:
+    virtual ~EnchantmentDecorator() {}
+
+protected:
     std::unique_ptr<Enchantment> next;
 
-    virtual ~EnchantmentDecorator() {}
+    
 
 };
 

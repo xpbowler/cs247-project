@@ -1,6 +1,9 @@
 #include "game.h"
 #include <notification.h>
 #include <cliDisplay.h>
+#include <spell.h>
+#include <enchantment.h>
+#include <enchantmentDecorator.h>
 
 #include <iostream>
 #include <fstream>
@@ -62,6 +65,15 @@ void Game::play() {
         if (command=="quit") break;
         executeCommand(command);
         // check if winning here
+        if (player1Wins) {
+            if (*player1Wins) {
+                cout << "Player 1 wins!" << endl;
+            }
+            else {
+                cout << "Player 2 wins!" << endl;
+            }
+            break;
+        }
 
     }
 }
@@ -106,27 +118,129 @@ void Game::executeCommand(const string& cmd) {
     } else if (primary_cmd=="attack") {
         int i,j;
         ss >> i;
+        Player& currPlayer = isPlayer1Turn ? *player1 : *player2;
+        Player& otherPlayer = *currPlayer.getOtherPlayer();
         if (ss >> j) {
             //  orders the active player’s minion i to attack the inactive player’s minion j
-            // TODO
+            if (i >= currPlayer.getBoard().size()) {
+                throw out_of_range("Specified attacking minion index, while attacking minion, out of range.");
+            }
+            if (j >= otherPlayer.getBoard().size()) {
+                throw out_of_range("Specified target minion index out of range.");
+            }
+            Minion* minion = dynamic_cast<Minion*> (currPlayer.getBoard()[i].get());
+            Minion* target = dynamic_cast<Minion*> (otherPlayer.getBoard()[j].get());
+            if (minion && target) {
+                bool success = minion->attackMinion(target, std::nullopt);
+                if (!success) {
+                    throw runtime_error("Attacking minion does not have enough action points.");
+                }
+            }
+            else {
+                if (!minion) {
+                    throw runtime_error("Attacking unit is not a minion.");
+                }
+                if (!target) {
+                    throw runtime_error("Target is not a minion.");
+                }            
+            }
         } else {
             // orders minion i to attack the opposing player, where 1 is the leftmost minion and 5 is the rightmost minion
-            // TODO
+            if (i >= currPlayer.getBoard().size()) {
+                throw out_of_range("Specified attacking minion index, while attacking player, out of range");
+            }
+            if (Minion* minion = dynamic_cast<Minion*> (currPlayer.getBoard()[i].get())) {
+                bool success = minion->attackPlayer(std::nullopt);
+                if (!success) {
+                    throw runtime_error("Insufficient action points on the minion.");
+                    return;
+                }
+            }
+            else {
+                throw runtime_error("The indicated card is not a minion. ");
+            }
         }
-    } else if (primary_cmd=="play" || primary_cmd=="use") {
+    } else if (primary_cmd=="play") {
         // play i p t: plays the ith card in the active player’s hand on card t owned by player p
-        // use i p t: command orders that minion to use its activated ability on the provided target (or on no target)
-
+        Player& currPlayer = isPlayer1Turn ? *player1 : *player2;
         int i,p;
         ss >> i;
-        if (i<1 || i>5) throw invalid_argument("play: invalid i");
-
+        if (i<1 || i>currPlayer.getHand().size()) throw invalid_argument("play: invalid i");
+        const std::unique_ptr<Card>& playingCard = currPlayer.getHand()[i];
         if (ss>>p) {
-            if (p!=1 && p!=2) throw invalid_argument("play i p t: invalid p. p must be 0 or 1");
+            Player& targetPlayer = p == 1 ? *player1 : *player2;
+            if (p!=1 && p!=2) throw invalid_argument("play i p t: invalid p. p must be 1 or 2");
             string t;
             ss >> t;
             if (t=="r") {
-                // TODO
+                // use ritual
+                auto target = targetPlayer.getRitual();
+                if (!target) {
+                    throw runtime_error("no ritual found when using play i p t");
+                }
+                if (auto spell = dynamic_cast<Spell*> (playingCard.get())) {
+                    auto ownedCard = currPlayer.stealCard(i, Hand);
+                    auto ownedSpell = dynamic_cast<Spell*> (ownedCard.get()); 
+                    ownedSpell->action(target);
+                    delete ownedSpell;
+                }
+                else {
+                    throw runtime_error ("Invalid card played on ritual target.");
+                }
+                
+            } else {
+                int targetCardIndex;
+                try {
+                    targetCardIndex = stoi(t);
+                } catch (const exception& e) {
+                    throw invalid_argument("play i p t: invalid t");
+                }
+                if (targetCardIndex<1 || targetCardIndex>targetPlayer.getBoard().size()) throw invalid_argument("play i p t: invalid t");
+                // get target minion
+                auto& targetCard = targetPlayer.getBoard()[targetCardIndex];
+                if (!dynamic_cast<Minion*> (targetCard.get())) {
+                    throw runtime_error("target unit not a minion in play i p t");
+                }
+                auto targetOwnedCard = targetPlayer.stealCard(targetCardIndex, Board);
+                auto targetMinion = dynamic_cast<Minion*> (targetOwnedCard.get());
+                if (auto enchantment = dynamic_cast<Enchantment*> (playingCard.get())) {
+                    // TODO: what if it is haste?
+                    auto ownedEnchantment = dynamic_cast<EnchantmentDecorator*> (currPlayer.stealCard(i, Hand).release());
+                    if (!ownedEnchantment) {
+                        throw runtime_error("Cannot find correct enchantment while in play i p t and target is a minion.");
+                    }
+                    targetMinion->addEnchantment(std::unique_ptr<EnchantmentDecorator> (ownedEnchantment));
+                }
+                else if (auto spell = dynamic_cast<Spell*> (playingCard.get())) {
+                    auto ownedSpell = dynamic_cast<Spell*> (currPlayer.stealCard(i, Hand).release());
+                    if (!ownedSpell) {
+                        throw runtime_error ("Cannot find correct spell while in play i p t and target is a minion.");
+                    }
+                    ownedSpell->action(targetMinion);
+                }
+                else {
+                    throw runtime_error ("Invalid playing card type while in play i p t and target is a minion.");
+                }
+            }
+        } else {
+            // play i plays the ith card in the active player’s hand with no target
+            // TODO
+        }
+    } else if (primary_cmd=="use") {
+        // use i p t: command orders that minion to use its activated ability on the provided target (or on no target)
+        const Player& currPlayer = isPlayer1Turn ? *player1 : *player2;
+        int i,p;
+        ss >> i;
+        if (i<1 || i>currPlayer.getHand().size()) throw invalid_argument("play: invalid i");
+        const std::unique_ptr<Card>& playingCard = currPlayer.getHand()[i];
+        if (ss>>p) {
+            if (p!=1 && p!=2) throw invalid_argument("play i p t: invalid p. p must be 1 or 2");
+            string t;
+            ss >> t;
+            if (t=="r") {
+                // use ritual
+                
+                
             } else {
                 int target_card;
                 try {
@@ -156,7 +270,7 @@ void Game::executeCommand(const string& cmd) {
     }
 }
 
-void Game::wins(bool isPlayer1) const {
+void Game::declareWin(bool isPlayer1) const {
     if (player1Wins) {
         // there's already a winner
         return;

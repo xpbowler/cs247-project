@@ -31,13 +31,15 @@ class Player {
         Player(std::string& name, Game* game);
         // draw command draws a card, similar to the effect if the player just started their turn
         void drawCard();
-        void playCard(Card* card);
+        void playCard(int i);
 
         // discard the i'th card in the player's hand
         // the card does not go to the graveyard, trigger leave play effects or anything else
         void discardCard(int i);
         void notifyGame(TriggerType triggerType, Notification notification);
         bool moveCard(Card* card, Area src, Area dst);
+        bool moveCard(int i, Area src, Area dst);
+        std::unique_ptr<Card> stealCard(int i, Area area);
         bool modifyLife(int life);
         const std::vector<std::unique_ptr<Card>>& getHand() const;
         const std::vector<std::unique_ptr<Card>>& getDeck() const;
@@ -53,6 +55,7 @@ class Player {
         int getMagic() const;
         void setMagic(int magic);
         const std::vector<std::unique_ptr<Card>>& getGraveyard() const;
+        Player* getOtherPlayer() const;
         void setOtherPlayer(Player* player);
         bool isPlayer1() const;
 

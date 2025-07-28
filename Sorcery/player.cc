@@ -59,17 +59,15 @@ void Player::drawCard() {
 }
 
 //=========================================================
-// TODO: can we change the parameter to index-based, so that we can use better move semantics? just like discard card
-void Player::playCard(Card* card) {
-    if (auto cardRitual = dynamic_cast<Ritual*> (card)) {
-        auto foundRitual = findCard(hand, card);
-        if (foundRitual == hand.end()) throw runtime_error("Cannot find card to play.");
-        foundRitual->release();
-        ritual.reset(cardRitual);
-        hand.erase(foundRitual);
-        return;
+void Player::playCard(int i) {
+    // PRECOND: hand.size() > i
+    // check if it is a ritual first
+    auto& tempCard = hand[i];
+    if (dynamic_cast<Ritual*> (tempCard.get())) {
+        auto ownedRitual = dynamic_cast<Ritual*> (tempCard.release());
+        ritual.reset(ownedRitual);
     }
-    moveCard(card, Hand, Board);
+    moveCard(i, Hand, Board);
 }
 
 //=========================================================
@@ -87,10 +85,21 @@ void Player::notifyGame(TriggerType triggerType, Notification notification) {
     game.notifyTopic(triggerType, notification);
 }
 
+//=========================================================
+bool Player::moveCard(Card* card, Area src, Area dst) {
+    for (int i = 0; i < areaToVec(src).size(); i++) {
+        if (areaToVec(src)[i].get() == card) {
+            return moveCard(i, src, dst);
+        }
+    }
+    throw runtime_error("moveCard card not found.");
+}
 
 //=========================================================
-// TODO: can we change this to index-based?
-bool Player::moveCard(Card* card, Area src, Area dst) { 
+bool Player::moveCard(int i, Area src, Area dst) { 
+    if (src == dst) return false;
+    // PRECOND: src.size() > i;
+    auto card = areaToVec(src)[i].release();
     if (Minion* minion = dynamic_cast<Minion*> (card); minion) {
         if (src == Area::Board && dst != Area::Board) {
             // create notification 
@@ -120,9 +129,17 @@ bool Player::moveCard(Card* card, Area src, Area dst) {
 }
 
 //=========================================================
+std::unique_ptr<Card> Player::stealCard(int i, Area area) {
+    // PRECOND: areaToVec(area).size() > i
+    auto card = std::move(areaToVec(area)[i]);
+    areaToVec(area).erase(areaToVec(area).begin() + i);
+    return card;
+}
+
+//=========================================================
 bool Player::modifyLife(int life) { 
     this->life += life;
-    game.wins(isPlayer1());
+    game.declareWin(isPlayer1());
     return true;
 }
 
@@ -135,6 +152,11 @@ const vector<unique_ptr<Card>>& Player::getGraveyard() const { return graveyard;
 //=========================================================
 bool Player::isPlayer1() const {
     return game.player1.get() == this;
+}
+
+//=========================================================
+Player* Player::getOtherPlayer() const {
+    return otherPlayer;
 }
 
 //=========================================================

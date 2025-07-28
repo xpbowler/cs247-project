@@ -13,5 +13,6 @@ void Banish::action(std::variant<Minion*, Ritual*> card) {
             opponent.moveCard(get<Minion*>(card), Board, Graveyard);
         }
     }
+    // TODO: what about ritual?
 }
 
