@@ -13,7 +13,7 @@ public:
     int getCharges() const;
     int getActivationCost() const;
     void setCharges(int charges);
-    const std::string& get_description() const;;
+    const std::string& get_description() const;
     virtual ~Ritual() {};
 
 protected: 

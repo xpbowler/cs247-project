@@ -8,6 +8,6 @@ Standstill::Standstill(Player& owner, Player& opponent) : Ritual {2, 4, owner, o
 
 //=========================================================
 void Standstill::execute(Notification notification) {
-    // TODO 
+    
 }
 
