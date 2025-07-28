@@ -1,4 +1,5 @@
 #include "triggeredMinion.h"
+#include <trigger.h>
 
 //=========================================================
 TriggeredMinion::TriggeredMinion(int attack,
@@ -13,6 +14,11 @@ TriggeredMinion::TriggeredMinion(int attack,
 }
 
 //=========================================================
+const Trigger& TriggeredMinion::getTrigger() {
+    return *trigger;
+}
+
+//=========================================================
 void TriggeredMinion::notifyGame(TriggerType tt)
 {
     // TODO
@@ -21,4 +27,12 @@ void TriggeredMinion::notifyGame(TriggerType tt)
 //=========================================================
 void TriggeredMinion::disableAbility() {
     canUseAbility = false;
+}
+
+
+//=========================================================
+void TriggeredMinion::dies() {
+    Minion::dies();
+    // now detach the trigger
+    trigger->selfDetach();
 }

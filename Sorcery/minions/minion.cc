@@ -124,9 +124,7 @@ void Minion::summonMinion(MinionType minionType, int amount) {
 
 //=========================================================
 void Minion::dies() {
-    // TODO
-    // need to implement logic for triggers? 
-    // need to activate its triggers, if any, before dying
+    owner.moveCard(this, Board, Graveyard);
 }
 
 

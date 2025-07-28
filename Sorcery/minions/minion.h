@@ -38,15 +38,15 @@ protected:
 
     virtual ~Minion() = 0;
 
+    virtual void dies();
+
     int attack;
     int defence;
     int actions;
     MinionType minionType;
     std::unique_ptr<Enchantment> enchantment;
     std::string name;
-
-private:
-    void dies();
+    
     
 };
 

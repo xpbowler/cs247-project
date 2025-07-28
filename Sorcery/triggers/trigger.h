@@ -27,5 +27,6 @@ class Trigger {
         Trigger(ownerPtr owner);
         void notifyOwner(Notification notification);
         const std::string& get_description() const;
+        void selfDetach();
         ~Trigger();
 };

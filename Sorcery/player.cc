@@ -99,7 +99,6 @@ bool Player::moveCard(Card* card, Area src, Area dst) {
     auto& dstVec = areaToVec(dst);
     auto foundSrcCard = findCard(srcVec, card);
     if (foundSrcCard == srcVec.end()) {
-        throw runtime_error ("Cannot find card to move.");
         return false;
     }
     auto tempCard = std::move(*foundSrcCard);
@@ -112,6 +111,7 @@ bool Player::moveCard(Card* card, Area src, Area dst) {
 //=========================================================
 bool Player::modifyLife(int life) { 
     this->life += life;
+    // TODO: signal end of game if life <= 0
     return true;
 }
 

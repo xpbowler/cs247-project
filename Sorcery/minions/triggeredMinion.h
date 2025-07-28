@@ -15,6 +15,7 @@ public:
     virtual void useSkill(Notification notification) = 0;
     const Trigger& getTrigger();
     void disableAbility();
+    void dies() override;
 
 protected: 
 
