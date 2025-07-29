@@ -9,3 +9,6 @@ BaseMinion::BaseMinion(int attack,
                        MinionType minionType) : Minion{owner, opponent, attack, defence, minionType, name}
 {
 }
+
+//=========================================================
+BaseMinion::~BaseMinion() {}

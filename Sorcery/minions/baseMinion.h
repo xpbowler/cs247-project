@@ -19,7 +19,7 @@ public:
 
 protected: 
 
-    virtual ~BaseMinion() {}
+    virtual ~BaseMinion() = 0;
 };
 
   
