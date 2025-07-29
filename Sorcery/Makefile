@@ -23,4 +23,6 @@ ${EXEC}:${OBJECTS} ${SUBOBJS}
 
 .PHONY: clean ${SUBDIRS}
 clean:
-	rm -f ${EXEC} ${OBJECTS} ${SUBOBJS} ${DEPENDS}
+	${RM} ${EXEC} ${OBJECTS} ${SUBOBJS} ${DEPENDS}
+	find . \( -name '*.o' -o -name '*.d' \) -exec rm -f {} +
+	
