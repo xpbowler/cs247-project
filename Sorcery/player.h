@@ -65,7 +65,7 @@ class Player {
 
 
         // initialize the deck from a file
-        void initializeDeck(const std::string& deck);
+        void initializeDeck(const std::string& deck, bool shuffle);
 
         // Shuffle the deck using std::shuffle and a random engine
         void shuffleDeck();

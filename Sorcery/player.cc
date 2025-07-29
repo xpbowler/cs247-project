@@ -166,7 +166,7 @@ void Player::setOtherPlayer(Player* player) {
 
 //=========================================================
 // call after set other player
-void Player::initializeDeck(const string& deckFilePath) {
+void Player::initializeDeck(const string& deckFilePath, bool shuffle) {
     ifstream initFile(deckFilePath);
     if (!initFile) {
         throw runtime_error("Failed to open deck initialization file: " + deckFilePath);
@@ -218,7 +218,7 @@ void Player::initializeDeck(const string& deckFilePath) {
             cout << "WARN: unknown card: " << card_string << endl;
         }
     }
-
+    
     shuffleDeck();
 
     // draw 5 cards from deck into hand
