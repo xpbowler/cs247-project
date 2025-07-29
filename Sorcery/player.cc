@@ -293,6 +293,9 @@ void Player::declareEnd() {
 //=========================================================
 void Player::declareStart() {
     auto notification = TurnChangeNotification(true, this);
+    for (int i = 0; i < 5 - hand.size(); i++) {
+        drawCard();
+    }
     notifyGame(isPlayer1() ? StartTurnPlayer1 : StartTurnPlayer2, notification);
     // now go through each of the minions in the board and check for start turn enchantments 
     for (auto& card : board) {
