@@ -137,11 +137,6 @@ std::unique_ptr<Card> Player::stealCard(int i, Area area) {
 }
 
 //=========================================================
-void Player::insertCard(Area area, std::unique_ptr<Card> card) {
-    areaToVec(area).push_back(std::move(card));
-}
-
-//=========================================================
 bool Player::modifyLife(int life) { 
     this->life += life;
     if (this->life <= 0) game.declareWin(!isPlayer1());

@@ -40,7 +40,6 @@ class Player {
         bool moveCard(Card* card, Area src, Area dst);
         bool moveCard(int i, Area src, Area dst);
         std::unique_ptr<Card> stealCard(int i, Area area);
-        void insertCard(Area area, std::unique_ptr<Card> card);
         bool modifyLife(int life);
         const std::vector<std::unique_ptr<Card>>& getHand() const;
         const std::vector<std::unique_ptr<Card>>& getDeck() const;
