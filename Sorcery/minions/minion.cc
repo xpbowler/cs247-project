@@ -36,6 +36,7 @@ const std::vector<Enchantment*> Minion::getEnchantments() {
             break;
         }
     }
+    return result;
 }
 
 //=========================================================
