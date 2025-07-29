@@ -218,8 +218,7 @@ void Player::initializeDeck(const string& deckFilePath, bool shuffle) {
             cout << "WARN: unknown card: " << card_string << endl;
         }
     }
-    
-    shuffleDeck();
+    if (shuffle) shuffleDeck();
 
     // draw 5 cards from deck into hand
     for (int i=0;i<STARTING_NUM_CARDS;++i) {
