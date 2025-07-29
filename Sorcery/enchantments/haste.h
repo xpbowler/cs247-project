@@ -1,7 +1,7 @@
 #pragma once 
 
 #include "enchantmentDecorator.h"
-#include <util.h>
+#include "helper.h"
 
 class Haste : public EnchantmentDecorator {
     

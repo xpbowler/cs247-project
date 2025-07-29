@@ -1,5 +1,5 @@
 #include "enchantment.h"
-#include <util.h>
+#include "helper.h"
 
 //=========================================================
 Enchantment::Enchantment (const std::string description, Player& owner, Player& opponent, EnchantmentTiming et) 

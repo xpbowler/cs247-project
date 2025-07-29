@@ -1,5 +1,5 @@
 #include "enchantmentDecorator.h"
-#include <util.h>
+#include "helper.h"
 
 //=========================================================
 EnchantmentDecorator::EnchantmentDecorator(std::string name, 

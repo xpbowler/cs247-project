@@ -1,8 +1,8 @@
 #pragma once
 
 #include "display.h"
-#include "../player.h"
-#include "../asciiart/ascii_graphics.h"
+#include "player.h"
+#include "ascii_graphics.h"
 
 #include <vector>
 #include <memory>
@@ -10,7 +10,6 @@
 class CliDisplay : public Display {
     const Player& p1;
     const Player& p2;
-
 
     public:
         CliDisplay(Player& p1, Player& p2);

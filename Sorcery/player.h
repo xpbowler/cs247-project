@@ -7,7 +7,7 @@
 #include "triggers/trigger.h"
 #include "card.h"
 #include "minions/minion.h"
-#include "util.h"
+#include "helper.h"
 #include "rituals/ritual.h"
 
 class Game;

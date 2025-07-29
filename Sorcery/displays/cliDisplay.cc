@@ -1,10 +1,10 @@
 #include "cliDisplay.h"
-#include "../spells/spell.h"
-#include "../enchantments/enchantment.h"
-#include "../rituals/ritual.h"
-#include "../minions/activatedMinion.h"
-#include "../minions/triggeredMinion.h"
-#include "../minions/baseMinion.h"
+#include "spell.h"
+#include "enchantment.h"
+#include "ritual.h"
+#include "activatedMinion.h"
+#include "triggeredMinion.h"
+#include "baseMinion.h"
 
 using namespace std;
 

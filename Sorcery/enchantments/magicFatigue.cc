@@ -1,6 +1,6 @@
 #include "magicFatigue.h"
-#include <util.h>
-#include <activatedMinion.h>
+#include "helper.h"
+#include "activatedMinion.h"
 
 //=========================================================
 MagicFatigue::MagicFatigue(Player& owner, Player& opponent)

@@ -1,5 +1,5 @@
 #include "enrage.h"
-#include <util.h>
+#include "helper.h"
 #include <minion.h>
 
 //========================================================================

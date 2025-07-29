@@ -1,6 +1,6 @@
 #include "auraOfPower.h"
-#include <notification.h>
-#include <../minions/minion.h>
+#include "notification.h"
+#include "minion.h"
 
 //=========================================================
 AuraOfPower::AuraOfPower(Player& owner, Player& opponent) : Ritual{1, 4, owner, opponent, AURA_OF_POWER_DESC} {

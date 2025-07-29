@@ -1,9 +1,9 @@
 #include "game.h"
-#include <notification.h>
-#include <cliDisplay.h>
-#include <spell.h>
-#include <enchantment.h>
-#include <enchantmentDecorator.h>
+#include "notification.h"
+#include "cliDisplay.h"
+#include "spell.h"
+#include "enchantment.h"
+#include "enchantmentDecorator.h"
 
 #include <iostream>
 #include <fstream>

@@ -2,7 +2,7 @@
 
 #include <memory>
 #include "../card.h"
-#include <trigger.h>
+#include "../triggers/trigger.h"
 
 class Trigger;
 class Notification;

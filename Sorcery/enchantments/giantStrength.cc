@@ -1,6 +1,6 @@
 #include "giantStrength.h"
-#include <util.h>
-#include <minion.h>
+#include "helper.h"
+#include "minion.h"
 
 //=============================================================
 GiantStrength::GiantStrength(Player& owner, Player& opponent) 

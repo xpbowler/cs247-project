@@ -1,7 +1,7 @@
 #pragma once 
 
 #include "spell.h"
-#include "../util.h"
+#include "helper.h"
 
 #include <variant>
 

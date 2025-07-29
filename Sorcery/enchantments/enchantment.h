@@ -1,7 +1,7 @@
 #pragma once 
 
-#include "../card.h"
-#include <util.h>
+#include "card.h"
+#include "helper.h"
 
 class Minion;
 
