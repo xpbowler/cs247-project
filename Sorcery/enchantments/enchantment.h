@@ -8,7 +8,7 @@ class Minion;
 class Enchantment : public Card {
 
 public:
-    Enchantment(const std::string description, Player& owner, Player& opponent, EnchantmentTiming);
+    Enchantment(const std::string description, Player& owner, Player& opponent, EnchantmentTiming et, std::string name, int cost);
     const std::string& getDescription() const;
     const EnchantmentTiming getTiming() const;
     virtual ~Enchantment() {}

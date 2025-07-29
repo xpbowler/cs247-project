@@ -4,7 +4,10 @@
 #include <../player.h>
 
 //=========================================================
-Standstill::Standstill(Player& owner, Player& opponent) : Ritual {2, 4, owner, opponent, STANDSTILL_DESC} {
+Standstill::Standstill(Player& owner, Player& opponent) : Ritual {STANDSTILL_COST, 
+                                                                  STANDSTILL_ACTIVATION_COST, 
+                                                                  STANDSTILL_CHARGES, 
+                                                                  owner, opponent, STANDSTILL, STANDSTILL_DESC} {
    
 }
 

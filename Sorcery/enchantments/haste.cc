@@ -3,7 +3,7 @@
 
 //========================================================
 Haste::Haste(Player& owner, Player& opponent) 
-    : EnchantmentDecorator("Haste", owner, opponent, StartOfTurn) {}
+    : EnchantmentDecorator(HASTE_DESC, owner, opponent, StartOfTurn, HASTE, HASTE_COST) {}
 
 //========================================================
 void Haste::apply(Minion& minion, EnchantmentTiming et) {

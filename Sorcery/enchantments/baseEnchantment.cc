@@ -3,7 +3,7 @@
 
 //===================================================================
 BaseEnchantment::BaseEnchantment(Player& owner, Player& opponent) 
-    : Enchantment {"Base Enchantment", owner, opponent, Never} {}
+    : Enchantment {"Base Enchantment", owner, opponent, Never, "", 0} {}
 
 //===================================================================
 void BaseEnchantment::apply(Minion&, EnchantmentTiming) {

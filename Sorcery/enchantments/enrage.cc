@@ -4,7 +4,7 @@
 
 //========================================================================
 Enrage::Enrage(Player& owner, Player& opponent)
-    : EnchantmentDecorator("Enrage", owner, opponent, Attack) {}
+    : EnchantmentDecorator(ENRAGE_DESC, owner, opponent, Attack, ENRAGE, ENRAGE_COST) {}
 
 //========================================================================
 void Enrage::apply(Minion& minion, EnchantmentTiming et) {
