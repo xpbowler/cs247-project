@@ -52,7 +52,7 @@ Player::Player(string& name, Game* game): name{std::move(name)}, life{STARTING_L
 //=========================================================
 // draw command draws a card, similar to the effect if the player just started their turn
 void Player::drawCard() {
-    if (deck.empty() || deck.size()>=5) return;
+    if (deck.empty() || hand.size()>=5) return;
     unique_ptr<Card> card = std::move(deck.back());
     deck.pop_back();
     hand.push_back(std::move(card));
@@ -214,6 +214,8 @@ void Player::initializeDeck(const string& deckFilePath) {
             deck.push_back(std::unique_ptr<Card> (new AuraOfPower(*this, *otherPlayer)));
         } else if (card_string == "Standstill") {
             deck.push_back(std::unique_ptr<Card> (new Standstill(*this, *otherPlayer)));
+        } else {
+            cout << "WARN: unknown card: " << card_string << endl;
         }
     }
 

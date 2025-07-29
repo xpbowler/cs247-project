@@ -14,6 +14,7 @@ const int MAX_ROW_SIZE = 5;
 // print a row of card_template_t to an ostream
 ostream& printRow(ostream& out, const vector<card_template_t>& row) {
     if (row.size() > MAX_ROW_SIZE) throw runtime_error("too many elements in the row");
+    if (row.empty()) return out;
     for (const auto& card : row) {
         if (card.size() != row.at(0).size()) throw runtime_error("cards must all be same height to be printed in same row");
     }
@@ -94,14 +95,15 @@ void CliDisplay::inspectMinion(bool isPlayer1Turn, int minion) {
     throw runtime_error("minion " + to_string(minion) + " not found for isPlayer1Turn: " + to_string(isPlayer1Turn));
 }
 
-// Displays all the cards in a player's hand in one row
+// Displays all the cards in a player's hand in oane row
 void CliDisplay::showHand(bool isPlayer1Turn) {
     const Player& p = isPlayer1Turn ? p1 : p2;
-    vector<card_template_t> card_templates;
+    vector<card_template_t> hand;
+    const vector<unique_ptr<Card>>& x = p.getHand();
     for (const auto& card : p.getHand()) {
-        card_templates.push_back(showCard(card.get()));
+        hand.push_back(showCard(card.get()));
     }
-    printRow(cout, card_templates);
+    printRow(cout, hand);
 }
 
 // Display the board in ASCII art, including both players' ritual, graveyard, minions, and player cards

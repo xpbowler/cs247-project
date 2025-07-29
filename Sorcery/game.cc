@@ -29,7 +29,7 @@ void trimWhitespace(string& s) {
 }
 
 Game::Game(const string& deck1, const string& deck2, const string& initFilePath, bool isTesting)
-    : isPlayer1Turn{false}, isTesting{isTesting}, triggerTopics{}, display{}, player1{}, player2{}, player1Wins {std::nullopt} {
+    : isPlayer1Turn{true}, isTesting{isTesting}, triggerTopics{}, display{}, player1{}, player2{}, player1Wins {std::nullopt} {
 
     // initialize triggerTopics
     triggerTopics.insert(std::make_pair(TriggerType::EndTurnPlayer1, make_unique<TriggerTopic>()));
