@@ -12,7 +12,10 @@ void Banish::action(std::variant<Minion*, Ritual*> card) {
         if (!owner.moveCard(get<Minion*>(card), Board, Graveyard)) {
             opponent.moveCard(get<Minion*>(card), Board, Graveyard);
         }
+    } else if (holds_alternative<Ritual*>(card)) {
+        if (!owner.moveCard(get<Ritual*>(card), Board, Graveyard)) {
+            opponent.moveCard(get<Ritual*>(card), Board, Graveyard);
+        }
     }
-    // TODO: what about ritual?
 }
 
