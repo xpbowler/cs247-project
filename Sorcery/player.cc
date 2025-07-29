@@ -137,9 +137,14 @@ std::unique_ptr<Card> Player::stealCard(int i, Area area) {
 }
 
 //=========================================================
+void Player::insertCard(Area area, std::unique_ptr<Card> card) {
+    areaToVec(area).push_back(std::move(card));
+}
+
+//=========================================================
 bool Player::modifyLife(int life) { 
     this->life += life;
-    game.declareWin(isPlayer1());
+    if (this->life <= 0) game.declareWin(!isPlayer1());
     return true;
 }
 
@@ -307,6 +312,11 @@ void Player::declareStart() {
 //=========================================================
 Ritual* Player::getRitual() const {
     return ritual.get();
+}
+
+//=========================================================
+void Player::setRitual(std::unique_ptr<Ritual> ritual) {
+    this->ritual = std::move(ritual);
 }
 
 //=========================================================
