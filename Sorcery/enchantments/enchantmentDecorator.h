@@ -6,7 +6,7 @@
 class EnchantmentDecorator : public Enchantment {
 
 public: 
-    EnchantmentDecorator (std::string name, Player& owner, Player& opponent, EnchantmentTiming et);
+    EnchantmentDecorator (std::string description, Player& owner, Player& opponent, EnchantmentTiming et, std::string name, int cost);
 
     Enchantment* getNext();
 

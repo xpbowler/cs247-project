@@ -4,7 +4,7 @@
 
 //=============================================================
 GiantStrength::GiantStrength(Player& owner, Player& opponent) 
-    : EnchantmentDecorator {"Giant Strength", owner, opponent, Attack} {}
+    : EnchantmentDecorator {GIANT_STRENGTH_DESC, owner, opponent, Attack, GIANT_STRENGTH, GIANT_STRENGTH_COST} {}
 
 //=============================================================
 void GiantStrength::apply(Minion& minion, EnchantmentTiming et) {

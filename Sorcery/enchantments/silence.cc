@@ -4,7 +4,7 @@
 
 //=========================================================
 Silence::Silence(Player& owner, Player& opponent)
-    : EnchantmentDecorator {"Silence", owner, opponent, UseAbility} {}
+    : EnchantmentDecorator {SILENCE_DESC, owner, opponent, UseAbility, SILENCE, SILENCE_COST} {}
 
 //=========================================================
 void Silence::apply(Minion& minion, EnchantmentTiming et) {

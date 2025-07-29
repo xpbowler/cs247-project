@@ -32,6 +32,11 @@ const int MASTER_SUMMONER_ATK = 2;
 const int MASTER_SUMMONER_DEF = 3;
 const int MASTER_SUMMONER_COST = 3;
 const int MASTER_SUMMONER_ACTIVATION_COST = 2;
+const int GIANT_STRENGTH_COST = 1;
+const int ENRAGE_COST = 2;
+const int HASTE_COST = 1;
+const int MAGIC_FATIGUE_COST = 0;
+const int SILENCE_COST = 1;
 
 
 // Card name constants
@@ -49,7 +54,9 @@ inline constexpr const char* RECHARGE = "Recharge";
 inline constexpr const char* DISENCHANT = "Disenchant";
 inline constexpr const char* RAISE_DEAD = "Raise Dead";
 inline constexpr const char* BLIZZARD = "Blizzard";
+inline constexpr const char* ENRAGE = "Enrage";
 inline constexpr const char* GIANT_STRENGTH = "Giant Strength";
+inline constexpr const char* HASTE = "Haste";
 inline constexpr const char* MAGIC_FATIGUE = "Magic Fatigue";
 inline constexpr const char* SILENCE = "Silence";
 inline constexpr const char* DARK_RITUAL = "Dark Ritual";
@@ -63,6 +70,13 @@ inline constexpr const char* RECHARGE_DESC = "Your ritual gains 3 charges";
 inline constexpr const char* DISENCHANT_DESC = "Destroy the top enchantment on target minion";
 inline constexpr const char* RAISE_DEAD_DESC = "Resurrect the top minion in your graveyard and set its defence to 1";
 inline constexpr const char* BLIZZARD_DESC = "Deal 2 damage to all minions";
+
+// Enchantment description constants
+inline constexpr const char* GIANT_STRENGTH_DESC = "";
+inline constexpr const char* ENRAGE_DESC = "";
+inline constexpr const char* HASTE_DESC = "Enchanted minion gains +1 action each turn";
+inline constexpr const char* MAGIC_FATIGUE_DESC = "Enchanted minion's activated ability costs 2 more";
+inline constexpr const char* SILENCE_DESC = "Enchanted minion cannot use abilities";
 
 // Ritual description constants
 inline constexpr const char* AURA_OF_POWER_DESC = "Whenever a minion enters play under your control, it gains +1/+1";

@@ -2,11 +2,13 @@
 #include <helper.h>
 
 //=========================================================
-EnchantmentDecorator::EnchantmentDecorator(std::string name, 
+EnchantmentDecorator::EnchantmentDecorator(std::string description, 
                                            Player& owner, 
                                            Player& opponent, 
-                                           EnchantmentTiming et)
-    : Enchantment {name, owner, opponent, et} {}
+                                           EnchantmentTiming et, 
+                                           std::string name, 
+                                           int cost)
+    : Enchantment {description, owner, opponent, et, name, cost} {}
 
 //=========================================================
 Enchantment* EnchantmentDecorator::getNext() {

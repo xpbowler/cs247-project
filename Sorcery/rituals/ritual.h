@@ -19,7 +19,7 @@ public:
 
 protected: 
     std::string description;
-    Ritual(int cost, int charges, Player& owner, Player& opponent, const std::string& description);
+    Ritual(int cost, int activationCost, int charges, Player& owner, Player& opponent, const std::string& name, const std::string& description);
 
     // member fields
     const int activationCost;

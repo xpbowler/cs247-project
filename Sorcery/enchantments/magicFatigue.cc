@@ -4,7 +4,7 @@
 
 //=========================================================
 MagicFatigue::MagicFatigue(Player& owner, Player& opponent)
-    : EnchantmentDecorator {"Magic Fatigue", owner, opponent, UseAbility} {}
+    : EnchantmentDecorator {MAGIC_FATIGUE_DESC, owner, opponent, UseAbility, MAGIC_FATIGUE, MAGIC_FATIGUE_COST} {}
 
 //=========================================================
 void MagicFatigue::apply(Minion& minion, EnchantmentTiming et) {
