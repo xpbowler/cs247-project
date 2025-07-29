@@ -6,7 +6,7 @@
 FireElemental::FireElemental(Player &owner, Player &opponent)
     : TriggeredMinion(FIRE_ELEMENTAL_ATK,
                       FIRE_ELEMENTAL_DEF,
-                      owner, opponent, "Fire Elemental", FE)
+                      owner, opponent, FIRE_ELEMENTAL, FIRE_ELEMENTAL_COST, FE)
 {
     trigger = std::make_unique<Trigger> (this);
     owner.attachTrigger(MinionEnter, trigger.get());

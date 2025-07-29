@@ -6,7 +6,7 @@ MasterSummoner::MasterSummoner(Player &owner, Player &opponent)
     : ActivatedMinion(MASTER_SUMMONER_ACTIVATION_COST,
                       MASTER_SUMMONER_ATK,
                       MASTER_SUMMONER_DEF,
-                      owner, opponent, MS, "Master Summoner")
+                      owner, opponent, MS, MASTER_SUMMONER, MASTER_SUMMONER_COST)
 {
 }
 

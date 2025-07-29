@@ -4,7 +4,7 @@
 EarthElemental::EarthElemental(Player &owner, Player &opponent)
     : BaseMinion(EARTH_ELEMENTAL_ATK,
                  EARTH_ELEMENTAL_DEF,
-                 owner, opponent, "Earth Elemental", EE)
+                 owner, opponent, EARTH_ELEMENTAL, EARTH_ELEMENTAL_COST, EE)
 {
     
 }
