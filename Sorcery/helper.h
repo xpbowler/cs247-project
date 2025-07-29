@@ -72,14 +72,6 @@ inline constexpr const char* DARK_RITUAL = "Dark Ritual";
 inline constexpr const char* AURA_OF_POWER = "Aura of Power";
 inline constexpr const char* STANDSTILL = "Standstill";
 
-// Spell names
-inline constexpr const char* UNSUMMON = "Unsummon";
-inline constexpr const char* RECHARGE = "Recharge";
-inline constexpr const char* BLIZZARD = "Blizzard";
-inline constexpr const char* RAISE_DEAD = "Raise Dead";
-inline constexpr const char* DISENCHANT = "Disenchant";
-inline constexpr const char* BANISH = "Banish";
-
 // Spell costs
 const int UNSUMMON_COST = 1;
 const int RECHARGE_COST = 1;
