@@ -207,8 +207,7 @@ void Game::executeCommand(const string& cmd) {
                 if (!dynamic_cast<Minion*> (targetCard.get())) {
                     throw runtime_error("target unit not a minion in play i p t");
                 }
-                auto targetOwnedCard = targetPlayer.stealCard(targetCardIndex, Board);
-                auto targetMinion = dynamic_cast<Minion*> (targetOwnedCard.get());
+                auto targetMinion = dynamic_cast<Minion*> (targetCard.get());
                 if (dynamic_cast<Enchantment*> (playingCard.get())) {
                     auto ownedEnchantment = dynamic_cast<EnchantmentDecorator*> (currPlayer.stealCard(i, Hand).release());
                     if (!ownedEnchantment) {
@@ -238,11 +237,7 @@ void Game::executeCommand(const string& cmd) {
                 if (currPlayer.getBoard().size() >= 5) {
                     throw runtime_error("There are already 5 minions on the board, cannot put another one");
                 }
-                auto ownedMinion = dynamic_cast<Minion*> (currPlayer.stealCard(i, Hand).release());
-                if (!ownedMinion) {
-                    throw runtime_error("The unit picked is not a minion.");
-                }
-                currPlayer.insertCard(Board, std::unique_ptr<Card> (ownedMinion));
+                currPlayer.moveCard(i, Hand, Board);
             }
             else if (dynamic_cast<RaiseDead*> (playingCard.get()) || dynamic_cast<Recharge*> (playingCard.get()) || dynamic_cast<Blizzard*> (playingCard.get())) {
                 auto ownedSpell = std::unique_ptr<Spell> (dynamic_cast<Spell*> (currPlayer.stealCard(i, Hand).release()));
