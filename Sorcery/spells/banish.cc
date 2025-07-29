@@ -1,7 +1,7 @@
 #include "banish.h"
 
 //=========================================================
-Banish::Banish(Player& owner, Player& opponent): Spell{BANISH_DESC, owner, opponent} {
+Banish::Banish(Player& owner, Player& opponent): Spell{BANISH_DESC, owner, opponent, BANISH, BANISH_COST} {
     
 }
 

@@ -1,7 +1,7 @@
 #include "unsummon.h"
 
 //=========================================================
-Unsummon::Unsummon(Player& owner, Player& opponent): Spell{UNSUMMON_DESC, owner, opponent} {
+Unsummon::Unsummon(Player& owner, Player& opponent): Spell{UNSUMMON_DESC, owner, opponent, UNSUMMON, UNSUMMON_COST} {
     
 }
 

@@ -1,7 +1,7 @@
 #include "raiseDead.h"
 
 //=========================================================
-RaiseDead::RaiseDead(Player& owner, Player& opponent): Spell{RAISE_DEAD_DESC, owner, opponent} {
+RaiseDead::RaiseDead(Player& owner, Player& opponent): Spell{RAISE_DEAD_DESC, owner, opponent, RAISE_DEAD, RAISE_DEAD_COST} {
     
 }
 

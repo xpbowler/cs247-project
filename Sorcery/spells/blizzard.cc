@@ -1,7 +1,7 @@
 #include "blizzard.h"
 
 //=========================================================
-Blizzard::Blizzard(Player& owner, Player& opponent): Spell{BLIZZARD_DESC, owner, opponent} {
+Blizzard::Blizzard(Player& owner, Player& opponent): Spell{BLIZZARD_DESC, owner, opponent, BLIZZARD, BLIZZARD_COST} {
     
 }
 

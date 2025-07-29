@@ -20,7 +20,7 @@ public:
 
 protected: 
     
-    Spell(std::string description, Player& owner, Player& opponent);
+    Spell(std::string description, Player& owner, Player& opponent, const std::string& name, int cost);
 
     std::string description;
 };

@@ -56,6 +56,22 @@ inline constexpr const char* DARK_RITUAL = "Dark Ritual";
 inline constexpr const char* AURA_OF_POWER = "Aura of Power";
 inline constexpr const char* STANDSTILL = "Standstill";
 
+// Spell names
+inline constexpr const char* UNSUMMON = "Unsummon";
+inline constexpr const char* RECHARGE = "Recharge";
+inline constexpr const char* BLIZZARD = "Blizzard";
+inline constexpr const char* RAISE_DEAD = "Raise Dead";
+inline constexpr const char* DISENCHANT = "Disenchant";
+inline constexpr const char* BANISH = "Banish";
+
+// Spell costs
+const int UNSUMMON_COST = 1;
+const int RECHARGE_COST = 1;
+const int BLIZZARD_COST = 3;
+const int RAISE_DEAD_COST = 1;
+const int DISENCHANT_COST = 1;
+const int BANISH_COST = 2;
+
 // Spell description constants
 inline constexpr const char* BANISH_DESC = "Destroy target minion or ritual";
 inline constexpr const char* UNSUMMON_DESC = "Return target minion to its owner's hand";

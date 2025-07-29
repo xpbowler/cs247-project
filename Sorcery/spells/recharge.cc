@@ -3,7 +3,7 @@
 using namespace std;
 
 //=========================================================
-Recharge::Recharge(Player& owner, Player& opponent): Spell{RECHARGE_DESC, owner, opponent} {
+Recharge::Recharge(Player& owner, Player& opponent): Spell{RECHARGE_DESC, owner, opponent, RECHARGE, RECHARGE_COST} {
     
 }
 

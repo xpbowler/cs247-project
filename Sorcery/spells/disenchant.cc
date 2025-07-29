@@ -1,7 +1,7 @@
 #include "disenchant.h"
 
 //=========================================================
-Disenchant::Disenchant(Player& owner, Player& opponent): Spell{DISENCHANT_DESC, owner, opponent} {
+Disenchant::Disenchant(Player& owner, Player& opponent): Spell{DISENCHANT_DESC, owner, opponent, DISENCHANT, DISENCHANT_COST} {
 
 }
 
