@@ -19,12 +19,12 @@ public:
     void setActivationCost(int cost);
     const std::string& getDescription() const;
     void disableAbility();
+    virtual UseSkillStatus useSkill() = 0;
 
 protected: 
     int activationCost;
     const std::string description;
     bool canUseAbility;
-    virtual UseSkillStatus useSkill() = 0;
 
     virtual ~ActivatedMinion() {}
 

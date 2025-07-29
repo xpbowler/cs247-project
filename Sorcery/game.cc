@@ -11,6 +11,8 @@
 #include <recharge.h>
 #include <raiseDead.h>
 #include <enchantmentDecorator.h>
+#include <activatedMinion.h>
+#include <novicePyromancer.h>
 
 #include <iostream>
 #include <fstream>
@@ -271,28 +273,43 @@ void Game::executeCommand(const string& cmd) {
         const Player& currPlayer = isPlayer1Turn ? *player1 : *player2;
         int i,p;
         ss >> i;
-        if (i<1 || i>currPlayer.getHand().size()) throw invalid_argument("play: invalid i");
-        const std::unique_ptr<Card>& playingCard = currPlayer.getHand()[i];
+        if (i<1 || i>currPlayer.getBoard().size()) throw invalid_argument("play: invalid i");
+        const std::unique_ptr<Card>& playingCard = currPlayer.getBoard()[i];
         if (ss>>p) {
+            Player& targetPlayer = p == 1 ? *player1 : *player2;
             if (p!=1 && p!=2) throw invalid_argument("play i p t: invalid p. p must be 1 or 2");
             string t;
             ss >> t;
-            if (t=="r") {
-                // use ritual
-                
+            int targetCardIndex;
+            try {
+                targetCardIndex = stoi(t);
+            } catch (const exception& e) {
+                throw invalid_argument("play i p t: invalid t");
+            }
+            if (targetCardIndex<1 || targetCardIndex>5) throw invalid_argument("play i p t: invalid t");
+            auto& targetCard = targetPlayer.getBoard()[targetCardIndex];
+            if (!dynamic_cast<Minion*> (targetCard.get())) {
+                throw runtime_error("target unit not a minion in play i p t");
+            }
+            auto targetMinion = dynamic_cast<Minion*> (targetCard.get());
+            if (dynamic_cast<NovicePyromancer*>(playingCard.get())) {
+                auto playingMinion = dynamic_cast<NovicePyromancer*>(playingCard.get());
+                playingMinion->useSkill(targetMinion);
+            } else if (dynamic_cast<ActivatedMinion*>(playingCard.get())) {
+                throw runtime_error("The minion's activated ability does not have a target");
             } else {
-                int target_card;
-                try {
-                    target_card = stoi(t);
-                } catch (const exception& e) {
-                    throw invalid_argument("play i p t: invalid t");
-                }
-                if (target_card<1 || target_card>5) throw invalid_argument("play i p t: invalid t");
-                // TODO
+                throw runtime_error("The minion has no activated abilities");
             }
         } else {
-            // play i plays the ith card in the active player’s hand with no target
-            // TODO
+            // minion uses its activated ability on no target
+            if (dynamic_cast<NovicePyromancer*>(playingCard.get())) {
+                throw runtime_error("The minion's activated abilility requires a target");
+            } else if (dynamic_cast<ActivatedMinion*>(playingCard.get())) {
+                auto playingMinion = dynamic_cast<ActivatedMinion*>(playingCard.get());
+                playingMinion->useSkill();
+            } else {
+                throw runtime_error("The minion has no activated abilities");
+            }
         }
     } else if (primary_cmd=="inspect") { // TODO. doc says describe. is it describe or inspect
         // inspect i command inspects the ith minion owned by the active player
