@@ -97,7 +97,7 @@ void Game::play() {
 }
 void Game::executeCommand(const string& cmd) {
     stringstream ss(cmd);
-    ss.exceptions(ios::failbit | ios::badbit);
+    ss.exceptions(ios::badbit);
 
     string primary_cmd;
     ss >> primary_cmd;
