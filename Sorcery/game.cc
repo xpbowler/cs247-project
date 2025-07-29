@@ -179,12 +179,20 @@ void Game::executeCommand(const string& cmd) {
             }
         }
     } else if (primary_cmd=="play") {
+        // TODO: magic consumption rules changing with testing mode?
         // play i p t: plays the ith card in the active player’s hand on card t owned by player p
         Player& currPlayer = isPlayer1Turn ? *player1 : *player2;
         int i,p;
         ss >> i;
         if (i<1 || i>currPlayer.getHand().size()) throw invalid_argument("play: invalid i");
+        i--; // it's 0-indexed!
+        cout << "i is now " << i << endl;
         const std::unique_ptr<Card>& playingCard = currPlayer.getHand()[i];
+        const int cost = playingCard->get_cost();
+        if (currPlayer.getMagic() < cost) {
+            cout << "Not enough magic to play this card." << endl;
+            return;
+        }
         if (ss>>p) {
             Player& targetPlayer = p == 1 ? *player1 : *player2;
             if (p!=1 && p!=2) throw invalid_argument("play i p t: invalid p. p must be 1 or 2");
@@ -242,6 +250,7 @@ void Game::executeCommand(const string& cmd) {
                 }
             }
         } else {
+            // TODO: implement magic cost here? also for testing mode?
             // play i plays the ith card in the active player’s hand with no target
             if (dynamic_cast<Minion*> (playingCard.get())) {
                 // check if there are already 5 minions on the board
@@ -268,12 +277,15 @@ void Game::executeCommand(const string& cmd) {
                 throw runtime_error("The unit picked should need a target.");
             }
         }
+        currPlayer.setMagic(currPlayer.getMagic() - cost);
     } else if (primary_cmd=="use") {
         // use i p t: command orders that minion to use its activated ability on the provided target (or on no target)
         const Player& currPlayer = isPlayer1Turn ? *player1 : *player2;
         int i,p;
         ss >> i;
+        
         if (i<1 || i>currPlayer.getBoard().size()) throw invalid_argument("play: invalid i");
+        i--; // it's 0-indexed!
         const std::unique_ptr<Card>& playingCard = currPlayer.getBoard()[i];
         if (ss>>p) {
             Player& targetPlayer = p == 1 ? *player1 : *player2;
