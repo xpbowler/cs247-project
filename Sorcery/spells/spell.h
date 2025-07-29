@@ -14,7 +14,7 @@ class Spell : public Card {
 public: 
     const std::string& get_description() const;
 
-    virtual void action(std::variant<Minion*, Ritual*> card) = 0;
+    virtual bool action(std::variant<Minion*, Ritual*> card) = 0;
 
     virtual ~Spell() {}
 

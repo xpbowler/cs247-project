@@ -8,10 +8,12 @@ Recharge::Recharge(Player& owner, Player& opponent): Spell{RECHARGE_DESC, owner,
 }
 
 //=========================================================
-void Recharge::action(variant<Minion*, Ritual*> card) {
+bool Recharge::action(variant<Minion*, Ritual*> card) {
     if (holds_alternative<Ritual*>(card)) {
         get<Ritual*>(card)->setCharges(get<Ritual*>(card)->getCharges() + 3);
+        return true;
     }
+    return false;
 }
 
 

@@ -77,6 +77,7 @@ void Player::discardCard(int i) {
     if (i<0 || i>= hand.size()) {
         throw runtime_error("invalid hand index to discard card");
     }
+    cout << "i is " << i << endl;
     hand.erase(hand.begin() + i);
 }
 

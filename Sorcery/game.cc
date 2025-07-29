@@ -149,17 +149,16 @@ void Game::executeCommand(const string& cmd) {
             Minion* minion = dynamic_cast<Minion*> (currPlayer.getBoard()[i].get());
             Minion* target = dynamic_cast<Minion*> (otherPlayer.getBoard()[j].get());
             if (minion && target) {
-                bool success = minion->attackMinion(target, std::nullopt);
-                if (!success) {
-                    throw runtime_error("Attacking minion does not have enough action points.");
+                if (!minion->attackMinion(target, std::nullopt)) {
+                    cout << "Attacking minion does not have enough action points." << endl;
                 }
             }
             else {
                 if (!minion) {
-                    throw runtime_error("Attacking unit is not a minion.");
+                    cout << "Attacking unit is not a minion." << endl;
                 }
                 if (!target) {
-                    throw runtime_error("Target is not a minion.");
+                    cout << "Target is not a minion." << endl;
                 }            
             }
         } else {
@@ -170,12 +169,12 @@ void Game::executeCommand(const string& cmd) {
             if (Minion* minion = dynamic_cast<Minion*> (currPlayer.getBoard()[i].get())) {
                 bool success = minion->attackPlayer(std::nullopt);
                 if (!success) {
-                    throw runtime_error("Insufficient action points on the minion.");
+                    cout << "Insufficient action points on the minion." << endl;
                     return;
                 }
             }
             else {
-                throw runtime_error("The indicated card is not a minion. ");
+                cout << "The indicated card is not a minion. " << endl;
             }
         }
     } else if (primary_cmd=="play") {
@@ -200,15 +199,15 @@ void Game::executeCommand(const string& cmd) {
                 // use ritual
                 auto target = targetPlayer.getRitual();
                 if (!target) {
-                    throw runtime_error("no ritual found when using play i p t");
+                    cout << "no ritual found when using play i p t" << endl;
                 }
                 if (auto spell = dynamic_cast<Banish*> (playingCard.get())) {
-                    auto ownedCard = currPlayer.stealCard(i, Hand);
-                    auto ownedSpell = std::unique_ptr<Spell> (dynamic_cast<Spell*> (ownedCard.get())); 
-                    ownedSpell->action(target);
+                    if (spell->action(target)) {
+                        currPlayer.discardCard(i);
+                    }
                 }
                 else {
-                    throw runtime_error ("Invalid card played on ritual target.");
+                    cout << "Invalid card played on ritual target." << endl;
                 }
                 
             } else {
@@ -237,14 +236,13 @@ void Game::executeCommand(const string& cmd) {
                     targetMinion->addEnchantment(std::unique_ptr<EnchantmentDecorator> (ownedEnchantment));
                 }
                 else if (dynamic_cast<Unsummon*> (playingCard.get()) || dynamic_cast<Disenchant*> (playingCard.get()) || dynamic_cast<Banish*> (playingCard.get())) {
-                    auto ownedSpell = dynamic_cast<Spell*> (currPlayer.stealCard(i, Hand).release());
-                    if (!ownedSpell) {
-                        throw runtime_error ("Cannot find correct spell while in play i p t and target is a minion.");
+                    auto spell = dynamic_cast<Spell*> (playingCard.get());
+                    if (spell->action(targetMinion)) {
+                        currPlayer.discardCard(i);
                     }
-                    ownedSpell->action(targetMinion);
                 }
                 else {
-                    throw runtime_error ("Invalid playing card type while in play i p t and target is a minion.");
+                    cout << "Invalid playing card type while in play i p t and target is a minion." << endl;
                 }
             }
         } else {
@@ -253,26 +251,22 @@ void Game::executeCommand(const string& cmd) {
             if (dynamic_cast<Minion*> (playingCard.get())) {
                 // check if there are already 5 minions on the board
                 if (currPlayer.getBoard().size() >= 5) {
-                    throw runtime_error("There are already 5 minions on the board, cannot put another one");
+                    cout << "There are already 5 minions on the board, cannot put another one" << endl;
                 }
                 currPlayer.moveCard(i, Hand, Board);
             }
             else if (dynamic_cast<RaiseDead*> (playingCard.get()) || dynamic_cast<Recharge*> (playingCard.get()) || dynamic_cast<Blizzard*> (playingCard.get())) {
-                auto ownedSpell = std::unique_ptr<Spell> (dynamic_cast<Spell*> (currPlayer.stealCard(i, Hand).release()));
-                if (!ownedSpell) {
-                    throw runtime_error("The unit picked is not a spell.");
+                auto spell = dynamic_cast<Spell*> (playingCard.get());
+                if (spell->action(static_cast<Minion*> (nullptr))) {
+                    currPlayer.discardCard(i);
                 }
-                ownedSpell->action(static_cast<Minion*> (nullptr));
             }
             else if (dynamic_cast<Ritual*> (playingCard.get())) {
                 auto ownedRitual = std::unique_ptr<Ritual> (dynamic_cast<Ritual*> (currPlayer.stealCard(i, Hand).release()));
-                if (!ownedRitual) {
-                    throw runtime_error("The unit picked is not a ritual.");
-                }
                 currPlayer.setRitual(std::move(ownedRitual));
             }
             else {
-                throw runtime_error("The unit picked should need a target.");
+                cout << "The unit picked should need a target." << endl;
             }
         }
         if (isTesting) {
@@ -325,14 +319,14 @@ void Game::executeCommand(const string& cmd) {
                     currPlayer.setMagic(currMagic - currActivationCost);
                 }
             } else if (dynamic_cast<ActivatedMinion*>(playingCard.get())) {
-                throw runtime_error("The minion's activated ability does not have a target");
+                cout << "The minion's activated ability does not have a target" << endl;
             } else {
-                throw runtime_error("The minion has no activated abilities");
+                cout << "The minion has no activated abilities" << endl;
             }
         } else {
             // minion uses its activated ability on no target
             if (dynamic_cast<NovicePyromancer*>(playingCard.get())) {
-                throw runtime_error("The minion's activated abilility requires a target");
+                cout << "The minion's activated abilility requires a target" << endl;
             } else if (dynamic_cast<ActivatedMinion*>(playingCard.get())) {
                 auto playingMinion = dynamic_cast<ActivatedMinion*>(playingCard.get());
                 const int currMagic = currPlayer.getMagic();
@@ -349,7 +343,7 @@ void Game::executeCommand(const string& cmd) {
                     currPlayer.setMagic(currMagic - currActivationCost);
                 }
             } else {
-                throw runtime_error("The minion has no activated abilities");
+                cout << "The minion has no activated abilities" << endl;
             }
         }
     } else if (primary_cmd=="inspect") { // TODO. doc says describe. is it describe or inspect

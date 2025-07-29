@@ -6,8 +6,9 @@ Disenchant::Disenchant(Player& owner, Player& opponent): Spell{DISENCHANT_DESC, 
 }
 
 //=========================================================
-void Disenchant::action(std::variant<Minion*, Ritual*> card) {
+bool Disenchant::action(std::variant<Minion*, Ritual*> card) {
     if (holds_alternative<Minion*>(card)) {
-        get<Minion*>(card)->removeTopEnchantment();
+        return get<Minion*>(card)->removeTopEnchantment();
     }
+    return false;
 }

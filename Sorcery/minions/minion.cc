@@ -8,7 +8,7 @@
 
 //=========================================================
 Minion::Minion(Player &owner, Player &opponent, int attack, int defence, MinionType minionType, const std::string& name, int cost) 
-    : Card{owner, opponent, name, cost}, attack{attack}, defence{defence}, actions{0}, minionType{minionType}, enchantment{nullptr}
+    : Card{owner, opponent, name, cost}, attack{attack}, defence{defence}, actions{0}, minionType{minionType}, enchantment{std::make_unique<BaseEnchantment>(owner, opponent)}
 {
 
 }

@@ -8,7 +8,7 @@ class Unsummon : public Spell {
 public:
     Unsummon(Player& owner, Player& opponent);
 
-    void action(std::variant<Minion*, Ritual*> card) override;
+    bool action(std::variant<Minion*, Ritual*> card) override;
 
 };
 
