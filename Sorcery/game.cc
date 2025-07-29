@@ -304,7 +304,7 @@ void Game::executeCommand(const string& cmd) {
     } else if (primary_cmd=="board") {
         display->showBoard();
     } else {
-        throw invalid_argument("invalid command: " + cmd);
+        cout << "invalid command: " << cmd << endl;
     }
 }
 

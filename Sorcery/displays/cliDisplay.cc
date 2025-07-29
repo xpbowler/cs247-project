@@ -20,7 +20,8 @@ ostream& printRow(ostream& out, const vector<card_template_t>& row) {
 
     size_t card_height = row.at(0).size();
     for (int i=0;i<card_height;++i) {
-        for (size_t j=0;j<row.size();++j) out << row.at(i).at(j);
+        for (size_t j=0;j<row.size();++j) out << row.at(j).at(i);
+        out << endl;
     }
 
     return out;
@@ -96,14 +97,15 @@ void CliDisplay::inspectMinion(bool isPlayer1Turn, int minion) {
 // Displays all the cards in a player's hand in one row
 void CliDisplay::showHand(bool isPlayer1Turn) {
     const Player& p = isPlayer1Turn ? p1 : p2;
+    vector<card_template_t> card_templates;
     for (const auto& card : p.getHand()) {
-        showCard(card.get());
+        card_templates.push_back(showCard(card.get()));
     }
+    printRow(cout, card_templates);
 }
 
 // Display the board in ASCII art, including both players' ritual, graveyard, minions, and player cards
 void CliDisplay::showBoard() {
-
     // Prepare the left and right side: Ritual and Graveyard for each player
     Ritual* p1Ritual = p1.getRitual();
     Ritual* p2Ritual = p2.getRitual();
@@ -130,15 +132,15 @@ void CliDisplay::showBoard() {
 
     // Player cards
     card_template_t p1Card = display_player_card(1, p1.getName(), p1.getLife(), p1.getMagic());
-    card_template_t p2Card = display_player_card(2, p2.getName(), p2.getLife(), p2.getLife());
+    card_template_t p2Card = display_player_card(2, p2.getName(), p2.getLife(), p2.getMagic());
 
     // Player minions
     vector<card_template_t> p1Minions, p2Minions;
     for (auto& card : p1.getHand()) {
         if (Minion* minion = dynamic_cast<Minion*>(card.get())) p1Minions.push_back(showMinion(minion));
     }
-    for (auto& card : p1.getHand()) {
-        if (Minion* minion = dynamic_cast<Minion*>(card.get())) p1Minions.push_back(showMinion(minion));
+    for (auto& card : p2.getHand()) {
+        if (Minion* minion = dynamic_cast<Minion*>(card.get())) p2Minions.push_back(showMinion(minion));
     }
     while (p1Minions.size() < 5) p1Minions.push_back(CARD_TEMPLATE_EMPTY);
     while (p2Minions.size() < 5) p2Minions.push_back(CARD_TEMPLATE_EMPTY);

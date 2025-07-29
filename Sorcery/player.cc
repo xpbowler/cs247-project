@@ -316,7 +316,8 @@ void Player::setRitual(std::unique_ptr<Ritual> ritual) {
 
 //=========================================================
 Card* Player::getGraveyardTop() const {
-    return graveyard[graveyard.size() - 1].get();
+    if (graveyard.empty()) return nullptr;
+    return graveyard.at(graveyard.size() - 1).get();
 }
 
 //=========================================================
