@@ -1,4 +1,5 @@
 #include "cliDisplay.h"
+#include "ascii_graphics.h"
 #include "spell.h"
 #include "enchantment.h"
 #include "ritual.h"

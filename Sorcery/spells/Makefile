@@ -5,7 +5,7 @@ CCFILES=${wildcard *.cc}
 OBJFILES=${CCFILES:.cc=.o}
 DEPENDS=${CCFILES:.cc=.d}
 OUTDIR=../
-INCLUDES=-I../triggers
+INCLUDES=-I../triggers -I../rituals -I../ -I../minions
 OBJ= ${OUTDIR}spells.o 
 
 all: ${OBJ}

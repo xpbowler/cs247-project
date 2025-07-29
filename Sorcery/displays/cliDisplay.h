@@ -2,7 +2,6 @@
 
 #include "display.h"
 #include "player.h"
-#include "ascii_graphics.h"
 
 #include <vector>
 #include <memory>
