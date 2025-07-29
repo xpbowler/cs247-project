@@ -90,7 +90,11 @@ inline constexpr const char* BLIZZARD_DESC = "Deal 2 damage to all minions";
 
 // Enchantment description constants
 inline constexpr const char* GIANT_STRENGTH_DESC = "";
+inline constexpr const char* GIANT_STRENGTH_ATTACK = "+2";
+inline constexpr const char* GIANT_STRENGTH_DEF = "+2"; 
 inline constexpr const char* ENRAGE_DESC = "";
+inline constexpr const char* ENRAGE_ATTACK = "*2";
+inline constexpr const char* ENRAGE_DEF = "*2";
 inline constexpr const char* HASTE_DESC = "Enchanted minion gains +1 action each turn";
 inline constexpr const char* MAGIC_FATIGUE_DESC = "Enchanted minion's activated ability costs 2 more";
 inline constexpr const char* SILENCE_DESC = "Enchanted minion cannot use abilities";

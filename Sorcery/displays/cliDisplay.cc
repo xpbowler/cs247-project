@@ -6,6 +6,8 @@
 #include <activatedMinion.h>
 #include <triggeredMinion.h>
 #include <baseMinion.h>
+#include <giantStrength.h>
+#include <enrage.h>
 
 using namespace std;
 
@@ -69,8 +71,11 @@ card_template_t showCard(Card* card) {
     if (auto spell = dynamic_cast<Spell*>(card)) {
         return display_spell(name, cost, spell->get_description());
     } else if (auto enchantment = dynamic_cast<Enchantment*>(card)) {
+        if (dynamic_cast<GiantStrength*> (enchantment)) 
+            return display_enchantment_attack_defence(name, cost, enchantment->getDescription(), GIANT_STRENGTH_ATTACK, GIANT_STRENGTH_DEF);
+        if (dynamic_cast<Enrage*> (enchantment)) 
+            return display_enchantment_attack_defence(name, cost, enchantment->getDescription(), ENRAGE_ATTACK, ENRAGE_DEF);
         return display_enchantment(name, cost, enchantment->getDescription());
-        // TODO: what is enchantment_attack_defense??
     } else if (auto ritual = dynamic_cast<Ritual*>(card)) {
         return display_ritual(name, cost, ritual->getActivationCost(), ritual->get_description(), ritual->getCharges());
     } else if (auto minion = dynamic_cast<Minion*>(card)) {

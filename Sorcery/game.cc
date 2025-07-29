@@ -179,17 +179,15 @@ void Game::executeCommand(const string& cmd) {
             }
         }
     } else if (primary_cmd=="play") {
-        // TODO: magic consumption rules changing with testing mode?
         // play i p t: plays the ith card in the active player’s hand on card t owned by player p
         Player& currPlayer = isPlayer1Turn ? *player1 : *player2;
         int i,p;
         ss >> i;
         if (i<1 || i>currPlayer.getHand().size()) throw invalid_argument("play: invalid i");
         i--; // it's 0-indexed!
-        cout << "i is now " << i << endl;
         const std::unique_ptr<Card>& playingCard = currPlayer.getHand()[i];
         const int cost = playingCard->get_cost();
-        if (currPlayer.getMagic() < cost) {
+        if (!isTesting && currPlayer.getMagic() < cost) {
             cout << "Not enough magic to play this card." << endl;
             return;
         }
@@ -250,7 +248,7 @@ void Game::executeCommand(const string& cmd) {
                 }
             }
         } else {
-            // TODO: implement magic cost here? also for testing mode?
+            
             // play i plays the ith card in the active player’s hand with no target
             if (dynamic_cast<Minion*> (playingCard.get())) {
                 // check if there are already 5 minions on the board
@@ -277,10 +275,17 @@ void Game::executeCommand(const string& cmd) {
                 throw runtime_error("The unit picked should need a target.");
             }
         }
-        currPlayer.setMagic(currPlayer.getMagic() - cost);
+        if (isTesting) {
+            currPlayer.setMagic(max(0, currPlayer.getMagic() - cost));
+        }
+        else {
+            currPlayer.setMagic(currPlayer.getMagic() - cost);
+        }
+        
     } else if (primary_cmd=="use") {
+
         // use i p t: command orders that minion to use its activated ability on the provided target (or on no target)
-        const Player& currPlayer = isPlayer1Turn ? *player1 : *player2;
+        Player& currPlayer = isPlayer1Turn ? *player1 : *player2;
         int i,p;
         ss >> i;
         
@@ -306,7 +311,19 @@ void Game::executeCommand(const string& cmd) {
             auto targetMinion = dynamic_cast<Minion*> (targetCard.get());
             if (dynamic_cast<NovicePyromancer*>(playingCard.get())) {
                 auto playingMinion = dynamic_cast<NovicePyromancer*>(playingCard.get());
+                const int currMagic = currPlayer.getMagic();
+                const int currActivationCost = playingMinion->getActivationCost();
+                if (!isTesting && playingMinion->getActivationCost() > currMagic) {
+                    cout << "Not enough magic to use activated ability with target" << endl;
+                    return;
+                }
                 playingMinion->useSkill(targetMinion);
+                if (isTesting) {
+                    currPlayer.setMagic(max(0, currMagic - currActivationCost));
+                }
+                else {
+                    currPlayer.setMagic(currMagic - currActivationCost);
+                }
             } else if (dynamic_cast<ActivatedMinion*>(playingCard.get())) {
                 throw runtime_error("The minion's activated ability does not have a target");
             } else {
@@ -318,7 +335,19 @@ void Game::executeCommand(const string& cmd) {
                 throw runtime_error("The minion's activated abilility requires a target");
             } else if (dynamic_cast<ActivatedMinion*>(playingCard.get())) {
                 auto playingMinion = dynamic_cast<ActivatedMinion*>(playingCard.get());
+                const int currMagic = currPlayer.getMagic();
+                const int currActivationCost = playingMinion->getActivationCost();
+                if (!isTesting && currActivationCost > currMagic) {
+                    cout << "Not enough magic to use activated ability without target." << endl;
+                    return;
+                }
                 playingMinion->useSkill();
+                if (isTesting) {
+                    currPlayer.setMagic(max(0, currMagic - currActivationCost));
+                }
+                else {
+                    currPlayer.setMagic(currMagic - currActivationCost);
+                }
             } else {
                 throw runtime_error("The minion has no activated abilities");
             }
