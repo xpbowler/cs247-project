@@ -1,9 +1,16 @@
 #include "game.h"
-#include "notification.h"
-#include "cliDisplay.h"
-#include "spell.h"
-#include "enchantment.h"
-#include "enchantmentDecorator.h"
+#include <notification.h>
+#include <cliDisplay.h>
+#include <spell.h>
+#include <enchantment.h>
+#include <haste.h>
+#include <banish.h>
+#include <unsummon.h>
+#include <disenchant.h>
+#include <blizzard.h>
+#include <recharge.h>
+#include <raiseDead.h>
+#include <enchantmentDecorator.h>
 
 #include <iostream>
 #include <fstream>
@@ -178,11 +185,10 @@ void Game::executeCommand(const string& cmd) {
                 if (!target) {
                     throw runtime_error("no ritual found when using play i p t");
                 }
-                if (auto spell = dynamic_cast<Spell*> (playingCard.get())) {
+                if (auto spell = dynamic_cast<Banish*> (playingCard.get())) {
                     auto ownedCard = currPlayer.stealCard(i, Hand);
-                    auto ownedSpell = dynamic_cast<Spell*> (ownedCard.get()); 
+                    auto ownedSpell = std::unique_ptr<Spell> (dynamic_cast<Spell*> (ownedCard.get())); 
                     ownedSpell->action(target);
-                    delete ownedSpell;
                 }
                 else {
                     throw runtime_error ("Invalid card played on ritual target.");
@@ -203,15 +209,18 @@ void Game::executeCommand(const string& cmd) {
                 }
                 auto targetOwnedCard = targetPlayer.stealCard(targetCardIndex, Board);
                 auto targetMinion = dynamic_cast<Minion*> (targetOwnedCard.get());
-                if (auto enchantment = dynamic_cast<Enchantment*> (playingCard.get())) {
-                    // TODO: what if it is haste?
+                if (dynamic_cast<Enchantment*> (playingCard.get())) {
                     auto ownedEnchantment = dynamic_cast<EnchantmentDecorator*> (currPlayer.stealCard(i, Hand).release());
                     if (!ownedEnchantment) {
                         throw runtime_error("Cannot find correct enchantment while in play i p t and target is a minion.");
                     }
+                    if (dynamic_cast<Haste*> (ownedEnchantment)) {
+                        // we need to increase an action for haste
+                        targetMinion->setActions(targetMinion->getActions() + 1);
+                    }
                     targetMinion->addEnchantment(std::unique_ptr<EnchantmentDecorator> (ownedEnchantment));
                 }
-                else if (auto spell = dynamic_cast<Spell*> (playingCard.get())) {
+                else if (dynamic_cast<Unsummon*> (playingCard.get()) || dynamic_cast<Disenchant*> (playingCard.get()) || dynamic_cast<Banish*> (playingCard.get())) {
                     auto ownedSpell = dynamic_cast<Spell*> (currPlayer.stealCard(i, Hand).release());
                     if (!ownedSpell) {
                         throw runtime_error ("Cannot find correct spell while in play i p t and target is a minion.");
@@ -224,7 +233,34 @@ void Game::executeCommand(const string& cmd) {
             }
         } else {
             // play i plays the ith card in the active player’s hand with no target
-            // TODO
+            if (dynamic_cast<Minion*> (playingCard.get())) {
+                // check if there are already 5 minions on the board
+                if (currPlayer.getBoard().size() >= 5) {
+                    throw runtime_error("There are already 5 minions on the board, cannot put another one");
+                }
+                auto ownedMinion = dynamic_cast<Minion*> (currPlayer.stealCard(i, Hand).release());
+                if (!ownedMinion) {
+                    throw runtime_error("The unit picked is not a minion.");
+                }
+                currPlayer.insertCard(Board, std::unique_ptr<Card> (ownedMinion));
+            }
+            else if (dynamic_cast<RaiseDead*> (playingCard.get()) || dynamic_cast<Recharge*> (playingCard.get()) || dynamic_cast<Blizzard*> (playingCard.get())) {
+                auto ownedSpell = std::unique_ptr<Spell> (dynamic_cast<Spell*> (currPlayer.stealCard(i, Hand).release()));
+                if (!ownedSpell) {
+                    throw runtime_error("The unit picked is not a spell.");
+                }
+                ownedSpell->action(static_cast<Minion*> (nullptr));
+            }
+            else if (dynamic_cast<Ritual*> (playingCard.get())) {
+                auto ownedRitual = std::unique_ptr<Ritual> (dynamic_cast<Ritual*> (currPlayer.stealCard(i, Hand).release()));
+                if (!ownedRitual) {
+                    throw runtime_error("The unit picked is not a ritual.");
+                }
+                currPlayer.setRitual(std::move(ownedRitual));
+            }
+            else {
+                throw runtime_error("The unit picked should need a target.");
+            }
         }
     } else if (primary_cmd=="use") {
         // use i p t: command orders that minion to use its activated ability on the provided target (or on no target)
@@ -239,7 +275,6 @@ void Game::executeCommand(const string& cmd) {
             ss >> t;
             if (t=="r") {
                 // use ritual
-                
                 
             } else {
                 int target_card;
@@ -259,7 +294,6 @@ void Game::executeCommand(const string& cmd) {
         // inspect i command inspects the ith minion owned by the active player
         int minion;
         ss >> minion;
-        // TODO
         display->inspectMinion(isPlayer1Turn, minion);
     } else if (primary_cmd=="hand") {
         display->showHand(isPlayer1Turn);
