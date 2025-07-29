@@ -1,5 +1,5 @@
 #include "baseEnchantment.h"
-#include "helper.h"
+#include <helper.h>
 
 //===================================================================
 BaseEnchantment::BaseEnchantment(Player& owner, Player& opponent) 

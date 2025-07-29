@@ -1,7 +1,7 @@
 #pragma once 
 
 #include "minion.h"
-#include "helper.h"
+#include <helper.h>
 #include <memory>
 
 class Trigger;

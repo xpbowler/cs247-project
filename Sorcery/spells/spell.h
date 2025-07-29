@@ -3,10 +3,10 @@
 #include <string>
 #include <iostream>
 #include <variant>
-#include "card.h"
-#include "minion.h"
-#include "ritual.h"
-#include "player.h"
+#include <card.h>
+#include <minion.h>
+#include <ritual.h>
+#include <player.h>
 class Player;
 
 class Spell : public Card {

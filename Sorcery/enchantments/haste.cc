@@ -1,5 +1,5 @@
 #include "haste.h"
-#include "minion.h"
+#include <minion.h>
 
 //========================================================
 Haste::Haste(Player& owner, Player& opponent) 

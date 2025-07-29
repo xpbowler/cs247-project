@@ -4,8 +4,8 @@
 #include <unordered_map>
 
 #include "player.h"
-#include "triggers/trigger.h"
-#include "displays/cliDisplay.h"
+#include <trigger.h>
+#include <cliDisplay.h>
 
 class Game {
     bool isPlayer1Turn;

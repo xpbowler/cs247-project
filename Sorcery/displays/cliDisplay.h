@@ -1,7 +1,7 @@
 #pragma once
 
 #include "display.h"
-#include "player.h"
+#include <player.h>
 
 #include <vector>
 #include <memory>

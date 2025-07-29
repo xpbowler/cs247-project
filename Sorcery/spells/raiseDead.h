@@ -1,7 +1,7 @@
 #pragma once 
 
 #include "spell.h" 
-#include "helper.h"
+#include <helper.h>
 
 class RaiseDead : public Spell {
 

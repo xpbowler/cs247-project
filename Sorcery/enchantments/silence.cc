@@ -1,6 +1,6 @@
 #include "silence.h"
-#include "helper.h"
-#include "activatedMinion.h"
+#include <activatedMinion.h>
+#include <helper.h>
 
 //=========================================================
 Silence::Silence(Player& owner, Player& opponent)

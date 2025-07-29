@@ -1,5 +1,5 @@
 #include "masterSummoner.h"
-#include "player.h"
+#include <player.h>
 
 //=========================================================
 MasterSummoner::MasterSummoner(Player &owner, Player &opponent)
