@@ -53,8 +53,8 @@ Game::Game(const string& deck1, const string& deck2, const string& initFilePath,
     player1->setOtherPlayer(player2.get());
     player2->setOtherPlayer(player1.get());
 
-    player1->initializeDeck(deck1);
-    player2->initializeDeck(deck2);
+    player1->initializeDeck(deck1, !isTesting);
+    player2->initializeDeck(deck2, !isTesting);
 
     // default to CliDisplay. can add more display options in the future
     display = make_unique<CliDisplay>(*player1, *player2);
