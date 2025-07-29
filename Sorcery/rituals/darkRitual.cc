@@ -3,7 +3,10 @@
 #include "player.h"
 
 //=========================================================
-DarkRitual::DarkRitual(Player& owner, Player& opponent) : Ritual {1, 5, owner, opponent, DARK_RITUAL_DESC} {
+DarkRitual::DarkRitual(Player& owner, Player& opponent) : Ritual {DARK_RITUAL_COST, 
+                                                                  DARK_RITUAL_ACTIVATION_COST,
+                                                                  DARK_RITUAL_CHARGES, 
+                                                                  owner, opponent, DARK_RITUAL, DARK_RITUAL_DESC} {
     
 }
 

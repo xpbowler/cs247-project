@@ -37,6 +37,15 @@ const int ENRAGE_COST = 2;
 const int HASTE_COST = 1;
 const int MAGIC_FATIGUE_COST = 0;
 const int SILENCE_COST = 1;
+const int AURA_OF_POWER_COST = 1;
+const int AURA_OF_POWER_ACTIVATION_COST = 1;
+const int AURA_OF_POWER_CHARGES = 4;
+const int DARK_RITUAL_COST = 0;
+const int DARK_RITUAL_ACTIVATION_COST = 1;
+const int DARK_RITUAL_CHARGES = 5;
+const int STANDSTILL_COST = 3;
+const int STANDSTILL_ACTIVATION_COST = 2;
+const int STANDSTILL_CHARGES = 4;
 
 
 // Card name constants
