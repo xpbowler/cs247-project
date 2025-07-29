@@ -24,6 +24,7 @@ protected:
                     Player& owner, 
                     Player& opponent,
                     std::string name, 
+                    int cost,
                     MinionType minionType);
 
     // subclasses have responsibility to create trigger and attach to trigger topic

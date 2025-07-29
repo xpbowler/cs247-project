@@ -6,7 +6,7 @@ class Player;
 
 class Card {
 protected: 
-    Card(Player& owner, Player& opponent) : owner{owner}, opponent{opponent} {}
+    Card(Player& owner, Player& opponent, const std::string& name, int cost) : owner{owner}, opponent{opponent}, name{name}, cost{cost} {}
 
     Player& owner;
     Player& opponent;

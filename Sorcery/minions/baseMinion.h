@@ -14,7 +14,8 @@ public:
                int defence, 
                Player& owner, 
                Player& opponent,
-               std::string name, 
+               std::string name,
+               int cost,
                MinionType minionType);
 
 protected: 

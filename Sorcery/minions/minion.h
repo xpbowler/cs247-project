@@ -34,7 +34,7 @@ public:
 // no need to put useSkill here, it is already in the intermediate subclasses
 
 protected: 
-    Minion(Player& owner, Player& opponent, int attack, int defence, MinionType mt, std::string name);
+    Minion(Player& owner, Player& opponent, int attack, int defence, MinionType mt, const std::string& name, int cost);
 
     virtual ~Minion() = 0;
 
@@ -45,9 +45,6 @@ protected:
     int actions;
     MinionType minionType;
     std::unique_ptr<Enchantment> enchantment;
-    std::string name;
-    
-    
 };
 
   

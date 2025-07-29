@@ -12,7 +12,9 @@ public:
                     Player& owner,
                     Player& opponent, 
                     MinionType minionType,
-                    std::string name);
+                    std::string name,
+                    int cost
+                    );
 
     // responsibility on player to check if enough magic
     int getActivationCost() const;

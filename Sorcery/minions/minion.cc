@@ -7,8 +7,8 @@
 #include <stdexcept>
 
 //=========================================================
-Minion::Minion(Player &owner, Player &opponent, int attack, int defence, MinionType minionType, std::string name) 
-    : Card{owner, opponent}, attack{attack}, defence{defence}, actions{0}, minionType{minionType}, enchantment{nullptr}, name {name}
+Minion::Minion(Player &owner, Player &opponent, int attack, int defence, MinionType minionType, const std::string& name, int cost) 
+    : Card{owner, opponent, name, cost}, attack{attack}, defence{defence}, actions{0}, minionType{minionType}, enchantment{nullptr}
 {
 
 }

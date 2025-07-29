@@ -7,8 +7,9 @@ TriggeredMinion::TriggeredMinion(int attack,
                                  Player &owner,
                                  Player &opponent,
                                  std::string name,
+                                 int cost,
                                  MinionType minionType)
-    : Minion{owner, opponent, attack, defence, minionType, name}, canUseAbility {true}
+    : Minion{owner, opponent, attack, defence, minionType, name, cost}, canUseAbility {true}
 {
     
 }

@@ -6,9 +6,9 @@ BaseMinion::BaseMinion(int attack,
                        Player &owner,
                        Player &opponent,
                        std::string name,
-                       MinionType minionType) : Minion{owner, opponent, attack, defence, minionType, name}
-{
-}
+                       int cost,
+                       MinionType minionType) : Minion{owner, opponent, attack, defence, minionType, name, cost}
+{}
 
 //=========================================================
 BaseMinion::~BaseMinion() {}

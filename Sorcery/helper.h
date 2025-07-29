@@ -38,6 +38,7 @@ const int MASTER_SUMMONER_ACTIVATION_COST = 2;
 inline constexpr const char* AIR_ELEMENTAL = "Air Elemental";
 inline constexpr const char* EARTH_ELEMENTAL = "Earth Elemental";
 inline constexpr const char* FIRE_ELEMENTAL = "Fire Elemental";
+inline constexpr const char* BONE_GOLEM = "Bone Golem";
 inline constexpr const char* POTION_SELLER = "Potion Seller";
 inline constexpr const char* NOVICE_PYROMANCER = "Novice Pyromancer";
 inline constexpr const char* APPRENTICE_SUMMONER = "Apprentice Summoner";
