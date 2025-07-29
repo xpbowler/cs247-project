@@ -28,6 +28,15 @@ void trimWhitespace(string& s) {
 
 Game::Game(const string& deck1, const string& deck2, const string& initFilePath, bool isTesting)
     : isPlayer1Turn{false}, isTesting{isTesting}, triggerTopics{}, display{}, player1{}, player2{}, player1Wins {std::nullopt} {
+
+    // initialize triggerTopics
+    triggerTopics.insert(std::make_pair(TriggerType::EndTurnPlayer1, make_unique<TriggerTopic>()));
+    triggerTopics.insert(std::make_pair(TriggerType::EndTurnPlayer2, make_unique<TriggerTopic>()));
+    triggerTopics.insert(std::make_pair(TriggerType::StartTurnPlayer1, make_unique<TriggerTopic>()));
+    triggerTopics.insert(std::make_pair(TriggerType::StartTurnPlayer2, make_unique<TriggerTopic>()));
+    triggerTopics.insert(std::make_pair(TriggerType::MinionEnter, make_unique<TriggerTopic>()));
+    triggerTopics.insert(std::make_pair(TriggerType::MinionLeave, make_unique<TriggerTopic>()));
+
     ifstream initFile(initFilePath);
     if (!initFile) {
         throw runtime_error("Failed to open game initialization file: " + initFilePath);
@@ -55,8 +64,8 @@ Game::Game(const string& deck1, const string& deck2, const string& initFilePath,
     }
 }
 
-void Game::notifyTopic(TriggerType triggerType, Notification notification) const {
-    triggerTopics.at(triggerType)->notifyTriggers(notification);
+void Game::notifyTopic(TriggerType tt, Notification notification) const {
+    triggerTopics.at(tt)->notifyTriggers(notification);
 }
 
 void Game::attachTrigger(TriggerType tt, Trigger* trigger)const  {
@@ -64,7 +73,7 @@ void Game::attachTrigger(TriggerType tt, Trigger* trigger)const  {
 }
 
 
-TriggerTopic* Game::getTriggerTopic(TriggerType triggerType) const { return triggerTopics.at(triggerType).get(); }
+TriggerTopic* Game::getTriggerTopic(TriggerType tt) const { return triggerTopics.at(tt).get(); }
 void Game::play() {
     string command;
     while (getline(cin, command)) {
