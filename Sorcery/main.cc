@@ -19,9 +19,8 @@ int main(int argc, char* argv[]) {
             initFile = argv[++i];
         } else if (arg=="-testing") {
             isTesting = true;
-        } else if (arg=="-extra") {
+        } else if (arg=="-enableBonus") {
             // enables the game's bonus features
-            
             bonusFeatures = true;
         } else {
             std::cerr << "Unknown or incomplete argument: " << arg << std::endl;

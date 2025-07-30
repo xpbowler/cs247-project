@@ -241,10 +241,16 @@ void Player::initializeDeck(const string& deckFilePath, bool shuffle) {
     };
     
     while (getline(initFile, card_string)) {
-        if (auto it = make.find(card_string); it != make.end())
+        if (auto it = make.find(card_string); it != make.end()) {
+            for (auto& x : bonusCards) {
+                if (!game.isBonusFeatures() && card_string==x) {
+                    // if bonus features are not enabled, skip over the bonus cards
+                    cout << "Unable to use bonus card when bonus features is not enabled" << endl;
+                    continue;
+                }
+            }
             deck.push_back(it->second(*this, *otherPlayer));
-        else
-            std::cout << "WARN: unknown card: " << card_string << '\n';
+        } else std::cout << "WARN: unknown card: " << card_string << '\n';
     }
     
     if (shuffle) shuffleDeck();

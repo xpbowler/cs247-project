@@ -23,6 +23,8 @@ class Game {
         void notifyTopic(TriggerType triggerType, const Notification& notification) const;
         void attachTrigger(TriggerType tt, Trigger* trigger) const;
         TriggerTopic* getTriggerTopic(TriggerType triggerType) const;
+
+        bool isBonusFeatures() const { return bonusFeatures; }
         
         void play();
 
