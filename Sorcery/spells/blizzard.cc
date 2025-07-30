@@ -6,7 +6,7 @@ Blizzard::Blizzard(Player& owner, Player& opponent): Spell{BLIZZARD_DESC, owner,
 }
 
 //=========================================================
-bool Blizzard::action(std::variant<Minion*, Ritual*> card) {
+bool Blizzard::action(std::variant<Minion*, Ritual*>) {
     for (const std::unique_ptr<Card>& c : owner.getBoard()) {
         if (dynamic_cast<Minion*>(c.get())) {
             dynamic_cast<Minion*>(c.get())->takeDamage(2);

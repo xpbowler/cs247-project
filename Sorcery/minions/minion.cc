@@ -98,6 +98,7 @@ bool Minion::attackMinion(Minion* minion, std::optional<int> dmg) {
     minion->takeDamage(dmg ? *dmg : attack);
     attack = oldAttack;
     defence = oldDefence;
+    actions--;
     return true;
 }
 
@@ -113,6 +114,7 @@ bool Minion::attackPlayer(std::optional<int> dmg) {
     opponent.modifyLife(dmg ? -*dmg : -attack);
     attack = oldAttack;
     defence = oldDefence;
+    actions--;
     return true;
 }
 

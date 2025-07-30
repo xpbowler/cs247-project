@@ -33,6 +33,5 @@ void DarkRitual::execute(const Notification& notification) {
     }
     // Execute ritual
     charges -= activationCost;
-    std::cout << "dark ritual here" << std::endl;
     owner.setMagic(owner.getMagic() + 1);
 }

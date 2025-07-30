@@ -42,18 +42,15 @@ void TriggerTopic::notifyTriggers(const Notification& notification) {
         }
     }
     for (auto& observer : observersCurrPlayer) {
-        std::cout << "notified currPlayer" << std::endl;
         observer->notifyOwner(notification);
     }
     for (auto& observer : observersOtherPlayer) {
-        std::cout << "notified otherPlayer" << std::endl;
         observer->notifyOwner(notification);
     }
 }
 
 //=========================================================
 void TriggerTopic::attachTrigger(Trigger* trigger) {
-    std::cout << "attached something" << std::endl;
     observers.push_back(trigger);
 }
 
