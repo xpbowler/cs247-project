@@ -162,6 +162,3 @@ enum UseSkillStatus {
     Silenced,
     NotEnoughMagic
 };
-
-// Bonus cards
-static const char* bonusCards[] = {CLONER};

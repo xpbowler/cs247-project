@@ -30,7 +30,7 @@ void trimWhitespace(string& s) {
 }
 
 Game::Game(const string& deck1, const string& deck2, const string& initFilePath, bool isTesting, bool bonusFeatures)
-    : isPlayer1Turn{true}, isTesting{isTesting}, bonusFeatures{bonusFeatures}, display{}, player1{}, player2{}, player1Wins {std::nullopt} {
+    : isPlayer1Turn{true}, isTesting{isTesting}, bonusFeatures{bonusFeatures}, player1Wins {std::nullopt}, display{}, player1{}, player2{} {
 
     // initialize triggerTopics
     triggerTopics.insert(std::make_pair(TriggerType::EndTurnPlayer1, make_unique<TriggerTopic>(*this)));
@@ -130,7 +130,7 @@ void Game::executeCommand(const string& cmd) {
         }
     } else if (primary_cmd=="discard") {
         if (!isTesting) {
-            "discard is only available in testing mode.";
+            cout << "discard is only available in testing mode." << endl;
             return;
         }
         // i is 1-indexed. in fact, everything through the cli is 1-indexed for simplicity
@@ -140,12 +140,12 @@ void Game::executeCommand(const string& cmd) {
         isPlayer1Turn ? player1->discardCard(i) : player2->discardCard(i);
     } else if (primary_cmd=="draw") {
         if (!isTesting) {
-            "draw is only available in testing mode.";
+            cout << "draw is only available in testing mode." << endl;
             return;
         }
         isPlayer1Turn ? player1->drawCard() : player2->drawCard();
     } else if (primary_cmd=="attack") {
-        int i,j;
+        size_t i,j;
         ss >> i;
         i--; // it is 0-indexed!
         Player& currPlayer = isPlayer1Turn ? *player1 : *player2;
@@ -193,7 +193,7 @@ void Game::executeCommand(const string& cmd) {
     } else if (primary_cmd=="play") {
         // play i p t: plays the ith card in the active player’s hand on card t owned by player p
         Player& currPlayer = isPlayer1Turn ? *player1 : *player2;
-        int i,p;
+        size_t i,p;
         ss >> i;
         if (i<1 || i>currPlayer.getHand().size()) {
             cout << "play: invalid i" << endl;
@@ -236,7 +236,7 @@ void Game::executeCommand(const string& cmd) {
                 }
                 
             } else {
-                int targetCardIndex;
+                size_t targetCardIndex;
                 try {
                     targetCardIndex = stoi(t);
                 } catch (const exception& e) {
@@ -318,7 +318,7 @@ void Game::executeCommand(const string& cmd) {
 
         // use i p t: command orders that minion to use its activated ability on the provided target (or on no target)
         Player& currPlayer = isPlayer1Turn ? *player1 : *player2;
-        int i,p;
+        size_t i,p;
         ss >> i;
         
         if (i<1 || i>currPlayer.getBoard().size()) throw invalid_argument("play: invalid i");
@@ -327,7 +327,7 @@ void Game::executeCommand(const string& cmd) {
         if (ss>>p) {
             Player& targetPlayer = p == 1 ? *player1 : *player2;
             if (p!=1 && p!=2) {
-                "use i p t: invalid p. p must be 1 or 2";
+                cout << "use i p t: invalid p. p must be 1 or 2" << endl;
                 return;
             }
             string t;
@@ -346,23 +346,16 @@ void Game::executeCommand(const string& cmd) {
                 throw runtime_error("Target unit not a minion in play i p t");
             }
             auto targetMinion = dynamic_cast<Minion*> (targetCard.get());
-            if (dynamic_cast<NovicePyromancer*>(playingCard.get())) {
-                auto playingMinion = dynamic_cast<NovicePyromancer*>(playingCard.get());
-                auto status = playingMinion->useSkill(isTesting, targetMinion);
-                switch(status) {
-                    case NotEnoughMagic: 
-                        cout << "Not enough magic. " << endl;
-                        return;
-                    case NoAction:
-                        cout << "Not enough action points." << endl;
-                        return;
-                    case Silenced: 
-                        cout << "Silence in effect, cannot use ability." << endl;
-                        return;
+            if (dynamic_cast<NovicePyromancer*>(playingCard.get()) || dynamic_cast<Cloner*>(playingCard.get())) {
+                auto novicePyromancer = dynamic_cast<NovicePyromancer*>(playingCard.get());
+                auto cloner = dynamic_cast<Cloner*> (playingCard.get());
+                UseSkillStatus status = OK;
+                if (novicePyromancer) {
+                    status = novicePyromancer->useSkill(isTesting, targetMinion);
+                } 
+                else {
+                    status = cloner->useSkill(isTesting, targetMinion);
                 }
-            } else if (dynamic_cast<Cloner*>(playingCard.get())) {
-                auto playingMinion = dynamic_cast<Cloner*>(playingCard.get());
-                auto status = playingMinion->useSkill(isTesting, targetMinion);
                 switch(status) {
                     case NotEnoughMagic: 
                         cout << "Not enough magic. " << endl;
@@ -373,6 +366,8 @@ void Game::executeCommand(const string& cmd) {
                     case Silenced: 
                         cout << "Silence in effect, cannot use ability." << endl;
                         return;
+                    default:
+                        cout << "Used activated ability successfully." << endl;
                 }
             } else if (dynamic_cast<ActivatedMinion*>(playingCard.get())) {
                 cout << "The minion's activated ability does not have a target" << endl;
@@ -396,6 +391,8 @@ void Game::executeCommand(const string& cmd) {
                     case Silenced: 
                         cout << "Silence in effect, cannot use ability." << endl;
                         return;
+                    default:
+                        cout << "Used activated ability successfully." << endl;
                 }
             } else {
                 cout << "The minion has no activated abilities" << endl;

@@ -39,7 +39,7 @@ ostream& printRow(ostream& out, const vector<card_template_t>& row, bool include
     }
 
     size_t card_height = row.at(0).size();
-    for (int i=0;i<card_height;++i) {
+    for (size_t i=0;i<card_height;++i) {
         if (includeBorder) out << EXTERNAL_BORDER_CHAR_UP_DOWN;
         for (size_t j=0;j<row.size();++j) out << row.at(j).at(i);
         if (includeBorder) out << EXTERNAL_BORDER_CHAR_UP_DOWN << endl;
@@ -59,7 +59,7 @@ card_template_t showMinion(Minion* minion) {
         return display_minion_activated_ability(name, cost, attack, defence, activatedMinion->getActivationCost(), activatedMinion->getDescription());
     } else if (auto triggeredMinion = dynamic_cast<TriggeredMinion*>(minion)) {
         return display_minion_triggered_ability(name, cost, attack, defence, triggeredMinion->getDescription());
-    } else if (auto baseMinion = dynamic_cast<BaseMinion*>(minion)) {
+    } else if (dynamic_cast<BaseMinion*>(minion)) {
         return display_minion_no_ability(name, cost, attack, defence);
     } else throw runtime_error("unable to show card");
 }
@@ -134,7 +134,7 @@ void CliDisplay::showHand(bool isPlayer1Turn) {
     const Player& p = isPlayer1Turn ? p1 : p2;
     vector<card_template_t> hand;
     const vector<unique_ptr<Card>>& x = p.getHand();
-    for (const auto& card : p.getHand()) {
+    for (const auto& card : x) {
         hand.push_back(showCard(card.get()));
     }
     printRow(cout, hand, false);

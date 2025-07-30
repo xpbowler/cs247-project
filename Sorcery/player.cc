@@ -52,15 +52,15 @@ namespace {
 //=========================================================
 Player::Player(string& name, Game* game): name{std::move(name)}, 
                                           life{STARTING_LIFE}, 
-                                          magic{STARTING_MAGIC}, 
+                                          magic{STARTING_MAGIC},
+                                          isFirstTurn{true}, 
                                           deck{}, 
                                           hand{}, 
                                           board{}, 
                                           graveyard{}, 
                                           ritual{}, 
                                           otherPlayer{nullptr}, 
-                                          game{*game},
-                                          isFirstTurn{true} {}
+                                          game{*game} {}
 
 //=========================================================
 // draw command draws a card, similar to the effect if the player just started their turn
@@ -87,7 +87,7 @@ void Player::playCard(int i) {
 // discard the i'th card in the player's hand
 // the card does not go to the graveyard, trigger leave play effects or anything else
 void Player::discardCard(int i) {
-    if (i<0 || i>= hand.size()) {
+    if (i<0 || (size_t)i>= hand.size()) {
         throw runtime_error("invalid hand index to discard card");
     }
     hand.erase(hand.begin() + i);
@@ -102,13 +102,13 @@ std::string areaToString(Area a) {
     if (a==Area::Board) return "board";
     else if (a==Area::Hand) return "hand";
     else if (a==Area::Deck) return "deck";
-    else if (a==Area::Graveyard) return "graveyard";
+    else /* if (a==Area::Graveyard) */ return "graveyard";
 }
 
 //=========================================================
 bool Player::moveCard(Card* card, Area src, Area dst) {
     vector<unique_ptr<Card>>& src_area = areaToVec(src);
-    for (int i = 0; i < src_area.size(); ++i) {
+    for (size_t i = 0; i < src_area.size(); ++i) {
         if (src_area.at(i).get() == card) {
             return moveCard(i, src, dst);
         }
@@ -239,6 +239,9 @@ void Player::initializeDeck(const string& deckFilePath, bool shuffle) {
         {"Haste",                [](Player& a, Player& b){ return std::make_unique<Haste>(a,b); }},
         {"Cloner",               [](Player& a, Player& b){ return std::make_unique<Cloner>(a,b); }},
     };
+
+    // Bonus cards
+    static const char* bonusCards[] = {CLONER};
     
     while (getline(initFile, card_string)) {
         if (auto it = make.find(card_string); it != make.end()) {
@@ -294,7 +297,7 @@ void Player::summonMinion(MinionType type, int amount) {
         board.push_back(kMake[idx](*this, *otherPlayer));
         // need to send a notification for minion entering
         if (auto minion = dynamic_cast<Minion*> (board[board.size() - 1].get())) {
-            MinionNotification notification {dynamic_cast<Minion*> (board[board.size() - 1].get()), this};
+            MinionNotification notification {minion, this};
             notifyGame(MinionEnter, notification);
         }
         else {

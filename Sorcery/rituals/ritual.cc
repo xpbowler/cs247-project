@@ -24,7 +24,7 @@ int Ritual::getActivationCost() const { return activationCost; }
 
 //=========================================================
 Ritual::Ritual(int cost, int activationCost, int charges, Player& owner, Player& opponent, const string& name, const string& description, TriggerType tt) 
-    : Card {owner, opponent, name, cost}, activationCost {activationCost}, charges{charges}, description{description}, tt{tt} {
+    : Card {owner, opponent, name, cost}, activationCost {activationCost}, charges{charges}, tt{tt}, description{description} {
     trigger = std::make_unique<Trigger> (this);
 }
 
