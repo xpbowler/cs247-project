@@ -252,6 +252,7 @@ void Game::executeCommand(const string& cmd) {
                 // check if there are already 5 minions on the board
                 if (currPlayer.getBoard().size() >= 5) {
                     cout << "There are already 5 minions on the board, cannot put another one" << endl;
+                    return;
                 }
                 currPlayer.moveCard(i, Hand, Board);
             }

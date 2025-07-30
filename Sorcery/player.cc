@@ -100,7 +100,7 @@ bool Player::moveCard(Card* card, Area src, Area dst) {
 bool Player::moveCard(int i, Area src, Area dst) { 
     if (src == dst) return false;
     // PRECOND: src.size() > i;
-    auto card = areaToVec(src)[i].release();
+    auto card = areaToVec(src)[i].get();
     if (Minion* minion = dynamic_cast<Minion*> (card); minion) {
         if (src == Area::Board && dst != Area::Board) {
             // create notification 
