@@ -222,6 +222,12 @@ void Game::executeCommand(const string& cmd) {
                     if (spell->action(target)) {
                         currPlayer.discardCard(i);
                     }
+                } else if (auto spell = dynamic_cast<Recharge*>(playingCard.get())) {
+                    if (&targetPlayer!=&currPlayer) {
+                        cout << "can't call recharge on the other player" << endl;
+                        return;
+                    }
+                    if (spell->action(target)) currPlayer.discardCard(i);
                 }
                 else {
                     cout << "Invalid card played on ritual target." << endl;

@@ -7,17 +7,14 @@ Banish::Banish(Player& owner, Player& opponent): Spell{BANISH_DESC, owner, oppon
 
 //=========================================================
 bool Banish::action(std::variant<Minion*, Ritual*> card) {
-    // ASSUMING BOARD -> GRAVEYARD (Could maybe also make minion take dmg?)
-    if (holds_alternative<Minion*>(card)) {
-        if (!owner.moveCard(get<Minion*>(card), Board, Graveyard)) {
-            return opponent.moveCard(get<Minion*>(card), Board, Graveyard);
-        }
-        return true;
-    } else if (holds_alternative<Ritual*>(card)) {
-        if (!owner.moveCard(get<Ritual*>(card), Board, Graveyard)) {
-            return opponent.moveCard(get<Ritual*>(card), Board, Graveyard);
-        }
-        return true;
+    // BOARD -> GRAVEYARD
+    // can act on both minion and rituals
+
+    if (std::holds_alternative<Minion*>(card)) {
+        Card* c = get<Minion*>(card);
+        return c->getOwner().moveCard(c, Board, Graveyard);
+    } else if (std::holds_alternative<Ritual*>(card)) {
+        Card* c = get<Ritual*>(card);
+        return c->getOwner().moveCard(c, Board, Graveyard);
     }
 }
-

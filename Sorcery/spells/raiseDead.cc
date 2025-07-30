@@ -18,6 +18,9 @@ bool RaiseDead::action(std::variant<Minion*, Ritual*>) {
     if (!minion) {
         throw std::runtime_error("Raise dead sees that graveyard top is somehow not a minion");
     }
+    if (owner.getBoard().size() >= 5) {
+        throw std::runtime_error("raisedead: board is already full and cant put back a card from graveyard");
+    }
     minion->setDefence(1);
     owner.moveCard(minion, Graveyard, Board);
     return true;
