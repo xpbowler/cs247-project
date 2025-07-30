@@ -135,7 +135,6 @@ bool Player::moveCard(int i, Area src, Area dst) {
     }    
     if (src != Area::Board && dst == Area::Board) {
         if (auto minion = dynamic_cast<TriggeredMinion*> (card)) {
-            cout << (isPlayer1() ? "1" : "2") << endl;
             attachTrigger(minion->getTriggerType(), &minion->getTrigger());
         }
         if (auto ritual = dynamic_cast<Ritual*> (card)) {
