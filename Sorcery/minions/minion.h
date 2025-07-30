@@ -22,7 +22,6 @@ public:
     void applyEnchantment(EnchantmentTiming et);
     void setAttack(int attack);
     void setDefence(int defence);
-    void heal(int hp);
     void takeDamage(int dmg);
     void setActions(int action);
     // attack minion and player returns false if not enough action points 

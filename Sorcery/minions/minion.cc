@@ -70,9 +70,6 @@ void Minion::setAttack(int attack) { this->attack = attack; }
 void Minion::setDefence(int defence) { this->defence = defence; }
 
 //=========================================================
-void Minion::heal(int hp) { defence += hp; }
-
-//=========================================================
 void Minion::takeDamage(int dmg) {
     defence -= dmg;
     if (defence <= 0) {
@@ -141,7 +138,7 @@ Minion::~Minion() {}
 //=========================================================
 void Minion::removeAllEnchantments(std::optional<EnchantmentTiming> et) {
     if (!et) {
-        enchantment.reset(new BaseEnchantment(owner, opponent));
+        enchantment = std::make_unique<BaseEnchantment>(owner, opponent);
         return;
     }
     if (!enchantment) return;

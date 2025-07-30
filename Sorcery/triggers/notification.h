@@ -17,6 +17,6 @@ struct TurnChangeNotification : public Notification {
 
 struct MinionNotification : public Notification {
     Minion* minion; // the minion pointer that is entering/leaving play
-    Player* player; // the player that the minion is under 
+    Player* player; // the player that the minion is under
     MinionNotification(Minion* minion, Player* player) : minion {minion}, player{player} {}
 };
