@@ -7,9 +7,10 @@ TriggeredMinion::TriggeredMinion(int attack,
                                  Player &owner,
                                  Player &opponent,
                                  std::string name,
+                                 std::string description,
                                  int cost,
                                  MinionType minionType)
-    : Minion{owner, opponent, attack, defence, minionType, name, cost}, canUseAbility {true}
+    : Minion{owner, opponent, attack, defence, minionType, name, cost}, description{std::move(description)}, canUseAbility {true}
 {
     
 }
@@ -17,6 +18,11 @@ TriggeredMinion::TriggeredMinion(int attack,
 //=========================================================
 const Trigger& TriggeredMinion::getTrigger() {
     return *trigger;
+}
+
+//=========================================================
+const std::string& TriggeredMinion::getDescription() const {
+    return description;
 }
 
 //=========================================================

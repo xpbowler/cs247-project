@@ -58,7 +58,7 @@ card_template_t showMinion(Minion* minion) {
     if (auto activatedMinion = dynamic_cast<ActivatedMinion*>(minion)) {
         return display_minion_activated_ability(name, cost, attack, defence, activatedMinion->getActivationCost(), activatedMinion->getDescription());
     } else if (auto triggeredMinion = dynamic_cast<TriggeredMinion*>(minion)) {
-        return display_minion_triggered_ability(name, cost, attack, defence, triggeredMinion->getTrigger().get_description());
+        return display_minion_triggered_ability(name, cost, attack, defence, triggeredMinion->getDescription());
     } else if (auto baseMinion = dynamic_cast<BaseMinion*>(minion)) {
         return display_minion_no_ability(name, cost, attack, defence);
     } else throw runtime_error("unable to show card");

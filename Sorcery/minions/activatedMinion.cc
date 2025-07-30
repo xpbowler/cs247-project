@@ -8,10 +8,12 @@ ActivatedMinion::ActivatedMinion(int activationCost,
                                  Player& opponent, 
                                  MinionType minionType,
                                  std::string name,
+                                 std::string description,
                                  int cost
                                 )
                                  : Minion {owner, opponent, attack, defence, minionType, name, cost}, 
                                  activationCost {activationCost},
+                                 description{std::move(description)},
                                  canUseAbility {true} {
 
 }

@@ -13,6 +13,7 @@ public:
                     Player& opponent, 
                     MinionType minionType,
                     std::string name,
+                    std::string description,
                     int cost
                     );
 

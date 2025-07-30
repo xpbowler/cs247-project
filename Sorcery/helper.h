@@ -80,6 +80,14 @@ const int RAISE_DEAD_COST = 1;
 const int DISENCHANT_COST = 1;
 const int BANISH_COST = 2;
 
+// Minion description constants
+inline constexpr const char* BONE_GOLEM_DESC = "Gain +1/+1 whenever a minion leaves play.";
+inline constexpr const char* FIRE_ELEMENTAL_DESC = "Whenever an opponent's minion enters play, deal 1 damage to it.";
+inline constexpr const char* POTION_SELLER_DESC = "At the end of your turn, all your minions gain +0/+1";
+inline constexpr const char* NOVICE_PYROMANCER_DESC = "Deal 1 damage to target minion";
+inline constexpr const char* APPRENTICE_SUMMONER_DESC = "Summon a 1/1 air elemental";
+inline constexpr const char* MASTER_SUMMONER_DESC = "Summon up to three 1/1 air elementals";
+
 // Spell description constants
 inline constexpr const char* BANISH_DESC = "Destroy target minion or ritual";
 inline constexpr const char* UNSUMMON_DESC = "Return target minion to its owner's hand";

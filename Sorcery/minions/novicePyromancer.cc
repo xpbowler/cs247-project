@@ -8,7 +8,7 @@ NovicePyromancer::NovicePyromancer(Player &owner, Player &opponent)
     : ActivatedMinion(NOVICE_PYROMANCER_ACTIVATION_COST,
                       NOVICE_PYROMANCER_ATK,
                       NOVICE_PYROMANCER_DEF,
-                      owner, opponent, NP, NOVICE_PYROMANCER, NOVICE_PYROMANCER_COST)
+                      owner, opponent, NP, NOVICE_PYROMANCER, NOVICE_PYROMANCER_DESC, NOVICE_PYROMANCER_COST)
 {
 
 }

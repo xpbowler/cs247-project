@@ -6,7 +6,8 @@
 BoneGolem::BoneGolem(Player &owner, Player &opponent)
     : TriggeredMinion(BONE_GOLEM_ATK,
                       BONE_GOLEM_DEF,
-                      owner, opponent, BONE_GOLEM, BONE_GOLEM_COST, BG)
+                      owner, opponent, 
+                      BONE_GOLEM, BONE_GOLEM_DESC, BONE_GOLEM_COST, BG)
 {
     trigger = std::make_unique<Trigger> (this);
     owner.attachTrigger(MinionLeave, trigger.get());

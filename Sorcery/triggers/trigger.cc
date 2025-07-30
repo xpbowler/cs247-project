@@ -90,11 +90,6 @@ void Trigger::notifyOwner(Notification notification) {
 }
 
 //=========================================================
-const std::string& Trigger::get_description() const {
-    return description;
-}
-
-//=========================================================
 void Trigger::selfDetach() {
     triggerTopic->detachTrigger(this);
     triggerTopic = nullptr;

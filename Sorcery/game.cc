@@ -217,7 +217,9 @@ void Game::executeCommand(const string& cmd) {
                 } catch (const exception& e) {
                     throw invalid_argument("play i p t: invalid t");
                 }
+                
                 if (targetCardIndex<1 || targetCardIndex>targetPlayer.getBoard().size()) throw invalid_argument("play i p t: invalid t");
+                targetCardIndex--;
                 // get target minion
                 auto& targetCard = targetPlayer.getBoard()[targetCardIndex];
                 if (!dynamic_cast<Minion*> (targetCard.get())) {
@@ -299,6 +301,7 @@ void Game::executeCommand(const string& cmd) {
                 throw invalid_argument("play i p t: invalid t");
             }
             if (targetCardIndex<1 || targetCardIndex>5) throw invalid_argument("play i p t: invalid t");
+            targetCardIndex--;
             auto& targetCard = targetPlayer.getBoard()[targetCardIndex];
             if (!dynamic_cast<Minion*> (targetCard.get())) {
                 throw runtime_error("Target unit not a minion in play i p t");
