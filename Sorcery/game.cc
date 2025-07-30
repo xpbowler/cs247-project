@@ -244,7 +244,7 @@ void Game::executeCommand(const string& cmd) {
                 }
                 
                 if (targetCardIndex<1 || targetCardIndex>targetPlayer.getBoard().size()) {
-                    "play i p t: invalid t";
+                    cout << "play i p t: invalid t" << endl;
                     return;
                 }
                 targetCardIndex--;
@@ -335,7 +335,7 @@ void Game::executeCommand(const string& cmd) {
             try {
                 targetCardIndex = stoi(t);
             } catch (const exception& e) {
-                cout << "play i p t: invalid t" << endl;
+                cout << "use i p t: invalid t" << endl;
                 return;
             }
             if (targetCardIndex<1 || targetCardIndex>5) throw invalid_argument("play i p t: invalid t");
