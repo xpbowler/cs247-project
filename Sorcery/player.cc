@@ -106,7 +106,6 @@ std::string areaToString(Area a) {
 //=========================================================
 bool Player::moveCard(Card* card, Area src, Area dst) {
     vector<unique_ptr<Card>>& src_area = areaToVec(src);
-    cout << "DEBUG: " << card->get_name() << src_area.size() << endl;
     for (int i = 0; i < src_area.size(); ++i) {
         if (src_area.at(i).get() == card) {
             return moveCard(i, src, dst);
