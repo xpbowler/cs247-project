@@ -40,7 +40,12 @@ int main(int argc, char* argv[]) {
     controller.initGame(initFile);
 
     // begin normal gameplay
-    controller.play();
+    try {
+        controller.play();
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+    }
+    
 
     return 0;
 }
