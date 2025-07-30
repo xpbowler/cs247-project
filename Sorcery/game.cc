@@ -326,7 +326,7 @@ void Game::executeCommand(const string& cmd) {
         if (ss>>p) {
             Player& targetPlayer = p == 1 ? *player1 : *player2;
             if (p!=1 && p!=2) {
-                "play i p t: invalid p. p must be 1 or 2";
+                "use i p t: invalid p. p must be 1 or 2";
                 return;
             }
             string t;
@@ -338,7 +338,7 @@ void Game::executeCommand(const string& cmd) {
                 cout << "use i p t: invalid t" << endl;
                 return;
             }
-            if (targetCardIndex<1 || targetCardIndex>5) throw invalid_argument("play i p t: invalid t");
+            if (targetCardIndex<1 || targetCardIndex>5) throw invalid_argument("use i p t: invalid t");
             targetCardIndex--;
             auto& targetCard = targetPlayer.getBoard()[targetCardIndex];
             if (!dynamic_cast<Minion*> (targetCard.get())) {
