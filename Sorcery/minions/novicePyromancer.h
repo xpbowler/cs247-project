@@ -7,9 +7,9 @@ class NovicePyromancer : public ActivatedMinion {
 public: 
     NovicePyromancer(Player& owner, Player& opponent);
 
-    UseSkillStatus useSkill() override;
+    UseSkillStatus useSkill(bool isTesting) override;
 
-    UseSkillStatus useSkill(Minion* minion);
+    UseSkillStatus useSkill(bool isTesting, Minion* minion);
 
 };
 

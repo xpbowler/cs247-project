@@ -22,7 +22,7 @@ public:
     void setActivationCost(int cost);
     const std::string& getDescription() const;
     void disableAbility();
-    virtual UseSkillStatus useSkill() = 0;
+    virtual UseSkillStatus useSkill(bool isTesting) = 0;
 
 protected: 
     int activationCost;

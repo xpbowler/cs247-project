@@ -13,7 +13,7 @@ ApprenticeSummoner::ApprenticeSummoner(Player& owner, Player& opponent)
 
 
 //=========================================================
-UseSkillStatus ApprenticeSummoner::useSkill() {
+UseSkillStatus ApprenticeSummoner::useSkill(bool isTesting) {
     if (actions < 1) {
         return NoAction;
     }
@@ -25,13 +25,18 @@ UseSkillStatus ApprenticeSummoner::useSkill() {
         return Silenced;
     }
     int magic = owner.getMagic();
-    if (magic < activationCost) {
+    if (magic < activationCost && !isTesting) {
         activationCost = oldActivationCost;
         return NotEnoughMagic;
     }
     summonMinion(AE, 1);
     actions--;
-    owner.setMagic(magic - activationCost);
+    if (isTesting) {
+        owner.setMagic(std::max(0, magic - activationCost));
+    }
+    else {
+        owner.setMagic(magic - activationCost);
+    }
     activationCost = oldActivationCost;
     return OK;
 }
