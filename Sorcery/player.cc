@@ -53,8 +53,8 @@ Player::Player(string& name, Game* game): name{std::move(name)}, life{STARTING_L
 // draw command draws a card, similar to the effect if the player just started their turn
 void Player::drawCard() {
     if (deck.empty() || hand.size()>=5) return;
-    unique_ptr<Card> card = std::move(deck.back());
-    deck.pop_back();
+    unique_ptr<Card> card = std::move(deck.front());
+    deck.erase(deck.begin());
     hand.push_back(std::move(card));
 }
 
