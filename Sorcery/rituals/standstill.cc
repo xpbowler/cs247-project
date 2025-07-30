@@ -25,9 +25,7 @@ void Standstill::execute(const Notification& notification) {
     // Execute
     charges -= activationCost;
     auto minion = realNoti->minion;
-    // Could maybe also make minion take dmg?
-    if (!owner.moveCard(minion, Board, Graveyard)) {
-        opponent.moveCard(minion, Board, Graveyard);
-    }
+
+    minion->getOwner().moveCard(minion, Board, Graveyard);
 }
 
