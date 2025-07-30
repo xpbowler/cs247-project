@@ -32,3 +32,6 @@ board
 hand
 end
 end
+play 3
+end
+play 1
