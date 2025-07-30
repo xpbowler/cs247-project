@@ -353,7 +353,18 @@ void Game::executeCommand(const string& cmd) {
                     cout << "Not enough magic to use activated ability with target" << endl;
                     return;
                 }
-                playingMinion->useSkill(targetMinion);
+                auto status = playingMinion->useSkill(targetMinion);
+                switch(status) {
+                    case NotEnoughMagic:
+                        throw runtime_error("impossible to reach, not enough magic.");
+                        return;
+                    case NoAction:
+                        cout << "Not enoguh action points." << endl;
+                        return;
+                    case Silenced: 
+                        cout << "Silence in effect, cannot use ability." << endl;
+                        return;
+                }
                 if (isTesting) {
                     currPlayer.setMagic(max(0, currMagic - currActivationCost));
                 }
@@ -377,7 +388,18 @@ void Game::executeCommand(const string& cmd) {
                     cout << "Not enough magic to use activated ability without target." << endl;
                     return;
                 }
-                playingMinion->useSkill();
+                auto status = playingMinion->useSkill();
+                switch(status) {
+                    case NotEnoughMagic:
+                        throw runtime_error("impossible to reach, not enough magic.");
+                        return;
+                    case NoAction:
+                        cout << "Not enoguh action points." << endl;
+                        return;
+                    case Silenced: 
+                        cout << "Silence in effect, cannot use ability." << endl;
+                        return;
+                }
                 if (isTesting) {
                     currPlayer.setMagic(max(0, currMagic - currActivationCost));
                 }

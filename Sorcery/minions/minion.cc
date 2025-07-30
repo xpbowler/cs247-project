@@ -141,7 +141,7 @@ Minion::~Minion() {}
 //=========================================================
 void Minion::removeAllEnchantments(std::optional<EnchantmentTiming> et) {
     if (!et) {
-        enchantment.reset(nullptr);
+        enchantment.reset(new BaseEnchantment(owner, opponent));
         return;
     }
     if (!enchantment) return;
@@ -177,5 +177,5 @@ void Minion::removeAllEnchantments(std::optional<EnchantmentTiming> et) {
 
 //=========================================================
 void Minion::applyEnchantment(EnchantmentTiming et) {
-    enchantment->apply(*this, et);
+    if (enchantment) enchantment->apply(*this, et);
 }
