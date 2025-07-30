@@ -162,10 +162,10 @@ void CliDisplay::showBoard() {
 
     // Player minions
     vector<card_template_t> p1Minions, p2Minions;
-    for (auto& card : p1.getHand()) {
+    for (auto& card : p1.getBoard()) {
         if (Minion* minion = dynamic_cast<Minion*>(card.get())) p1Minions.push_back(showMinion(minion));
     }
-    for (auto& card : p2.getHand()) {
+    for (auto& card : p2.getBoard()) {
         if (Minion* minion = dynamic_cast<Minion*>(card.get())) p2Minions.push_back(showMinion(minion));
     }
     while (p1Minions.size() < 5) p1Minions.push_back(CARD_TEMPLATE_BORDER);
