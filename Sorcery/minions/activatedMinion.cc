@@ -23,7 +23,7 @@ ActivatedMinion::ActivatedMinion(int activationCost,
 int ActivatedMinion::getActivationCost() const { return activationCost; }
 
 //=========================================================
-void ActivatedMinion::setActivationCost(int cost) { this->cost = cost; }
+void ActivatedMinion::setActivationCost(int cost) { this->activationCost = cost; }
 
 //=========================================================
 void ActivatedMinion::disableAbility() {

@@ -57,5 +57,6 @@ draw
 draw
 play 3 2 1
 board
+inspect 1
 use 1
 board
