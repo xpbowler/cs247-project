@@ -32,12 +32,12 @@ Game::Game(const string& deck1, const string& deck2, const string& initFilePath,
     : isPlayer1Turn{true}, isTesting{isTesting}, triggerTopics{}, display{}, player1{}, player2{}, player1Wins {std::nullopt} {
 
     // initialize triggerTopics
-    triggerTopics.insert(std::make_pair(TriggerType::EndTurnPlayer1, make_unique<TriggerTopic>()));
-    triggerTopics.insert(std::make_pair(TriggerType::EndTurnPlayer2, make_unique<TriggerTopic>()));
-    triggerTopics.insert(std::make_pair(TriggerType::StartTurnPlayer1, make_unique<TriggerTopic>()));
-    triggerTopics.insert(std::make_pair(TriggerType::StartTurnPlayer2, make_unique<TriggerTopic>()));
-    triggerTopics.insert(std::make_pair(TriggerType::MinionEnter, make_unique<TriggerTopic>()));
-    triggerTopics.insert(std::make_pair(TriggerType::MinionLeave, make_unique<TriggerTopic>()));
+    triggerTopics.insert(std::make_pair(TriggerType::EndTurnPlayer1, make_unique<TriggerTopic>(*this)));
+    triggerTopics.insert(std::make_pair(TriggerType::EndTurnPlayer2, make_unique<TriggerTopic>(*this)));
+    triggerTopics.insert(std::make_pair(TriggerType::StartTurnPlayer1, make_unique<TriggerTopic>(*this)));
+    triggerTopics.insert(std::make_pair(TriggerType::StartTurnPlayer2, make_unique<TriggerTopic>(*this)));
+    triggerTopics.insert(std::make_pair(TriggerType::MinionEnter, make_unique<TriggerTopic>(*this)));
+    triggerTopics.insert(std::make_pair(TriggerType::MinionLeave, make_unique<TriggerTopic>(*this)));
 
     ifstream initFile(initFilePath);
     if (!initFile) {
