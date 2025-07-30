@@ -131,7 +131,7 @@ void Game::executeCommand(const string& cmd) {
         ss >> i;
         isPlayer1Turn ? player1->discardCard(i) : player2->discardCard(i);
     } else if (primary_cmd=="draw") {
-        if (!isTesting) throw invalid_argument("draw is only availabld in testing mode.");
+        if (!isTesting) throw invalid_argument("draw is only available in testing mode.");
         isPlayer1Turn ? player1->drawCard() : player2->drawCard();
     } else if (primary_cmd=="attack") {
         int i,j;
@@ -199,7 +199,7 @@ void Game::executeCommand(const string& cmd) {
                 // use ritual
                 auto target = targetPlayer.getRitual();
                 if (!target) {
-                    cout << "no ritual found when using play i p t" << endl;
+                    cout << "No ritual found when using play i p t" << endl;
                 }
                 if (auto spell = dynamic_cast<Banish*> (playingCard.get())) {
                     if (spell->action(target)) {
@@ -221,7 +221,7 @@ void Game::executeCommand(const string& cmd) {
                 // get target minion
                 auto& targetCard = targetPlayer.getBoard()[targetCardIndex];
                 if (!dynamic_cast<Minion*> (targetCard.get())) {
-                    throw runtime_error("target unit not a minion in play i p t");
+                    throw runtime_error("Target unit not a minion in play i p t");
                 }
                 auto targetMinion = dynamic_cast<Minion*> (targetCard.get());
                 if (dynamic_cast<Enchantment*> (playingCard.get())) {
@@ -301,7 +301,7 @@ void Game::executeCommand(const string& cmd) {
             if (targetCardIndex<1 || targetCardIndex>5) throw invalid_argument("play i p t: invalid t");
             auto& targetCard = targetPlayer.getBoard()[targetCardIndex];
             if (!dynamic_cast<Minion*> (targetCard.get())) {
-                throw runtime_error("target unit not a minion in play i p t");
+                throw runtime_error("Target unit not a minion in play i p t");
             }
             auto targetMinion = dynamic_cast<Minion*> (targetCard.get());
             if (dynamic_cast<NovicePyromancer*>(playingCard.get())) {
@@ -357,7 +357,7 @@ void Game::executeCommand(const string& cmd) {
     } else if (primary_cmd=="board") {
         display->showBoard();
     } else {
-        cout << "invalid command: " << cmd << endl;
+        cout << "Invalid command: " << cmd << endl;
     }
 }
 
