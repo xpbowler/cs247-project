@@ -8,6 +8,7 @@ int main(int argc, char* argv[]) {
     std::string deck2 = "default.deck";
     std::string initFile = "";
     bool isTesting = false;
+    bool bonusFeatures = false;
     for (int i=1;i<argc;++i) {
         std::string arg = argv[i];
         if (arg=="-deck1" && i+1<argc) {
@@ -18,6 +19,10 @@ int main(int argc, char* argv[]) {
             initFile = argv[++i];
         } else if (arg=="-testing") {
             isTesting = true;
+        } else if (arg=="-extra") {
+            // enables the game's bonus features
+            
+            bonusFeatures = true;
         } else {
             std::cerr << "Unknown or incomplete argument: " << arg << std::endl;
             return 1;
@@ -28,7 +33,7 @@ int main(int argc, char* argv[]) {
         throw std::invalid_argument("initialization file was not provided.");
     }
 
-    Game game = Game{deck1, deck2, initFile, isTesting};
+    Game game = Game{deck1, deck2, initFile, isTesting, bonusFeatures};
     game.play();
 
     return 0;

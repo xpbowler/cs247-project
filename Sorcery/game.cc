@@ -28,8 +28,8 @@ void trimWhitespace(string& s) {
     else s = s.substr(start, end - start + 1);
 }
 
-Game::Game(const string& deck1, const string& deck2, const string& initFilePath, bool isTesting)
-    : isPlayer1Turn{true}, isTesting{isTesting}, triggerTopics{}, display{}, player1{}, player2{}, player1Wins {std::nullopt} {
+Game::Game(const string& deck1, const string& deck2, const string& initFilePath, bool isTesting, bool bonusFeatures)
+    : isPlayer1Turn{true}, isTesting{isTesting}, bonusFeatures{bonusFeatures}, display{}, player1{}, player2{}, player1Wins {std::nullopt} {
 
     // initialize triggerTopics
     triggerTopics.insert(std::make_pair(TriggerType::EndTurnPlayer1, make_unique<TriggerTopic>(*this)));
