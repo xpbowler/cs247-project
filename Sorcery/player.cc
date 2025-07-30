@@ -95,14 +95,21 @@ void Player::notifyGame(TriggerType triggerType, Notification notification) {
     game.notifyTopic(triggerType, notification);
 }
 
+std::string areaToString(Area a) {
+    if (a==Area::Board) return "board";
+    else if (a==Area::Hand) return "hand";
+    else if (a==Area::Deck) return "deck";
+    else return "graveyard";
+}
+
 //=========================================================
 bool Player::moveCard(Card* card, Area src, Area dst) {
-    for (int i = 0; i < areaToVec(src).size(); i++) {
+    for (int i = 0; i < areaToVec(src).size(); ++i) {
         if (areaToVec(src)[i].get() == card) {
             return moveCard(i, src, dst);
         }
     }
-    throw runtime_error("moveCard card not found.");
+    throw runtime_error("moveCard card not found." + areaToString(src) + areaToString(dst) + card->get_name());
 }
 
 //=========================================================

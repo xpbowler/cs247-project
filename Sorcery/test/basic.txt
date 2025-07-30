@@ -1,2 +1,16 @@
 Ryan
 Vincent
+play 1
+play 1
+end
+discard 1
+discard 1
+discard 1
+discard 1
+draw
+draw
+draw
+draw
+board
+hand
+play 5 1 1

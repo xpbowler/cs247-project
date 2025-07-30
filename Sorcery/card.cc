@@ -11,8 +11,12 @@ const int Card::get_cost() const {
 }
 
 //=========================================================================
-const Player& Card::getOwner() const {
+Player& Card::getOwner() {
     return owner;
+}
+
+Player& Card::getOpponent() {
+    return opponent;
 }
 
 //=========================================================================

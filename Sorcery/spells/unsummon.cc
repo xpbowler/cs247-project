@@ -9,10 +9,8 @@ Unsummon::Unsummon(Player& owner, Player& opponent): Spell{UNSUMMON_DESC, owner,
 bool Unsummon::action(std::variant<Minion*, Ritual*> card) {
     // ASSUMING BOARD -> HAND
     if (holds_alternative<Minion*>(card)) {
-        if (!owner.moveCard(get<Minion*>(card), Board, Hand)) {
-            return opponent.moveCard(get<Minion*>(card), Board, Hand);
-        }
-        return true;
+        Card* m = get<Minion*>(card);
+        return m->getOwner().moveCard(m, Board, Hand);
     }
     return false;
 }

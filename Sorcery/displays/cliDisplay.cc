@@ -97,10 +97,10 @@ void inspectMinionInner(Minion* m) {
     }
 
     // print minion
-    printRow(cout, vector<card_template_t>{mTemplate}, true);
+    printRow(cout, vector<card_template_t>{mTemplate}, false);
     
     // print past its past 5 enchantments, oldest to newest
-    printRow(cout, enchantmentTemplates, true);
+    printRow(cout, enchantmentTemplates, false);
 }
 
 CliDisplay::CliDisplay(Player& p1, Player& p2): p1{p1}, p2{p2} {}
@@ -127,7 +127,7 @@ void CliDisplay::showHand(bool isPlayer1Turn) {
     for (const auto& card : p.getHand()) {
         hand.push_back(showCard(card.get()));
     }
-    printRow(cout, hand, true);
+    printRow(cout, hand, false);
 }
 
 // Display the board in ASCII art, including both players' ritual, graveyard, minions, and player cards

@@ -128,12 +128,20 @@ void Game::executeCommand(const string& cmd) {
             player1->declareStart();
         }
     } else if (primary_cmd=="discard") {
-        if (!isTesting) throw invalid_argument("discard is only available in testing mode.");
+        if (!isTesting) {
+            "discard is only available in testing mode.";
+            return;
+        }
+        // i is 1-indexed. in fact, everything through the cli is 1-indexed for simplicity
         int i;
         ss >> i;
+        --i;
         isPlayer1Turn ? player1->discardCard(i) : player2->discardCard(i);
     } else if (primary_cmd=="draw") {
-        if (!isTesting) throw invalid_argument("draw is only available in testing mode.");
+        if (!isTesting) {
+            "draw is only available in testing mode.";
+            return;
+        }
         isPlayer1Turn ? player1->drawCard() : player2->drawCard();
     } else if (primary_cmd=="attack") {
         int i,j;
@@ -184,7 +192,10 @@ void Game::executeCommand(const string& cmd) {
         Player& currPlayer = isPlayer1Turn ? *player1 : *player2;
         int i,p;
         ss >> i;
-        if (i<1 || i>currPlayer.getHand().size()) throw invalid_argument("play: invalid i");
+        if (i<1 || i>currPlayer.getHand().size()) {
+            cout << "play: invalid i" << endl;
+            return;
+        }
         i--; // it's 0-indexed!
         const std::unique_ptr<Card>& playingCard = currPlayer.getHand()[i];
         const int cost = playingCard->get_cost();
@@ -194,7 +205,10 @@ void Game::executeCommand(const string& cmd) {
         }
         if (ss>>p) {
             Player& targetPlayer = p == 1 ? *player1 : *player2;
-            if (p!=1 && p!=2) throw invalid_argument("play i p t: invalid p. p must be 1 or 2");
+            if (p!=1 && p!=2) {
+                cout << "play i p t: invalid p. p must be 1 or 2" << endl;
+                return;
+            }
             string t;
             ss >> t;
             if (t=="r") {
@@ -217,10 +231,14 @@ void Game::executeCommand(const string& cmd) {
                 try {
                     targetCardIndex = stoi(t);
                 } catch (const exception& e) {
-                    throw invalid_argument("play i p t: invalid t");
+                    cout << "play i p t: invalid t" << endl;
+                    return;
                 }
                 
-                if (targetCardIndex<1 || targetCardIndex>targetPlayer.getBoard().size()) throw invalid_argument("play i p t: invalid t");
+                if (targetCardIndex<1 || targetCardIndex>targetPlayer.getBoard().size()) {
+                    "play i p t: invalid t";
+                    return;
+                }
                 targetCardIndex--;
                 // get target minion
                 auto& targetCard = targetPlayer.getBoard()[targetCardIndex];
@@ -293,14 +311,18 @@ void Game::executeCommand(const string& cmd) {
         const std::unique_ptr<Card>& playingCard = currPlayer.getBoard()[i];
         if (ss>>p) {
             Player& targetPlayer = p == 1 ? *player1 : *player2;
-            if (p!=1 && p!=2) throw invalid_argument("play i p t: invalid p. p must be 1 or 2");
+            if (p!=1 && p!=2) {
+                "play i p t: invalid p. p must be 1 or 2";
+                return;
+            }
             string t;
             ss >> t;
             int targetCardIndex;
             try {
                 targetCardIndex = stoi(t);
             } catch (const exception& e) {
-                throw invalid_argument("play i p t: invalid t");
+                cout << "play i p t: invalid t" << endl;
+                return;
             }
             if (targetCardIndex<1 || targetCardIndex>5) throw invalid_argument("play i p t: invalid t");
             targetCardIndex--;
