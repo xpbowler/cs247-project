@@ -99,6 +99,7 @@ bool Minion::attackMinion(Minion* minion, std::optional<int> dmg, bool firstAtta
     attack = oldAttack;
     defence = oldDefence;
     if (firstAttack) actions--;
+    else return true;
     return minion->attackMinion(this, std::nullopt, false);
 }
 
