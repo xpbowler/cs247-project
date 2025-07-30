@@ -8,7 +8,7 @@ PotionSeller::PotionSeller(Player &owner, Player &opponent)
     : TriggeredMinion(POTION_SELLER_ATK,
                       POTION_SELLER_DEF,
                       owner, opponent, POTION_SELLER, POTION_SELLER_DESC, 
-                      owner.isPlayer1() ? EndTurnPlayer1 : EndTurnPlayer1, POTION_SELLER_COST, PS)
+                      owner.isPlayer1() ? EndTurnPlayer1 : EndTurnPlayer2, POTION_SELLER_COST, PS)
 {
     trigger = std::make_unique<Trigger> (this);
 }
