@@ -102,7 +102,7 @@ inline constexpr const char* SILENCE_DESC = "Enchanted minion cannot use abiliti
 // Ritual description constants
 inline constexpr const char* AURA_OF_POWER_DESC = "Whenever a minion enters play under your control, it gains +1/+1";
 inline constexpr const char* DARK_RITUAL_DESC = "At the start of your turn, gain 1 magic";
-inline constexpr const char* STANDSTILL_DESC = "Whenever a minion etners play, destroy it";
+inline constexpr const char* STANDSTILL_DESC = "Whenever a minion enters play, destroy it";
 
 // Enums
 enum Area {
