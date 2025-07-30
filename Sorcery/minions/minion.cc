@@ -32,7 +32,6 @@ const std::vector<Enchantment*> Minion::getEnchantments() {
             currNode = decorator->getNext();
         }
         else {
-            result.push_back(currNode);
             break;
         }
     }
