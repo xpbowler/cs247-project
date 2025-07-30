@@ -123,14 +123,12 @@ bool Player::moveCard(int i, Area src, Area dst) {
             // create notification 
             MinionNotification notification {minion, this};
             notifyGame(MinionLeave, notification);
+            minion->removeAllEnchantments(std::nullopt);
         }
         if (src != Area::Board && dst == Area::Board) {
             MinionNotification notification {minion, this};
             minion->setActions(1);
             notifyGame(MinionEnter, notification);
-        }
-        if (dst == Graveyard) {
-            minion->removeAllEnchantments(std::nullopt);
         }
     }    
     if (src != Area::Board && dst == Area::Board) {
