@@ -117,6 +117,7 @@ bool Player::moveCard(Card* card, Area src, Area dst) {
 
 //=========================================================
 bool Player::moveCard(int i, Area src, Area dst) { 
+    // PRECOND: src.size() > i;
     if (src == dst) return false;
 
     auto card = areaToVec(src)[i].get();
@@ -132,7 +133,13 @@ bool Player::moveCard(int i, Area src, Area dst) {
     dstVec.push_back(std::move(tempCard));
     srcVec.erase(foundSrcCard);
 
-    // PRECOND: src.size() > i;
+    if (src != Area::Board && dst == Area::Board) {
+        if (auto minion = dynamic_cast<TriggeredMinion*> (card)) {
+            attachTrigger(minion->getTriggerType(), &minion->getTrigger());
+        }
+    }
+
+    
     if (Minion* minion = dynamic_cast<Minion*> (card); minion) {
         if (src == Area::Board && dst != Area::Board) {
             // create notification 
@@ -146,14 +153,7 @@ bool Player::moveCard(int i, Area src, Area dst) {
             notifyGame(MinionEnter, notification);
         }
     }    
-    if (src != Area::Board && dst == Area::Board) {
-        if (auto minion = dynamic_cast<TriggeredMinion*> (card)) {
-            attachTrigger(minion->getTriggerType(), &minion->getTrigger());
-        }
-        if (auto ritual = dynamic_cast<Ritual*> (card)) {
-            attachTrigger(ritual->getTriggerType(), &ritual->getTrigger());
-        }
-    }
+
     if (src == Area::Board && dst != Area::Board) {
         if (auto minion = dynamic_cast<TriggeredMinion*> (card)) {
             minion->detachTrigger();
@@ -162,6 +162,7 @@ bool Player::moveCard(int i, Area src, Area dst) {
             ritual->detachTrigger();
         }
     }
+    
 
     return true;
 }
