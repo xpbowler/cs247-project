@@ -91,7 +91,7 @@ void Player::discardCard(int i) {
 }
 
 //=========================================================
-void Player::notifyGame(TriggerType triggerType, Notification notification) {
+void Player::notifyGame(TriggerType triggerType, const Notification& notification) {
     game.notifyTopic(triggerType, notification);
 }
 
@@ -125,6 +125,22 @@ bool Player::moveCard(int i, Area src, Area dst) {
             minion->removeAllEnchantments(std::nullopt);
         }
     }    
+    if (src != Area::Board && dst == Area::Board) {
+        if (auto minion = dynamic_cast<TriggeredMinion*> (card)) {
+            attachTrigger(minion->getTriggerType(), &minion->getTrigger());
+        }
+        if (auto ritual = dynamic_cast<Ritual*> (card)) {
+            attachTrigger(ritual->getTriggerType(), &ritual->getTrigger());
+        }
+    }
+    if (src == Area::Board && dst != Area::Board) {
+        if (auto minion = dynamic_cast<TriggeredMinion*> (card)) {
+            minion->detachTrigger();
+        }
+        if (auto ritual = dynamic_cast<Ritual*> (card)) {
+            ritual->detachTrigger();
+        }
+    }
     // find the real unique pointer 
     auto& srcVec = areaToVec(src);
     auto& dstVec = areaToVec(dst);
@@ -327,8 +343,10 @@ Ritual* Player::getRitual() const {
 }
 
 //=========================================================
-void Player::setRitual(std::unique_ptr<Ritual> ritual) {
-    this->ritual = std::move(ritual);
+void Player::setRitual(std::unique_ptr<Ritual> newRitual) {
+    if (ritual) ritual->detachTrigger();
+    ritual = std::move(newRitual);
+    attachTrigger(ritual->getTriggerType(), &ritual->getTrigger());
 }
 
 //=========================================================

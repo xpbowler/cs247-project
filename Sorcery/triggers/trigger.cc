@@ -12,7 +12,7 @@
 TriggerTopic::TriggerTopic(Game& game) : game{game} {}
 
 //=========================================================
-void TriggerTopic::notifyTriggers(Notification notification) {
+void TriggerTopic::notifyTriggers(const Notification& notification) {
     // TODO: APNAP order?
     std::vector<Trigger*> observersCurrPlayer;
     std::vector<Trigger*> observersOtherPlayer;
@@ -42,15 +42,18 @@ void TriggerTopic::notifyTriggers(Notification notification) {
         }
     }
     for (auto& observer : observersCurrPlayer) {
+        std::cout << "notified currPlayer" << std::endl;
         observer->notifyOwner(notification);
     }
     for (auto& observer : observersOtherPlayer) {
+        std::cout << "notified otherPlayer" << std::endl;
         observer->notifyOwner(notification);
     }
 }
 
 //=========================================================
 void TriggerTopic::attachTrigger(Trigger* trigger) {
+    std::cout << "attached something" << std::endl;
     observers.push_back(trigger);
 }
 
@@ -78,7 +81,7 @@ Trigger::ownerPtr Trigger::getOwner() const {
 }
 
 //=========================================================
-void Trigger::notifyOwner(Notification notification) {
+void Trigger::notifyOwner(const Notification& notification) {
     if (owner.index() == 0) {
         auto minion = std::get<0> (owner);
         minion->useSkill(notification);

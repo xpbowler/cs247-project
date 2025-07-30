@@ -15,7 +15,7 @@ class TriggerTopic {
     const Game& game;
     public:
         TriggerTopic(Game& game);
-        void notifyTriggers(Notification notification);
+        void notifyTriggers(const Notification& notification);
         void attachTrigger(Trigger* trigger);
         void detachTrigger(Trigger* trigger);
 };
@@ -28,7 +28,7 @@ class Trigger {
     public:
         Trigger(ownerPtr owner);
         ownerPtr getOwner() const;
-        void notifyOwner(Notification notification);
+        void notifyOwner(const Notification& notification);
         void selfDetach();
         ~Trigger();
 };

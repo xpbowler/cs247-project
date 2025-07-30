@@ -7,15 +7,14 @@
 Standstill::Standstill(Player& owner, Player& opponent) : Ritual {STANDSTILL_COST, 
                                                                   STANDSTILL_ACTIVATION_COST, 
                                                                   STANDSTILL_CHARGES, 
-                                                                  owner, opponent, STANDSTILL, STANDSTILL_DESC} {
-   owner.attachTrigger(MinionEnter, trigger.get());
+                                                                  owner, opponent, STANDSTILL, STANDSTILL_DESC, MinionEnter} {
 }
 
 //=========================================================
-void Standstill::execute(Notification notification) {
+void Standstill::execute(const Notification& notification) {
     
     // Check if real notification type
-    auto realNoti = dynamic_cast<MinionNotification*>(&notification);
+    auto realNoti = dynamic_cast<const MinionNotification*>(&notification);
     if (!realNoti) {
         return;
     }

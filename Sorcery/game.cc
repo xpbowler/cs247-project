@@ -68,7 +68,8 @@ Game::Game(const string& deck1, const string& deck2, const string& initFilePath,
     }
 }
 
-void Game::notifyTopic(TriggerType tt, Notification notification) const {
+void Game::notifyTopic(TriggerType tt, const Notification& notification) const {
+    cout << "notified " << tt << endl;
     triggerTopics.at(tt)->notifyTriggers(notification);
 }
 

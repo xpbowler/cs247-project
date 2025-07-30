@@ -12,11 +12,13 @@ class TriggeredMinion : public Minion {
 
 public: 
 
-    virtual void useSkill(Notification notification) = 0;
-    const Trigger& getTrigger();
+    virtual void useSkill(const Notification& notification) = 0;
+    const TriggerType getTriggerType() const;
+    Trigger& getTrigger();
+    const TriggerType tt;
     const std::string& getDescription() const;
     void disableAbility();
-    void dies() override;
+    void detachTrigger();
 
 protected: 
 
@@ -26,6 +28,7 @@ protected:
                     Player& opponent,
                     std::string name,
                     std::string description,
+                    TriggerType tt, 
                     int cost,
                     MinionType minionType);
 
