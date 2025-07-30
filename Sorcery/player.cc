@@ -106,6 +106,7 @@ std::string areaToString(Area a) {
 //=========================================================
 bool Player::moveCard(Card* card, Area src, Area dst) {
     vector<unique_ptr<Card>>& src_area = areaToVec(src);
+    cout << "DEBUG: " << card->get_name() << src_area.size() << endl;
     for (int i = 0; i < src_area.size(); ++i) {
         if (src_area.at(i).get() == card) {
             return moveCard(i, src, dst);
@@ -117,8 +118,21 @@ bool Player::moveCard(Card* card, Area src, Area dst) {
 //=========================================================
 bool Player::moveCard(int i, Area src, Area dst) { 
     if (src == dst) return false;
-    // PRECOND: src.size() > i;
+
     auto card = areaToVec(src)[i].get();
+
+    // find the real unique pointer 
+    auto& srcVec = areaToVec(src);
+    auto& dstVec = areaToVec(dst);
+    auto foundSrcCard = findCard(srcVec, card);
+    if (foundSrcCard == srcVec.end()) {
+        return false;
+    }
+    auto tempCard = std::move(*foundSrcCard);
+    dstVec.push_back(std::move(tempCard));
+    srcVec.erase(foundSrcCard);
+
+    // PRECOND: src.size() > i;
     if (Minion* minion = dynamic_cast<Minion*> (card); minion) {
         if (src == Area::Board && dst != Area::Board) {
             // create notification 
@@ -148,16 +162,6 @@ bool Player::moveCard(int i, Area src, Area dst) {
             ritual->detachTrigger();
         }
     }
-    // find the real unique pointer 
-    auto& srcVec = areaToVec(src);
-    auto& dstVec = areaToVec(dst);
-    auto foundSrcCard = findCard(srcVec, card);
-    if (foundSrcCard == srcVec.end()) {
-        return false;
-    }
-    auto tempCard = std::move(*foundSrcCard);
-    dstVec.push_back(std::move(tempCard));
-    srcVec.erase(foundSrcCard);
 
     return true;
 }
