@@ -23,6 +23,7 @@
 #include <auraOfPower.h>
 #include <standstill.h>
 #include <baseEnchantment.h>
+#include <enrage.h>
 #include <notification.h>
 
 
@@ -248,6 +249,8 @@ void Player::initializeDeck(const string& deckFilePath, bool shuffle) {
             deck.push_back(std::unique_ptr<Card> (new AuraOfPower(*this, *otherPlayer)));
         } else if (card_string == "Standstill") {
             deck.push_back(std::unique_ptr<Card> (new Standstill(*this, *otherPlayer)));
+        } else if (card_string == "Enrage") {
+            deck.push_back(std::unique_ptr<Card> (new Enrage(*this, *otherPlayer)));
         } else {
             cout << "WARN: unknown card: " << card_string << endl;
         }

@@ -91,7 +91,7 @@ void inspectMinionInner(Minion* m) {
     vector<card_template_t> enchantmentTemplates;
     for (const auto& enchantment : enchantments) {
         if (enchantmentTemplates.size()<MAX_NUM_CARDS_ROW) {
-            card_template_t t = display_enchantment(enchantment->get_name(), enchantment->get_cost(), enchantment->getDescription());
+            card_template_t t = showCard(enchantment);
             enchantmentTemplates.push_back(t);
         }
     }
