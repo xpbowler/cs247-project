@@ -55,3 +55,7 @@ draw
 draw
 draw
 draw
+play 3 2 1
+board
+use 1
+board

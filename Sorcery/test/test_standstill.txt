@@ -32,26 +32,6 @@ board
 hand
 end
 end
+play 3
 end
-end
-end
-end
-end
-end
-end
-end
-end
-end
-end
-end
-end
-end
-discard 1
-discard 1
-discard 1
-discard 1
-draw
-draw
-draw
-draw
-draw
+play 1
