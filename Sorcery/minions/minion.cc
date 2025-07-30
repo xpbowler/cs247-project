@@ -86,9 +86,9 @@ void Minion::setActions(int action) {
 }
 
 //=========================================================
-bool Minion::attackMinion(Minion* minion, std::optional<int> dmg) {
+bool Minion::attackMinion(Minion* minion, std::optional<int> dmg, bool firstAttack) {
     // check if there is enough action points 
-    if (actions < 1) {
+    if (firstAttack && actions < 1) {
         return false;
     }
     // keep a copy of the old values
@@ -98,8 +98,8 @@ bool Minion::attackMinion(Minion* minion, std::optional<int> dmg) {
     minion->takeDamage(dmg ? *dmg : attack);
     attack = oldAttack;
     defence = oldDefence;
-    actions--;
-    return true;
+    if (firstAttack) actions--;
+    return minion->attackMinion(this, std::nullopt, false);
 }
 
 //=========================================================

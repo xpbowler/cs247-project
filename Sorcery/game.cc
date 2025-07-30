@@ -161,7 +161,7 @@ void Game::executeCommand(const string& cmd) {
             Minion* minion = dynamic_cast<Minion*> (currPlayer.getBoard()[i].get());
             Minion* target = dynamic_cast<Minion*> (otherPlayer.getBoard()[j].get());
             if (minion && target) {
-                if (!minion->attackMinion(target, std::nullopt)) {
+                if (!minion->attackMinion(target, std::nullopt, true)) {
                     cout << "Attacking minion does not have enough action points." << endl;
                 }
             }

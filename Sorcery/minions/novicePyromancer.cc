@@ -37,7 +37,7 @@ UseSkillStatus NovicePyromancer::useSkill(Minion* minion) {
         activationCost = oldActivationCost;
         return NotEnoughMagic;
     }
-    attackMinion(minion, 1);
+    attackMinion(minion, 1, false);
     actions--;
     owner.setMagic(magic - activationCost);
     activationCost = oldActivationCost;

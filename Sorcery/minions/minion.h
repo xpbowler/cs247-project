@@ -26,7 +26,7 @@ public:
     void takeDamage(int dmg);
     void setActions(int action);
     // attack minion and player returns false if not enough action points 
-    bool attackMinion(Minion* minion, std::optional<int> dmg);
+    bool attackMinion(Minion* minion, std::optional<int> dmg, bool firstAttacks);
     bool attackPlayer(std::optional<int> dmg);
     void gainStats(int attack, int defence);
     void summonMinion(MinionType minionType, int amount);

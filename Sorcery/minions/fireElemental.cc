@@ -22,6 +22,6 @@ void FireElemental::useSkill(const Notification& notification)
     if (realNoti->player == &owner) return;
     // now, use skill
     applyEnchantment(UseAbility);
-    if (canUseAbility) attackMinion(realNoti->minion, 1);
+    if (canUseAbility) attackMinion(realNoti->minion, 1, false);
     canUseAbility = true;
 }
