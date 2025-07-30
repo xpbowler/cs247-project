@@ -368,3 +368,7 @@ void Game::declareWin(bool isPlayer1) const {
     player1Wins = isPlayer1;
 }
 
+const Player& Game::getCurrentPlayer() const {
+    return isPlayer1Turn ? *player1 : *player2;
+}
+

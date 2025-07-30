@@ -26,6 +26,8 @@ class Game {
         void play();
 
         void declareWin(bool isPlayer1) const;
+
+        const Player& getCurrentPlayer() const;
         
         // execute a command
         void executeCommand(const std::string& command);

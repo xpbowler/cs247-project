@@ -15,6 +15,7 @@ protected:
 public:
     const std::string& get_name() const;
     const int get_cost() const;
+    const Player& getOwner() const;
     virtual ~Card() = 0;
     
 };

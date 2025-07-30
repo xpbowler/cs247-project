@@ -8,11 +8,13 @@ class TriggeredMinion;
 class Ritual;
 class Trigger;
 class Notification;
+class Game;
 
 class TriggerTopic {
     std::vector<Trigger*> observers;
+    const Game& game;
     public:
-        TriggerTopic();
+        TriggerTopic(Game& game);
         void notifyTriggers(Notification notification);
         void attachTrigger(Trigger* trigger);
         void detachTrigger(Trigger* trigger);
@@ -25,6 +27,7 @@ class Trigger {
     std::string description;
     public:
         Trigger(ownerPtr owner);
+        ownerPtr getOwner() const;
         void notifyOwner(Notification notification);
         const std::string& get_description() const;
         void selfDetach();

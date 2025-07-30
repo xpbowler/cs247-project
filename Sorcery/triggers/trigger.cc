@@ -3,16 +3,48 @@
 #include <triggeredMinion.h>
 #include <ritual.h>
 #include <helper.h>
+#include <game.h>
 #include <iostream>
 
 #include <algorithm>
 
 //=========================================================
-TriggerTopic::TriggerTopic() {}
+TriggerTopic::TriggerTopic(Game& game) : game{game} {}
 
 //=========================================================
 void TriggerTopic::notifyTriggers(Notification notification) {
-    for (auto& observer : observers) {
+    // TODO: APNAP order?
+    std::vector<Trigger*> observersCurrPlayer;
+    std::vector<Trigger*> observersOtherPlayer;
+    const Player& currPlayer = game.getCurrentPlayer();
+    // look for minions
+    for (const auto& observer : observers) {
+        if (std::holds_alternative<TriggeredMinion*>(observer->getOwner())) {
+            auto minion = std::get<TriggeredMinion*> (observer->getOwner());
+            if (&minion->getOwner() == &currPlayer) {
+                observersCurrPlayer.push_back(observer);
+            }
+            else {
+                observersOtherPlayer.push_back(observer);
+            }
+        }
+    }
+    // look for current player's ritual
+    for (const auto& observer : observers) {
+        if (std::holds_alternative<Ritual*> (observer->getOwner())) {
+            auto ritual = std::get<Ritual*> (observer->getOwner());
+            if (&ritual->getOwner() == &currPlayer) {
+                observersCurrPlayer.push_back(observer);
+            }
+            else {
+                observersOtherPlayer.push_back(observer);
+            }
+        }
+    }
+    for (auto& observer : observersCurrPlayer) {
+        observer->notifyOwner(notification);
+    }
+    for (auto& observer : observersOtherPlayer) {
         observer->notifyOwner(notification);
     }
 }
@@ -38,6 +70,11 @@ Trigger::Trigger(ownerPtr owner) : owner{owner} {}
 //=========================================================
 Trigger::~Trigger() {
     
+}
+
+//=========================================================
+Trigger::ownerPtr Trigger::getOwner() const {
+    return owner;
 }
 
 //=========================================================
