@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "game.h"
+#include "controller.h"
 
 
 int main(int argc, char* argv[]) {
@@ -33,7 +34,13 @@ int main(int argc, char* argv[]) {
     }
 
     Game game = Game{deck1, deck2, initFile, isTesting, bonusFeatures};
-    game.play();
+    Controller controller{game};
+
+    // execute command inside initialization file
+    controller.initGame(initFile);
+
+    // begin normal gameplay
+    controller.play();
 
     return 0;
 }
