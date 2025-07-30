@@ -85,8 +85,12 @@ card_template_t showCard(Card* card) {
 
 void inspectMinionInner(Minion* m) {
     if (!m) return;
+    int oldAttack = m->getAttack();
+    int oldDefence = m->getDefence();
+    m->applyEnchantment(Attack);
     card_template_t mTemplate = showMinion(m);
-
+    m->setAttack(oldAttack);
+    m->setDefence(oldDefence);
     const vector<Enchantment*> enchantments = m->getEnchantments();
     vector<vector<card_template_t>> enchantmentTemplates;
     vector<card_template_t> currRow;
