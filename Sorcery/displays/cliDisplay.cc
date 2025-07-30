@@ -88,19 +88,25 @@ void inspectMinionInner(Minion* m) {
     card_template_t mTemplate = showMinion(m);
 
     const vector<Enchantment*> enchantments = m->getEnchantments();
-    vector<card_template_t> enchantmentTemplates;
+    vector<vector<card_template_t>> enchantmentTemplates;
+    vector<card_template_t> currRow;
     for (const auto& enchantment : enchantments) {
-        if (enchantmentTemplates.size()<MAX_NUM_CARDS_ROW) {
-            card_template_t t = display_enchantment(enchantment->get_name(), enchantment->get_cost(), enchantment->getDescription());
-            enchantmentTemplates.push_back(t);
+        card_template_t t = showCard(enchantment);
+        currRow.push_back(t);
+        if (currRow.size() == MAX_NUM_CARDS_ROW) {
+            enchantmentTemplates.push_back(currRow);
+            currRow.clear();
         }
     }
+    enchantmentTemplates.push_back(currRow);
 
     // print minion
     printRow(cout, vector<card_template_t>{mTemplate}, false);
     
     // print past its past 5 enchantments, oldest to newest
-    printRow(cout, enchantmentTemplates, false);
+    for (const auto& row : enchantmentTemplates) {
+        printRow(cout, row, false);
+    }
 }
 
 CliDisplay::CliDisplay(Player& p1, Player& p2): p1{p1}, p2{p2} {}

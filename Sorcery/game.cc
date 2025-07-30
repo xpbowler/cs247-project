@@ -150,6 +150,7 @@ void Game::executeCommand(const string& cmd) {
         Player& currPlayer = isPlayer1Turn ? *player1 : *player2;
         Player& otherPlayer = *currPlayer.getOtherPlayer();
         if (ss >> j) {
+            j--; // it is 0-indexed!
             //  orders the active player’s minion i to attack the inactive player’s minion j
             if (i >= currPlayer.getBoard().size()) {
                 throw out_of_range("Specified attacking minion index, while attacking minion, out of range.");
@@ -160,7 +161,7 @@ void Game::executeCommand(const string& cmd) {
             Minion* minion = dynamic_cast<Minion*> (currPlayer.getBoard()[i].get());
             Minion* target = dynamic_cast<Minion*> (otherPlayer.getBoard()[j].get());
             if (minion && target) {
-                if (!minion->attackMinion(target, std::nullopt)) {
+                if (!minion->attackMinion(target, std::nullopt, true)) {
                     cout << "Attacking minion does not have enough action points." << endl;
                 }
             }
