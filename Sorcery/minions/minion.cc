@@ -4,6 +4,7 @@
 #include <enchantment.h>
 #include <enchantmentDecorator.h>
 #include <string>
+#include <algorithm>
 #include <stdexcept>
 
 //=========================================================
@@ -35,6 +36,8 @@ const std::vector<Enchantment*> Minion::getEnchantments() {
             break;
         }
     }
+    // from oldest to newest!
+    std::reverse(result.begin(), result.end());
     return result;
 }
 
