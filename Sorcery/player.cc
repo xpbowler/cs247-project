@@ -100,17 +100,18 @@ std::string areaToString(Area a) {
     if (a==Area::Board) return "board";
     else if (a==Area::Hand) return "hand";
     else if (a==Area::Deck) return "deck";
-    else return "graveyard";
+    else if (a==Area::Graveyard) return "graveyard";
 }
 
 //=========================================================
 bool Player::moveCard(Card* card, Area src, Area dst) {
-    for (int i = 0; i < areaToVec(src).size(); ++i) {
-        if (areaToVec(src)[i].get() == card) {
+    vector<unique_ptr<Card>>& src_area = areaToVec(src);
+    for (int i = 0; i < src_area.size(); ++i) {
+        if (src_area.at(i).get() == card) {
             return moveCard(i, src, dst);
         }
     }
-    throw runtime_error("moveCard card not found." + areaToString(src) + areaToString(dst) + card->get_name());
+    throw runtime_error("moveCard card not found. src: " + areaToString(src) + ". dst: " + areaToString(dst) + ". card: " + card->get_name());
 }
 
 //=========================================================

@@ -14,16 +14,12 @@ bool RaiseDead::action(std::variant<Minion*, Ritual*>) {
         std::cout << "There is nothing in the graveyard while performing Raise Dead." << std::endl;
         return false;
     }
-    auto minion = dynamic_cast<Minion*> (card); 
-    if (!minion) {
-        throw std::runtime_error("Raise dead sees that graveyard top is somehow not a minion");
-    }
     if (owner.getBoard().size() >= 5) {
         throw std::runtime_error("raisedead: board is already full and cant put back a card from graveyard");
     }
-    minion->setDefence(1);
-    owner.moveCard(minion, Graveyard, Board);
+    Minion* m = dynamic_cast<Minion*>(card);
+    m->setDefence(1);
+    owner.moveCard(card, Graveyard, Board);
     return true;
-    
 }
 

@@ -26,5 +26,10 @@ play 1
 end
 board
 play 1
-end
 attack 1 1
+attack 1 1
+board
+hand
+end
+end
+play3
