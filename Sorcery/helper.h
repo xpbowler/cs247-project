@@ -147,7 +147,7 @@ enum MinionType {
     CL // cloner
 };
 
-const size_t NUM_MINION_TYPES = 8;
+const size_t NUM_MINION_TYPES = 9;
 
 enum EnchantmentTiming {
     StartOfTurn, 

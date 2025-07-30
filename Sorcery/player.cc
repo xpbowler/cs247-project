@@ -274,6 +274,7 @@ void Player::summonMinion(MinionType type, int amount) {
         /* BG */ [](Player& a, Player& b){ return std::make_unique<BoneGolem>(a, b); },
         /* FE */ [](Player& a, Player& b){ return std::make_unique<FireElemental>(a, b); },
         /* PS */ [](Player& a, Player& b){ return std::make_unique<PotionSeller>(a, b); },
+        /* CL */ [](Player& a, Player& b){ return std::make_unique<Cloner>(a, b); },
     };
     
     // Guard against underflow and mixed signed/unsigned:
@@ -285,6 +286,14 @@ void Player::summonMinion(MinionType type, int amount) {
 
     for (int i = 0; i < n; ++i) {
         board.push_back(kMake[idx](*this, *otherPlayer));
+        // need to send a notification for minion entering
+        if (auto minion = dynamic_cast<Minion*> (board[board.size() - 1].get())) {
+            MinionNotification notification {dynamic_cast<Minion*> (board[board.size() - 1].get()), this};
+            notifyGame(MinionEnter, notification);
+        }
+        else {
+            throw runtime_error("Unit summoned is somehow not a minion.");
+        }
     }
 }
 
