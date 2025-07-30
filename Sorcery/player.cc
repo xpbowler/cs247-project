@@ -212,55 +212,39 @@ void Player::initializeDeck(const string& deckFilePath, bool shuffle) {
     }
 
     string card_string;
+    using Maker = std::function<std::unique_ptr<Card>(Player&, Player&)>;
+    static const std::unordered_map<std::string, Maker> make = {
+        {"Air Elemental",        [](Player& a, Player& b){ return std::make_unique<AirElemental>(a,b); }},
+        {"Earth Elemental",      [](Player& a, Player& b){ return std::make_unique<EarthElemental>(a,b); }},
+        {"Fire Elemental",       [](Player& a, Player& b){ return std::make_unique<FireElemental>(a,b); }},
+        {"Potion Seller",        [](Player& a, Player& b){ return std::make_unique<PotionSeller>(a,b); }},
+        {"Novice Pyromancer",    [](Player& a, Player& b){ return std::make_unique<NovicePyromancer>(a,b); }},
+        {"Apprentice Summoner",  [](Player& a, Player& b){ return std::make_unique<ApprenticeSummoner>(a,b); }},
+        {"Bone Golem",           [](Player& a, Player& b){ return std::make_unique<BoneGolem>(a,b); }},
+        {"Master Summoner",      [](Player& a, Player& b){ return std::make_unique<MasterSummoner>(a,b); }},
+        {"Banish",               [](Player& a, Player& b){ return std::make_unique<Banish>(a,b); }},
+        {"Unsummon",             [](Player& a, Player& b){ return std::make_unique<Unsummon>(a,b); }},
+        {"Recharge",             [](Player& a, Player& b){ return std::make_unique<Recharge>(a,b); }},
+        {"Disenchant",           [](Player& a, Player& b){ return std::make_unique<Disenchant>(a,b); }},
+        {"Raise Dead",           [](Player& a, Player& b){ return std::make_unique<RaiseDead>(a,b); }},
+        {"Blizzard",             [](Player& a, Player& b){ return std::make_unique<Blizzard>(a,b); }},
+        {"Giant Strength",       [](Player& a, Player& b){ return std::make_unique<GiantStrength>(a,b); }},
+        {"Magic Fatigue",        [](Player& a, Player& b){ return std::make_unique<MagicFatigue>(a,b); }},
+        {"Silence",              [](Player& a, Player& b){ return std::make_unique<Silence>(a,b); }},
+        {"Dark Ritual",          [](Player& a, Player& b){ return std::make_unique<DarkRitual>(a,b); }},
+        {"Aura of Power",        [](Player& a, Player& b){ return std::make_unique<AuraOfPower>(a,b); }},
+        {"Standstill",           [](Player& a, Player& b){ return std::make_unique<Standstill>(a,b); }},
+        {"Enrage",               [](Player& a, Player& b){ return std::make_unique<Enrage>(a,b); }},
+        {"Haste",                [](Player& a, Player& b){ return std::make_unique<Haste>(a,b); }},
+    };
+    
     while (getline(initFile, card_string)) {
-        if (card_string == "Air Elemental") {
-            deck.push_back(std::unique_ptr<Card> (new AirElemental(*this, *otherPlayer)));        
-        } else if (card_string == "Earth Elemental") {
-            deck.push_back(std::unique_ptr<Card> (new EarthElemental(*this, *otherPlayer)));
-        } else if (card_string == "Fire Elemental") {
-            deck.push_back(std::unique_ptr<Card> (new FireElemental(*this, *otherPlayer)));
-        } else if (card_string == "Potion Seller") {
-            deck.push_back(std::unique_ptr<Card> (new PotionSeller(*this, *otherPlayer)));
-        } else if (card_string == "Novice Pyromancer") {
-            deck.push_back(std::unique_ptr<Card> (new NovicePyromancer(*this, *otherPlayer)));
-        } else if (card_string == "Apprentice Summoner") {
-            deck.push_back(std::unique_ptr<Card> (new ApprenticeSummoner(*this, *otherPlayer)));
-        } else if (card_string == "Bone Golem") {
-            deck.push_back(std::unique_ptr<Card> (new BoneGolem(*this, *otherPlayer)));
-        } else if (card_string == "Master Summoner") {
-            deck.push_back(std::unique_ptr<Card> (new MasterSummoner(*this, *otherPlayer)));
-        } else if (card_string == "Banish") {
-            deck.push_back(std::unique_ptr<Card> (new Banish(*this, *otherPlayer)));
-        } else if (card_string == "Unsummon") {
-            deck.push_back(std::unique_ptr<Card> (new Unsummon(*this, *otherPlayer)));
-        } else if (card_string == "Recharge") {
-            deck.push_back(std::unique_ptr<Card> (new Recharge(*this, *otherPlayer)));
-        } else if (card_string == "Disenchant") {
-            deck.push_back(std::unique_ptr<Card> (new Disenchant(*this, *otherPlayer)));
-        } else if (card_string == "Raise Dead") {
-            deck.push_back(std::unique_ptr<Card> (new RaiseDead(*this, *otherPlayer)));
-        } else if (card_string == "Blizzard") {
-            deck.push_back(std::unique_ptr<Card> (new Blizzard(*this, *otherPlayer)));
-        } else if (card_string == "Giant Strength") {
-            deck.push_back(std::unique_ptr<Card> (new GiantStrength(*this, *otherPlayer)));
-        } else if (card_string == "Magic Fatigue") {
-            deck.push_back(std::unique_ptr<Card> (new MagicFatigue(*this, *otherPlayer)));
-        } else if (card_string == "Silence") {
-            deck.push_back(std::unique_ptr<Card> (new Silence(*this, *otherPlayer)));
-        } else if (card_string == "Dark Ritual") {
-            deck.push_back(std::unique_ptr<Card> (new DarkRitual(*this, *otherPlayer)));
-        } else if (card_string == "Aura of Power") {
-            deck.push_back(std::unique_ptr<Card> (new AuraOfPower(*this, *otherPlayer)));
-        } else if (card_string == "Standstill") {
-            deck.push_back(std::unique_ptr<Card> (new Standstill(*this, *otherPlayer)));
-        } else if (card_string == "Enrage") {
-            deck.push_back(std::unique_ptr<Card> (new Enrage(*this, *otherPlayer)));
-        } else if (card_string == "Haste") {
-            deck.push_back(std::unique_ptr<Card> (new Haste(*this, *otherPlayer)));
-        } else {
-            cout << "WARN: unknown card: " << card_string << endl;
-        }
+        if (auto it = make.find(card_string); it != make.end())
+            deck.push_back(it->second(*this, *otherPlayer));
+        else
+            std::cout << "WARN: unknown card: " << card_string << '\n';
     }
+    
     if (shuffle) shuffleDeck();
 
     // draw 5 cards from deck into hand
