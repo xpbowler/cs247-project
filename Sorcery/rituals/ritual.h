@@ -22,7 +22,6 @@ public:
     virtual ~Ritual() {};
 
 protected: 
-    std::string description;
     Ritual(int cost, int activationCost, int charges, Player& owner, Player& opponent, const std::string& name, const std::string& description, TriggerType tt);
 
     // member fields
@@ -30,4 +29,5 @@ protected:
     int charges;
     std::unique_ptr<Trigger> trigger;
     TriggerType tt;
+    std::string description;
 };
