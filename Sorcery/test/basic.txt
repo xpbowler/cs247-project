@@ -26,3 +26,4 @@ play 1
 end
 board
 play 1
+play 4
