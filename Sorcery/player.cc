@@ -25,6 +25,7 @@
 #include <baseEnchantment.h>
 #include <enrage.h>
 #include <haste.h>
+#include <cloner.h>
 #include <notification.h>
 
 
@@ -236,6 +237,7 @@ void Player::initializeDeck(const string& deckFilePath, bool shuffle) {
         {"Standstill",           [](Player& a, Player& b){ return std::make_unique<Standstill>(a,b); }},
         {"Enrage",               [](Player& a, Player& b){ return std::make_unique<Enrage>(a,b); }},
         {"Haste",                [](Player& a, Player& b){ return std::make_unique<Haste>(a,b); }},
+        {"Cloner",               [](Player& a, Player& b){ return std::make_unique<Cloner>(a,b); }},
     };
     
     while (getline(initFile, card_string)) {

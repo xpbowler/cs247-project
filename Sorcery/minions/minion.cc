@@ -179,3 +179,9 @@ void Minion::removeAllEnchantments(std::optional<EnchantmentTiming> et) {
 void Minion::applyEnchantment(EnchantmentTiming et) {
     if (enchantment) enchantment->apply(*this, et);
 }
+
+
+//=========================================================
+MinionType Minion::getType() const {
+    return minionType;
+}

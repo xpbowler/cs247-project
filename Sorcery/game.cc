@@ -13,6 +13,7 @@
 #include <enchantmentDecorator.h>
 #include <activatedMinion.h>
 #include <novicePyromancer.h>
+#include <cloner.h>
 
 #include <iostream>
 #include <fstream>
@@ -359,6 +360,20 @@ void Game::executeCommand(const string& cmd) {
                         cout << "Silence in effect, cannot use ability." << endl;
                         return;
                 }
+            } else if (dynamic_cast<Cloner*>(playingCard.get())) {
+                auto playingMinion = dynamic_cast<Cloner*>(playingCard.get());
+                auto status = playingMinion->useSkill(isTesting, targetMinion);
+                switch(status) {
+                    case NotEnoughMagic: 
+                        cout << "Not enough magic. " << endl;
+                        return;
+                    case NoAction:
+                        cout << "Not enough action points." << endl;
+                        return;
+                    case Silenced: 
+                        cout << "Silence in effect, cannot use ability." << endl;
+                        return;
+                }
             } else if (dynamic_cast<ActivatedMinion*>(playingCard.get())) {
                 cout << "The minion's activated ability does not have a target" << endl;
             } else {
@@ -366,7 +381,7 @@ void Game::executeCommand(const string& cmd) {
             }
         } else {
             // minion uses its activated ability on no target
-            if (dynamic_cast<NovicePyromancer*>(playingCard.get())) {
+            if (dynamic_cast<NovicePyromancer*>(playingCard.get()) || dynamic_cast<Cloner*>(playingCard.get())) {
                 cout << "The minion's activated abilility requires a target" << endl;
             } else if (dynamic_cast<ActivatedMinion*>(playingCard.get())) {
                 auto playingMinion = dynamic_cast<ActivatedMinion*>(playingCard.get());

@@ -30,6 +30,7 @@ public:
     bool attackPlayer(std::optional<int> dmg);
     void gainStats(int attack, int defence);
     void summonMinion(MinionType minionType, int amount);
+    MinionType getType() const;
 
 // no need to put useSkill here, it is already in the intermediate subclasses
 

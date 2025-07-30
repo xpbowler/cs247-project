@@ -32,6 +32,10 @@ const int MASTER_SUMMONER_ATK = 2;
 const int MASTER_SUMMONER_DEF = 3;
 const int MASTER_SUMMONER_COST = 3;
 const int MASTER_SUMMONER_ACTIVATION_COST = 2;
+const int CLONER_ATK = 0;
+const int CLONER_DEF = 2;
+const int CLONER_COST = 3;
+const int CLONER_ACTIVATION_COST = 3;
 const int GIANT_STRENGTH_COST = 1;
 const int ENRAGE_COST = 2;
 const int HASTE_COST = 1;
@@ -57,6 +61,7 @@ inline constexpr const char* POTION_SELLER = "Potion Seller";
 inline constexpr const char* NOVICE_PYROMANCER = "Novice Pyromancer";
 inline constexpr const char* APPRENTICE_SUMMONER = "Apprentice Summoner";
 inline constexpr const char* MASTER_SUMMONER = "Master Summoner";
+inline constexpr const char* CLONER = "Cloner";
 inline constexpr const char* BANISH = "Banish";
 inline constexpr const char* UNSUMMON = "Unsummon";
 inline constexpr const char* RECHARGE = "Recharge";
@@ -87,6 +92,7 @@ inline constexpr const char* POTION_SELLER_DESC = "At the end of your turn, all 
 inline constexpr const char* NOVICE_PYROMANCER_DESC = "Deal 1 damage to target minion";
 inline constexpr const char* APPRENTICE_SUMMONER_DESC = "Summon a 1/1 air elemental";
 inline constexpr const char* MASTER_SUMMONER_DESC = "Summon up to three 1/1 air elementals";
+inline constexpr const char* CLONER_DESC = "Summon up to 2 of same type of minions as target minion on the board.";
 
 // Spell description constants
 inline constexpr const char* BANISH_DESC = "Destroy target minion or ritual";
@@ -137,7 +143,8 @@ enum MinionType {
     AS, // apprentice summoner
     BG, // bone golem
     FE, // fire elemental 
-    PS // potion seller
+    PS, // potion seller
+    CL // cloner
 };
 
 enum EnchantmentTiming {
