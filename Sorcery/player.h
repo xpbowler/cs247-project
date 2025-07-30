@@ -37,7 +37,7 @@ class Player {
         // discard the i'th card in the player's hand
         // the card does not go to the graveyard, trigger leave play effects or anything else
         void discardCard(int i);
-        void notifyGame(TriggerType triggerType, Notification notification);
+        void notifyGame(TriggerType triggerType, const Notification& notification);
         bool moveCard(Card* card, Area src, Area dst);
         bool moveCard(int i, Area src, Area dst);
         std::unique_ptr<Card> stealCard(int i, Area area);

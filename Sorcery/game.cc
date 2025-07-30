@@ -68,7 +68,7 @@ Game::Game(const string& deck1, const string& deck2, const string& initFilePath,
     }
 }
 
-void Game::notifyTopic(TriggerType tt, Notification notification) const {
+void Game::notifyTopic(TriggerType tt, const Notification& notification) const {
     triggerTopics.at(tt)->notifyTriggers(notification);
 }
 
@@ -146,6 +146,7 @@ void Game::executeCommand(const string& cmd) {
     } else if (primary_cmd=="attack") {
         int i,j;
         ss >> i;
+        i--; // it is 0-indexed!
         Player& currPlayer = isPlayer1Turn ? *player1 : *player2;
         Player& otherPlayer = *currPlayer.getOtherPlayer();
         if (ss >> j) {
@@ -278,9 +279,15 @@ void Game::executeCommand(const string& cmd) {
                 }
                 currPlayer.moveCard(i, Hand, Board);
             }
-            else if (dynamic_cast<RaiseDead*> (playingCard.get()) || dynamic_cast<Recharge*> (playingCard.get()) || dynamic_cast<Blizzard*> (playingCard.get())) {
+            else if (dynamic_cast<RaiseDead*> (playingCard.get()) || dynamic_cast<Blizzard*> (playingCard.get())) {
                 auto spell = dynamic_cast<Spell*> (playingCard.get());
                 if (spell->action(static_cast<Minion*> (nullptr))) {
+                    currPlayer.discardCard(i);
+                }
+            }
+            else if (dynamic_cast<Recharge*> (playingCard.get())) {
+                auto spell = dynamic_cast<Spell*> (playingCard.get());
+                if (spell->action(static_cast<Ritual*> (nullptr))) {
                     currPlayer.discardCard(i);
                 }
             }

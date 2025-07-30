@@ -7,5 +7,5 @@ class PotionSeller : public TriggeredMinion {
 public: 
     PotionSeller(Player& owner, Player& opponent);
 
-    void useSkill(Notification notification) override;
+    void useSkill(const Notification& notification) override;
 };

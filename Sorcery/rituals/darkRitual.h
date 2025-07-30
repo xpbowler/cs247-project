@@ -7,7 +7,7 @@ class DarkRitual : public Ritual {
 public: 
     DarkRitual(Player& owner, Player& opponent);
 
-    void execute(Notification notification) override;
+    void execute(const Notification& notification) override;
 
 };
 

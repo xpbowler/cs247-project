@@ -7,7 +7,7 @@ class BoneGolem : public TriggeredMinion {
 public: 
     BoneGolem(Player& owner, Player& opponent);
     
-    void useSkill(Notification notification) override;
+    void useSkill(const Notification& notification) override;
 
 };
 

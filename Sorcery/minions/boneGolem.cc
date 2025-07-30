@@ -7,14 +7,13 @@ BoneGolem::BoneGolem(Player &owner, Player &opponent)
     : TriggeredMinion(BONE_GOLEM_ATK,
                       BONE_GOLEM_DEF,
                       owner, opponent, 
-                      BONE_GOLEM, BONE_GOLEM_DESC, BONE_GOLEM_COST, BG)
+                      BONE_GOLEM, BONE_GOLEM_DESC, MinionLeave, BONE_GOLEM_COST, BG)
 {
     trigger = std::make_unique<Trigger> (this);
-    owner.attachTrigger(MinionLeave, trigger.get());
 }
 
 //=========================================================
-void BoneGolem::useSkill(Notification)
+void BoneGolem::useSkill(const Notification&)
 {
     applyEnchantment(UseAbility);
     if (canUseAbility) gainStats(1, 1);

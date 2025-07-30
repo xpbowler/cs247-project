@@ -1,19 +1,21 @@
 #include "darkRitual.h"
 #include "notification.h"
 #include "player.h"
+#include <iostream>
 
 //=========================================================
 DarkRitual::DarkRitual(Player& owner, Player& opponent) : Ritual {DARK_RITUAL_COST, 
                                                                   DARK_RITUAL_ACTIVATION_COST,
                                                                   DARK_RITUAL_CHARGES, 
-                                                                  owner, opponent, DARK_RITUAL, DARK_RITUAL_DESC} {
-    owner.attachTrigger(owner.isPlayer1() ? StartTurnPlayer1 : StartTurnPlayer2, trigger.get());
+                                                                  owner, opponent, DARK_RITUAL, DARK_RITUAL_DESC, 
+                                                                  owner.isPlayer1() ? StartTurnPlayer1 : StartTurnPlayer2} {
+    
 }
 
 //=========================================================
-void DarkRitual::execute(Notification notification) {
+void DarkRitual::execute(const Notification& notification) {
     // Check if real notification type
-    auto realNoti = dynamic_cast<TurnChangeNotification*>(&notification);
+    auto realNoti = dynamic_cast<const TurnChangeNotification*>(&notification);
     if (!realNoti) {
         return;
     }

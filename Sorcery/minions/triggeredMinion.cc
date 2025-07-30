@@ -8,15 +8,21 @@ TriggeredMinion::TriggeredMinion(int attack,
                                  Player &opponent,
                                  std::string name,
                                  std::string description,
+                                 TriggerType tt, 
                                  int cost,
                                  MinionType minionType)
-    : Minion{owner, opponent, attack, defence, minionType, name, cost}, description{std::move(description)}, canUseAbility {true}
+    : Minion{owner, opponent, attack, defence, minionType, name, cost}, tt{tt}, description{std::move(description)}, canUseAbility {true}
 {
     
 }
 
 //=========================================================
-const Trigger& TriggeredMinion::getTrigger() {
+const TriggerType TriggeredMinion::getTriggerType() const {
+    return tt;
+}
+
+//=========================================================
+Trigger& TriggeredMinion::getTrigger() {
     return *trigger;
 }
 
@@ -30,10 +36,9 @@ void TriggeredMinion::disableAbility() {
     canUseAbility = false;
 }
 
-
 //=========================================================
-void TriggeredMinion::dies() {
-    Minion::dies();
-    // now detach the trigger
+void TriggeredMinion::detachTrigger() {
     trigger->selfDetach();
 }
+
+

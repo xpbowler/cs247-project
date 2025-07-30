@@ -7,14 +7,14 @@
 AuraOfPower::AuraOfPower(Player& owner, Player& opponent) : Ritual{AURA_OF_POWER_COST, 
                                                                    AURA_OF_POWER_ACTIVATION_COST, 
                                                                    AURA_OF_POWER_CHARGES,
-                                                                   owner, opponent, AURA_OF_POWER, AURA_OF_POWER_DESC} {
-    owner.attachTrigger(MinionEnter, trigger.get());
+                                                                   owner, opponent, AURA_OF_POWER, AURA_OF_POWER_DESC, 
+                                                                   MinionEnter} {
 }
 
 //=========================================================
-void AuraOfPower::execute(Notification notification) {
+void AuraOfPower::execute(const Notification& notification) {
     // check if it is the correct notification type 
-    auto realNoti = dynamic_cast<MinionNotification*> (&notification);
+    auto realNoti = dynamic_cast<const MinionNotification*> (&notification);
     if (!realNoti) {
         return;
     }
