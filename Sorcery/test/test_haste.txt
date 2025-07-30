@@ -28,8 +28,34 @@ attack 1 1
 end
 end
 end
-play 1
 end
 end
 end
 end
+end
+end
+end
+end
+end
+end
+end
+end
+end
+discard 1
+discard 1
+discard 1
+discard 1
+draw
+draw
+draw
+draw
+draw
+play 2 2 1
+use 1
+use 1
+use 1
+end
+end
+use 1
+use 1
+use 1
