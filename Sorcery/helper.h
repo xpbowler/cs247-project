@@ -140,6 +140,8 @@ enum MinionType {
     PS // potion seller
 };
 
+const size_t NUM_MINION_TYPES = 8;
+
 enum EnchantmentTiming {
     StartOfTurn, 
     Attack,

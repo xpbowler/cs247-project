@@ -141,7 +141,7 @@ Minion::~Minion() {}
 //=========================================================
 void Minion::removeAllEnchantments(std::optional<EnchantmentTiming> et) {
     if (!et) {
-        enchantment.reset(new BaseEnchantment(owner, opponent));
+        enchantment = std::make_unique<BaseEnchantment>(owner, opponent);
         return;
     }
     if (!enchantment) return;

@@ -261,35 +261,28 @@ void Player::shuffleDeck() {
 }
 
 //=========================================================
-void Player::summonMinion(MinionType minionType, int amount) {
-    int summonAmount = min(5 - board.size(), (unsigned long) amount);
-    for (int i = 0; i < summonAmount; i++) {
-        switch (minionType) {
-            case AE: 
-                board.push_back(std::unique_ptr<Card> (new AirElemental(*this, *otherPlayer)));
-            break;
-            case EE:
-                board.push_back(std::unique_ptr<Card> (new EarthElemental(*this, *otherPlayer)));
-            break;
-            case NP:
-                board.push_back(std::unique_ptr<Card> (new NovicePyromancer(*this, *otherPlayer)));
-            break;
-            case MS: 
-                board.push_back(std::unique_ptr<Card> (new MasterSummoner(*this, *otherPlayer)));
-            break;
-            case AS: 
-                board.push_back(std::unique_ptr<Card> (new ApprenticeSummoner(*this, *otherPlayer)));
-            break;
-            case BG:
-                board.push_back(std::unique_ptr<Card> (new BoneGolem (*this, *otherPlayer)));
-            break;
-            case FE:
-                board.push_back(std::unique_ptr<Card> (new FireElemental(*this, *otherPlayer)));
-            break;
-            case PS:
-                board.push_back(std::unique_ptr<Card> (new PotionSeller (*this, *otherPlayer)));
-            break;
-        }
+void Player::summonMinion(MinionType type, int amount) {
+    using Maker = std::function<std::unique_ptr<Card>(Player&, Player&)>;
+    static const std::array<Maker, NUM_MINION_TYPES> kMake = {
+        /* AE */ [](Player& a, Player& b){ return std::make_unique<AirElemental>(a, b); },
+        /* EE */ [](Player& a, Player& b){ return std::make_unique<EarthElemental>(a, b); },
+        /* NP */ [](Player& a, Player& b){ return std::make_unique<NovicePyromancer>(a, b); },
+        /* MS */ [](Player& a, Player& b){ return std::make_unique<MasterSummoner>(a, b); },
+        /* AS */ [](Player& a, Player& b){ return std::make_unique<ApprenticeSummoner>(a, b); },
+        /* BG */ [](Player& a, Player& b){ return std::make_unique<BoneGolem>(a, b); },
+        /* FE */ [](Player& a, Player& b){ return std::make_unique<FireElemental>(a, b); },
+        /* PS */ [](Player& a, Player& b){ return std::make_unique<PotionSeller>(a, b); },
+    };
+    
+    // Guard against underflow and mixed signed/unsigned:
+    int freeSlots = std::max(0, 5 - static_cast<int>(board.size()));
+    int n = std::max(0, std::min(freeSlots, amount));
+
+    auto idx = static_cast<size_t>(type);
+    if (idx >= kMake.size()) return; // unknown type
+
+    for (int i = 0; i < n; ++i) {
+        board.push_back(kMake[idx](*this, *otherPlayer));
     }
 }
 
