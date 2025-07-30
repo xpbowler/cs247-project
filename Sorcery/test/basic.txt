@@ -15,3 +15,14 @@ board
 hand
 play 5 1 1
 play 4 1 1
+play 1
+play 1
+draw
+draw
+draw
+draw
+end
+play 1
+end
+board
+play 1
