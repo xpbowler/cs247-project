@@ -52,6 +52,7 @@ void TriggerTopic::notifyTriggers(const Notification& notification) {
 //=========================================================
 void TriggerTopic::attachTrigger(Trigger* trigger) {
     observers.push_back(trigger);
+    trigger->setTriggerTopic(this);
 }
 
 //=========================================================
@@ -92,5 +93,9 @@ void Trigger::notifyOwner(const Notification& notification) {
 //=========================================================
 void Trigger::selfDetach() {
     triggerTopic->detachTrigger(this);
-    triggerTopic = nullptr;
+}
+
+//=========================================================
+void Trigger::setTriggerTopic(TriggerTopic* tt) {
+    triggerTopic = tt;
 }

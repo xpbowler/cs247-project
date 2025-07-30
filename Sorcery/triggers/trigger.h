@@ -30,5 +30,6 @@ class Trigger {
         ownerPtr getOwner() const;
         void notifyOwner(const Notification& notification);
         void selfDetach();
+        void setTriggerTopic(TriggerTopic* tt);
         ~Trigger();
 };
