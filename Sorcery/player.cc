@@ -32,6 +32,7 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <functional>
 #include <random>
 #include <memory>
 #include <variant>
