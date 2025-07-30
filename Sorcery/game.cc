@@ -347,29 +347,17 @@ void Game::executeCommand(const string& cmd) {
             auto targetMinion = dynamic_cast<Minion*> (targetCard.get());
             if (dynamic_cast<NovicePyromancer*>(playingCard.get())) {
                 auto playingMinion = dynamic_cast<NovicePyromancer*>(playingCard.get());
-                const int currMagic = currPlayer.getMagic();
-                const int currActivationCost = playingMinion->getActivationCost();
-                if (!isTesting && playingMinion->getActivationCost() > currMagic) {
-                    cout << "Not enough magic to use activated ability with target" << endl;
-                    return;
-                }
-                auto status = playingMinion->useSkill(targetMinion);
+                auto status = playingMinion->useSkill(isTesting, targetMinion);
                 switch(status) {
-                    case NotEnoughMagic:
-                        throw runtime_error("impossible to reach, not enough magic.");
+                    case NotEnoughMagic: 
+                        cout << "Not enough magic. " << endl;
                         return;
                     case NoAction:
-                        cout << "Not enoguh action points." << endl;
+                        cout << "Not enough action points." << endl;
                         return;
                     case Silenced: 
                         cout << "Silence in effect, cannot use ability." << endl;
                         return;
-                }
-                if (isTesting) {
-                    currPlayer.setMagic(max(0, currMagic - currActivationCost));
-                }
-                else {
-                    currPlayer.setMagic(currMagic - currActivationCost);
                 }
             } else if (dynamic_cast<ActivatedMinion*>(playingCard.get())) {
                 cout << "The minion's activated ability does not have a target" << endl;
@@ -382,29 +370,17 @@ void Game::executeCommand(const string& cmd) {
                 cout << "The minion's activated abilility requires a target" << endl;
             } else if (dynamic_cast<ActivatedMinion*>(playingCard.get())) {
                 auto playingMinion = dynamic_cast<ActivatedMinion*>(playingCard.get());
-                const int currMagic = currPlayer.getMagic();
-                const int currActivationCost = playingMinion->getActivationCost();
-                if (!isTesting && currActivationCost > currMagic) {
-                    cout << "Not enough magic to use activated ability without target." << endl;
-                    return;
-                }
-                auto status = playingMinion->useSkill();
+                auto status = playingMinion->useSkill(isTesting);
                 switch(status) {
                     case NotEnoughMagic:
-                        throw runtime_error("impossible to reach, not enough magic.");
+                        cout << "Not enough magic." << endl;
                         return;
                     case NoAction:
-                        cout << "Not enoguh action points." << endl;
+                        cout << "Not enough action points." << endl;
                         return;
                     case Silenced: 
                         cout << "Silence in effect, cannot use ability." << endl;
                         return;
-                }
-                if (isTesting) {
-                    currPlayer.setMagic(max(0, currMagic - currActivationCost));
-                }
-                else {
-                    currPlayer.setMagic(currMagic - currActivationCost);
                 }
             } else {
                 cout << "The minion has no activated abilities" << endl;

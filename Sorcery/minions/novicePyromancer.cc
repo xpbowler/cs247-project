@@ -14,14 +14,14 @@ NovicePyromancer::NovicePyromancer(Player &owner, Player &opponent)
 }
 
 //=========================================================
-UseSkillStatus NovicePyromancer::useSkill()
+UseSkillStatus NovicePyromancer::useSkill(bool isTesting)
 {
     throw std::runtime_error("should not use skill for novice pyromancer");
 }
 
 
 //=========================================================
-UseSkillStatus NovicePyromancer::useSkill(Minion* minion) {
+UseSkillStatus NovicePyromancer::useSkill(bool isTesting, Minion* minion) {
     if (actions < 1) {
         return NoAction;
     }
@@ -33,13 +33,18 @@ UseSkillStatus NovicePyromancer::useSkill(Minion* minion) {
         return Silenced;
     } 
     int magic = owner.getMagic();
-    if (magic < activationCost) {
+    if (magic < activationCost && !isTesting) {
         activationCost = oldActivationCost;
         return NotEnoughMagic;
     }
     attackMinion(minion, 1, false);
     actions--;
-    owner.setMagic(magic - activationCost);
+    if (isTesting) {
+        owner.setMagic(std::max(0, magic - activationCost));
+    }
+    else {
+        owner.setMagic(magic - activationCost);
+    }
     activationCost = oldActivationCost;
     return OK;
 }

@@ -11,7 +11,7 @@ MasterSummoner::MasterSummoner(Player &owner, Player &opponent)
 }
 
 //=========================================================
-UseSkillStatus MasterSummoner::useSkill()
+UseSkillStatus MasterSummoner::useSkill(bool isTesting)
 {
     if (actions < 1) {
         return NoAction;
@@ -24,13 +24,18 @@ UseSkillStatus MasterSummoner::useSkill()
         return Silenced;
     } 
     int magic = owner.getMagic();
-    if (magic < activationCost) {
+    if (magic < activationCost && !isTesting) {
         activationCost = oldActivationCost;
         return NotEnoughMagic;
     }
     summonMinion(AE, 3);
     actions--;
-    owner.setMagic(magic - activationCost);
+    if (isTesting) {
+        owner.setMagic(std::max(0, magic - activationCost));
+    }
+    else {
+        owner.setMagic(magic - activationCost);
+    }
     activationCost = oldActivationCost;
     return OK;
 }

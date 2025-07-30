@@ -7,7 +7,7 @@ class MasterSummoner : public ActivatedMinion {
 public: 
     MasterSummoner(Player& owner, Player& opponent);
 
-    UseSkillStatus useSkill() override;
+    UseSkillStatus useSkill(bool isTesting) override;
 
 };
 
