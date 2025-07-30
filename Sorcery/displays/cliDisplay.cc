@@ -108,7 +108,7 @@ CliDisplay::CliDisplay(Player& p1, Player& p2): p1{p1}, p2{p2} {}
 void CliDisplay::inspectMinion(bool isPlayer1Turn, int minion) {
     const Player& p = isPlayer1Turn ? p1 : p2;
     int cur = 0;
-    for (auto& card : p.getHand()) {
+    for (auto& card : p.getBoard()) {
         if (auto m = dynamic_cast<Minion*>(card.get())) {
             if (cur==minion-1) {
                 inspectMinionInner(m);
