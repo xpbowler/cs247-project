@@ -16,6 +16,7 @@ class Player {
     std::string name;
     int life;
     int magic;
+    bool isFirstTurn; // so that you don't gain 1 magic at the start of first turn
     std::vector<std::unique_ptr<Card>> deck;
     std::vector<std::unique_ptr<Card>> hand;
     std::vector<std::unique_ptr<Card>> board;

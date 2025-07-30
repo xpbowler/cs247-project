@@ -59,6 +59,8 @@ Game::Game(const string& deck1, const string& deck2, const string& initFilePath,
     // default to CliDisplay. can add more display options in the future
     display = make_unique<CliDisplay>(*player1, *player2);
 
+    player1->declareStart();
+
     string command;
     while (getline(initFile, command)) {
         trimWhitespace(command);

@@ -1,14 +1,14 @@
 #include "standstill.h"
 #include <notification.h>
-#include <../minions/minion.h>
-#include <../player.h>
+#include <minion.h>
+#include <player.h>
 
 //=========================================================
 Standstill::Standstill(Player& owner, Player& opponent) : Ritual {STANDSTILL_COST, 
                                                                   STANDSTILL_ACTIVATION_COST, 
                                                                   STANDSTILL_CHARGES, 
                                                                   owner, opponent, STANDSTILL, STANDSTILL_DESC} {
-   
+   owner.attachTrigger(MinionEnter, trigger.get());
 }
 
 //=========================================================

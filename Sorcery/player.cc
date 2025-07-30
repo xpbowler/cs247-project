@@ -47,7 +47,17 @@ namespace {
 }
 
 //=========================================================
-Player::Player(string& name, Game* game): name{std::move(name)}, life{STARTING_LIFE}, magic{STARTING_MAGIC}, deck{}, hand{}, board{}, graveyard{}, ritual{}, otherPlayer{nullptr}, game{*game} {}
+Player::Player(string& name, Game* game): name{std::move(name)}, 
+                                          life{STARTING_LIFE}, 
+                                          magic{STARTING_MAGIC}, 
+                                          deck{}, 
+                                          hand{}, 
+                                          board{}, 
+                                          graveyard{}, 
+                                          ritual{}, 
+                                          otherPlayer{nullptr}, 
+                                          game{*game},
+                                          isFirstTurn{true} {}
 
 //=========================================================
 // draw command draws a card, similar to the effect if the player just started their turn
@@ -77,7 +87,6 @@ void Player::discardCard(int i) {
     if (i<0 || i>= hand.size()) {
         throw runtime_error("invalid hand index to discard card");
     }
-    cout << "i is " << i << endl;
     hand.erase(hand.begin() + i);
 }
 
@@ -109,6 +118,7 @@ bool Player::moveCard(int i, Area src, Area dst) {
         }
         if (src != Area::Board && dst == Area::Board) {
             MinionNotification notification {minion, this};
+            minion->setActions(1);
             notifyGame(MinionEnter, notification);
         }
         if (dst == Graveyard) {
@@ -305,7 +315,10 @@ void Player::declareStart() {
             minion->applyEnchantment(StartOfTurn);
         }
     }
-    magic += 1;
+    if (!isFirstTurn) {
+        magic += 1;
+    }
+    isFirstTurn = false;
 }
 
 //=========================================================

@@ -7,7 +7,7 @@ DarkRitual::DarkRitual(Player& owner, Player& opponent) : Ritual {DARK_RITUAL_CO
                                                                   DARK_RITUAL_ACTIVATION_COST,
                                                                   DARK_RITUAL_CHARGES, 
                                                                   owner, opponent, DARK_RITUAL, DARK_RITUAL_DESC} {
-    
+    owner.attachTrigger(owner.isPlayer1() ? StartTurnPlayer1 : StartTurnPlayer2, trigger.get());
 }
 
 //=========================================================
