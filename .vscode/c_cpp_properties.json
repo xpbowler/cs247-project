@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {   
+            "name": "Mac",
+            "macFrameworkPath": [
+                "/System/Library/Frameworks",
+                "/Library/Frameworks"
+            ],
+            "intelliSenseMode": "macos-clang-x64",
+            "compilerPath": "/usr/bin/g++",
+            "cStandard": "c17",
+            "cppStandard": "c++20",
+            "includePath": [
+                "${workspaceFolder}/Sorcery/**",
+                "${workspaceFolder}/Sorcery/rituals",
+                "${workspaceFolder}/Sorcery/minions",
+                "${workspaceFolder}/Sorcery/enchantments",
+                "${workspaceFolder}/Sorcery/displays",
+                "${workspaceFolder}/Sorcery/spells",
+                "${workspaceFolder}/Sorcery/triggers"               
+
+            ]
+        }
+    ],
+    "version": 4
+}
